@@ -7,9 +7,15 @@
 
 #include "wolf3d.h"
 
+void game_render(game_t *game)
+{
+    return;
+}
+
 void game_loop(game_t *game)
 {
     check_events(game);
-    sfRenderWindow_clear(game->render_window, sfWhite);
+    sfRenderWindow_clear(game->render_window, sfBlack);
+    game_render(game);
     sfRenderWindow_display(game->render_window);
 }

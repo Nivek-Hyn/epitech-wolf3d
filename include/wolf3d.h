@@ -17,6 +17,7 @@
     #include <errno.h>
     #include <float.h>
     #include <stdarg.h>
+    #include <stdbool.h>
 
     #include <SFML/Graphics.h>
     #include <SFML/Graphics/Rect.h>
@@ -25,12 +26,20 @@
     #include <SFML/System/Clock.h>
 
     #define PI 3.14159265358979323846
+
+    /* WINDOW MACROS */
     #define STD_WIN_WIDTH 1920
     #define STD_WIN_HEIGHT 1080
+    /* Window settings */
+    #define WINDOWED 0
+    #define FULL_SCREEN 1
 
+    /* Music & Sounds */
+    #define MUSIC_PLAY 0
+    #define MUSIC_STOP 1
+
+    /* Tile parameters */
     #define TILE_SIZE 64
-    #define MAP_WIDTH 8
-    #define MAP_HEIGHT 8
 
 /////////////////////////////////
 /// STRUCTS
@@ -43,6 +52,7 @@ typedef struct player_s {
 } player_t;
 
 typedef struct settings_s {
+    int window_mode;
 } settings_t;
 
 typedef struct game_s {
