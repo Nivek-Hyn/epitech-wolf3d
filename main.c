@@ -21,5 +21,6 @@ int wolf3d(void)
 
 int main(int argc, char **argv)
 {
+    srand(time(NULL));
     return wolf3d();
 }

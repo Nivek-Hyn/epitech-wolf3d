@@ -7,15 +7,23 @@
 
 #include "wolf3d.h"
 
+void draw_player(game_t *game)
+{
+    sfCircleShape_setPosition(game->player->player_visual,
+        (sfVector2f){game->player->x, game->player->y});
+    sfRenderWindow_drawCircleShape(game->render_window,
+        game->player->player_visual, NULL);
+}
+
 void game_render(game_t *game)
 {
-    return;
+    sfRenderWindow_clear(game->render_window, sfBlack);
+    draw_player(game);
+    sfRenderWindow_display(game->render_window);
 }
 
 void game_loop(game_t *game)
 {
     check_events(game);
-    sfRenderWindow_clear(game->render_window, sfBlack);
     game_render(game);
-    sfRenderWindow_display(game->render_window);
 }
