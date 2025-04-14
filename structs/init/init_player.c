@@ -1,0 +1,18 @@
+/*
+** EPITECH PROJECT, 2025
+** G-ING-210-MAR-2-1-wolf3d-hugo.sorgues
+** File description:
+** init_player
+*/
+
+#include "wolf3d.h"
+
+player_t *init_player(void)
+{
+    player_t *player = malloc(sizeof(player_t));
+
+    player->x = 0;
+    player->y = 0;
+    player->angle = 0;
+    return player;
+}

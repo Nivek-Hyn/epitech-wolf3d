@@ -1,0 +1,10 @@
+wolf3d
+*.o
+*.a
+*.log
+obj
+*.out
+*.pl
+*.vscode
+*.pl
+*.txt
