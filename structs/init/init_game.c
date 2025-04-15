@@ -14,6 +14,7 @@ game_t *init_game_struct(void)
     game->render_window = init_window();
     game->player = init_player();
     game->settings = init_settings();
-    game->world = world_init();
+    game->world = init_world();
+    game->keys = init_keys();
     return game;
 }

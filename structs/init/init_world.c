@@ -7,12 +7,31 @@
 
 #include "wolf3d.h"
 
-world_t *world_init(void)
+world_t *init_world(void)
 {
     world_t *world = malloc(sizeof(world_t));
+    world->matrix_size_x = 10;
+    world->matrix_size_y = 10;
+    world->matrix = malloc(sizeof(int *) * world->matrix_size_y);
+    int matrix[10][10] =
+    {
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+        {1, 0, 1, 1, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 1, 0, 1, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 1, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+    };
 
-    world->matrix = rand_matrix_create(STD_MATRIX_X, STD_MATRIX_Y);
-    world->matrix_size_x = STD_MATRIX_X;
-    world->matrix_size_y = STD_MATRIX_Y;
+    for (int i = 0; i < world->matrix_size_y; i++) {
+        world->matrix[i] = malloc(sizeof(int) * world->matrix_size_x);
+        for (int j = 0; j < world->matrix_size_x; j++) {
+            world->matrix[i][j] = matrix[i][j];
+        }
+    }
     return world;
 }

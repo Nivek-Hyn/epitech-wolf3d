@@ -39,5 +39,6 @@ void matrix_display(int **matrix, int matrix_size_x, int matrix_size_y)
         for (unsigned j = 0; j < matrix_size_x; j++) {
             printf("%d", matrix[i][j]);
         }
+        printf("\n");
     }
 }

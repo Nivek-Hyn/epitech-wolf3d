@@ -14,7 +14,9 @@ player_t *init_player(void)
     player->x = 0;
     player->y = 0;
     player->angle = 0;
+    player->delta_x = (cos(player->angle) * 5);
+    player->delta_y = (sin(player->angle) * 5);
     player->player_visual = create_circle((sfVector2f){player->x, player->y},
-        10, sfWhite, sfWhite);
+        10, sfWhite, sfGreen);
     return player;
 }

@@ -37,7 +37,7 @@
     #define FULL_SCREEN 1
 
     /* Player settings */
-    #define MOVE_INCREMENTS 5
+    #define MOVE_SPEED 3
     /* World settings */
     #define STD_MATRIX_Y 10
     #define STD_MATRIX_X 15
@@ -53,15 +53,20 @@
 /// STRUCTS
 /////////////////////////////////////////
 
-typedef struct world_s {
-    int **matrix;
-    int matrix_size_x;
-    int matrix_size_y;
-} world_t;
+typedef struct Keys {
+    int z;
+    int q;
+    int s;
+    int d;
+    int a;
+    int e;
+} keys_t;
 
 typedef struct player_s {
     float x;
     float y;
+    float delta_x;
+    float delta_y;
     float angle;
     sfCircleShape *player_visual;
 } player_t;
@@ -70,12 +75,19 @@ typedef struct settings_s {
     int window_mode;
 } settings_t;
 
+typedef struct world_s {
+    int **matrix;
+    int matrix_size_x;
+    int matrix_size_y;
+} world_t;
+
 typedef struct game_s {
     sfRenderWindow *render_window;
     sfEvent event;
     player_t *player;
     world_t *world;
     settings_t *settings;
+    keys_t *keys;
 } game_t;
 
 /////////////////////////////////////////
@@ -86,6 +98,8 @@ typedef struct game_s {
 // GAME
 ////////////
 void game_loop(game_t *game);
+// PLAYER
+void draw_player(game_t *game);
 ////////////
 
 ////////////
@@ -96,6 +110,9 @@ sfCircleShape *create_circle(sfVector2f position, float radius,
     sfColor outline_color, sfColor fill_color);
 void set_circle_position(sfCircleShape *shape, sfVector2f position);
 sfBool are_circles_intersecting(sfCircleShape *c1, sfCircleShape *c2);
+// Rectangles
+sfRectangleShape *create_rectangle(sfVector2f position, sfVector2f size,
+    sfColor outline_color, sfColor fill_color);
 ////////////
 
 ////////////
@@ -120,7 +137,8 @@ game_t *init_game_struct(void);
 player_t *init_player(void);
 settings_t *init_settings(void);
 sfRenderWindow *init_window(void);
-world_t *world_init(void);
+world_t *init_world(void);
+keys_t *init_keys(void);
 ////////////
 
 ////////////
@@ -147,6 +165,8 @@ void mouse_wheel_scrolled(game_t *game);
 ////////////
 // MAP
 ////////////
+void draw_map_line(game_t *game, int *map_x, int *map_y, int y);
+void draw_map(game_t *game);
 // Matrix functions
 int **blank_matrix_create(int matrix_size_x, int matrix_size_y);
 int **rand_matrix_create(int matrix_size_x, int matrix_size_y);

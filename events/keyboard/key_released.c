@@ -7,7 +7,32 @@
 
 #include "wolf3d.h"
 
+void zqsd_keys_released(game_t *game)
+{
+    switch (game->event.key.code) {
+    case sfKeyQ:
+        game->keys->q = 0;
+        break;
+    case sfKeyD:
+        game->keys->d = 0;
+        break;
+    case sfKeyZ:
+        game->keys->z = 0;
+        break;
+    case sfKeyS:
+        game->keys->s = 0;
+        break;
+    case sfKeyA:
+        game->keys->a = 0;
+        break;
+    case sfKeyE:
+        game->keys->e = 0;
+        break;
+    }
+}
+
 void keyboard_key_released(game_t *game)
 {
+    zqsd_keys_released(game);
     return;
 }

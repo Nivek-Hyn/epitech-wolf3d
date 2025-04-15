@@ -12,8 +12,7 @@ sfCircleShape *create_circle(sfVector2f position, float radius,
 {
     sfCircleShape *circle = sfCircleShape_create();
 
-    position.x -= radius;
-    position.y -= radius;
+    sfCircleShape_setOrigin(circle, (sfVector2f){radius, radius});
     sfCircleShape_setPosition(circle, position);
     sfCircleShape_setRadius(circle, radius);
     sfCircleShape_setOutlineColor(circle, outline_color);
