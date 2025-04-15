@@ -10,7 +10,7 @@
 keys_t *init_keys(void)
 {
     keys_t *keys = malloc(sizeof(keys_t));
-    
+
     keys->z = 0;
     keys->s = 0;
     keys->q = 0;

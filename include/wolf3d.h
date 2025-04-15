@@ -100,6 +100,7 @@ typedef struct game_s {
 void game_loop(game_t *game);
 // PLAYER
 void draw_player(game_t *game);
+void update_player(game_t *game);
 ////////////
 
 ////////////
