@@ -36,6 +36,8 @@
     #define WINDOWED 0
     #define FULL_SCREEN 1
 
+    /* Player settings */
+    #define MOVE_INCREMENTS 5
     /* World settings */
     #define STD_MATRIX_Y 10
     #define STD_MATRIX_X 15
