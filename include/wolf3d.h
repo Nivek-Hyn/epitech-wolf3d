@@ -38,6 +38,10 @@
 
     /* Player settings */
     #define MOVE_SPEED 3
+    #define PLAYER_RADIUS 10
+    #define STD_LOOK_SPEED 3
+    #define MOUSE_SENSITIVITY 0.01
+    #define SIGHT_LINE 100000
     /* World settings */
     #define STD_MATRIX_Y 10
     #define STD_MATRIX_X 15
@@ -53,7 +57,12 @@
 /// STRUCTS
 /////////////////////////////////////////
 
-typedef struct Keys {
+typedef enum tile_e {
+    EMPTY = 0,
+    WALL = 1,
+} tile_t;
+
+typedef struct keys_s {
     int z;
     int q;
     int s;
@@ -71,14 +80,26 @@ typedef struct player_s {
     sfCircleShape *player_visual;
 } player_t;
 
+typedef struct mouse_s {
+    int delta_x;
+    float sensivity;
+    sfVector2i previous_position;
+    bool is_locked;
+} mouse_t;
+
 typedef struct settings_s {
     int window_mode;
 } settings_t;
 
+typedef struct map_s {
+    tile_t type;
+    sfRectangleShape *rectangle;
+} map_t;
+
 typedef struct world_s {
-    int **matrix;
-    int matrix_size_x;
-    int matrix_size_y;
+    map_t **map;
+    int map_size_x;
+    int map_size_y;
 } world_t;
 
 typedef struct game_s {
@@ -88,6 +109,7 @@ typedef struct game_s {
     world_t *world;
     settings_t *settings;
     keys_t *keys;
+    mouse_t *mouse;
 } game_t;
 
 /////////////////////////////////////////
@@ -101,6 +123,8 @@ void game_loop(game_t *game);
 // PLAYER
 void draw_player(game_t *game);
 void update_player(game_t *game);
+void player_look_left(game_t *game, float look_speed);
+void player_look_right(game_t *game, float look_speed);
 ////////////
 
 ////////////
@@ -124,14 +148,6 @@ sfIntRect *intrect_create(int top, int left, int height, int width);
 ////////////
 
 ////////////
-// FREE FUNCTIONS
-////////////
-void free_game(game_t *game);
-void free_player(player_t *player);
-void free_settings(settings_t *settings);
-////////////////////////
-
-////////////
 // STRUCT INIT
 ////////////
 game_t *init_game_struct(void);
@@ -140,6 +156,7 @@ settings_t *init_settings(void);
 sfRenderWindow *init_window(void);
 world_t *init_world(void);
 keys_t *init_keys(void);
+mouse_t *init_mouse(void);
 ////////////
 
 ////////////
@@ -164,14 +181,34 @@ void mouse_wheel_scrolled(game_t *game);
 ////////////
 
 ////////////
+// MOUSE & CURSOR
+////////////
+void mouse_update_lock_status(game_t *game);
+void mouse_mid_locked(game_t *game);
+void update_mouse(game_t *game);
+
+////////////
 // MAP
 ////////////
 void draw_map_line(game_t *game, int *map_x, int *map_y, int y);
 void draw_map(game_t *game);
 // Matrix functions
-int **blank_matrix_create(int matrix_size_x, int matrix_size_y);
-int **rand_matrix_create(int matrix_size_x, int matrix_size_y);
-void matrix_display(int **matrix, int matrix_size_x, int matrix_size_y);
+int **blank_matrix_create(int map_size_x, int map_size_y);
+int **rand_matrix_create(int map_size_x, int map_size_y);
+void matrix_display(int **map, int map_size_x, int map_size_y);
+////////////
+
+////////////
+// FREE FUNCTIONS
+////////////
+void free_game(game_t *game);
+void free_player(player_t *player);
+void free_map(map_t **map, int map_size_x, int map_size_y);
+void free_tile(map_t **map, int x, int y);
+void free_settings(settings_t *settings);
+void free_world(world_t *world);
+void free_keys(keys_t *keys);
+void free_mouse(mouse_t *mouse);
 ////////////
 
 #endif /* !WOLF_3D_ */

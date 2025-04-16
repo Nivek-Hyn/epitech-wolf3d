@@ -9,5 +9,6 @@
 
 void free_player(player_t *player)
 {
+    sfCircleShape_destroy(player->player_visual);
     free(player);
 }

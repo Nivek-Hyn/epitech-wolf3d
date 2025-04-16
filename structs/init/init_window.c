@@ -9,7 +9,7 @@
 
 sfRenderWindow *init_window(void)
 {
-    char *win_name = "MyWorld";
+    char *win_name = "Wolf3D";
     sfVideoMode mode = {STD_WIN_WIDTH, STD_WIN_HEIGHT, 32};
     sfRenderWindow *window =
         sfRenderWindow_create(mode, win_name, sfDefaultStyle, NULL);

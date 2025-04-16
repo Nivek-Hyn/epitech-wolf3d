@@ -16,5 +16,6 @@ game_t *init_game_struct(void)
     game->settings = init_settings();
     game->world = init_world();
     game->keys = init_keys();
+    game->mouse = init_mouse();
     return game;
 }

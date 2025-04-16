@@ -7,37 +7,37 @@
 
 #include "wolf3d.h"
 
-int **blank_matrix_create(int matrix_size_x, int matrix_size_y)
+int **blank_matrix_create(int map_size_x, int map_size_y)
 {
-    int **matrix = malloc(sizeof(int *) * matrix_size_y);
+    int **map = malloc(sizeof(int *) * map_size_y);
 
-    for (unsigned i = 0; i < matrix_size_y; i++) {
-        matrix[i] = malloc(sizeof(int) * matrix_size_x);
-        for (unsigned j = 0; j < matrix_size_x; j++) {
-            matrix[i][j] = 0;
+    for (unsigned i = 0; i < map_size_y; i++) {
+        map[i] = malloc(sizeof(int) * map_size_x);
+        for (unsigned j = 0; j < map_size_x; j++) {
+            map[i][j] = 0;
         }
     }
-    return matrix;
+    return map;
 }
 
-int **rand_matrix_create(int matrix_size_x, int matrix_size_y)
+int **rand_matrix_create(int map_size_x, int map_size_y)
 {
-    int **matrix = malloc(sizeof(int *) * matrix_size_y);
+    int **map = malloc(sizeof(int *) * map_size_y);
 
-    for (unsigned i = 0; i < matrix_size_y; i++) {
-        matrix[i] = malloc(sizeof(int) * matrix_size_x);
-        for (unsigned j = 0; j < matrix_size_x; j++) {
-            matrix[i][j] = rand() % 2;
+    for (unsigned i = 0; i < map_size_y; i++) {
+        map[i] = malloc(sizeof(int) * map_size_x);
+        for (unsigned j = 0; j < map_size_x; j++) {
+            map[i][j] = rand() % 2;
         }
     }
-    return matrix;
+    return map;
 }
 
-void matrix_display(int **matrix, int matrix_size_x, int matrix_size_y)
+void matrix_display(int **map, int map_size_x, int map_size_y)
 {
-    for (unsigned i = 0; i < matrix_size_y; i++) {
-        for (unsigned j = 0; j < matrix_size_x; j++) {
-            printf("%d", matrix[i][j]);
+    for (unsigned i = 0; i < map_size_y; i++) {
+        for (unsigned j = 0; j < map_size_x; j++) {
+            printf("%d", map[i][j]);
         }
         printf("\n");
     }

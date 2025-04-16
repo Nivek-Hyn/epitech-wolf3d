@@ -31,8 +31,16 @@ void zqsd_keys_released(game_t *game)
     }
 }
 
+void escape_key(game_t *game)
+{
+    if (game->event.key.code == sfKeyEscape) {
+        mouse_update_lock_status(game);
+    }
+}
+
 void keyboard_key_released(game_t *game)
 {
     zqsd_keys_released(game);
+    escape_key(game);
     return;
 }

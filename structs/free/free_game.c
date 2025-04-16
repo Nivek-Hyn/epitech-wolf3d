@@ -10,7 +10,10 @@
 void free_game(game_t *game)
 {
     free_player(game->player);
+    free_world(game->world);
     free_settings(game->settings);
+    free_keys(game->keys);
+    free_mouse(game->mouse);
     sfRenderWindow_destroy(game->render_window);
     free(game);
 }

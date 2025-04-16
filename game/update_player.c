@@ -7,21 +7,32 @@
 
 #include "wolf3d.h"
 
+void player_angle_mouse(game_t *game)
+{
+    float movement_speed = 0.0;
+    sfVector2i current_position =
+        sfMouse_getPositionRenderWindow(game->render_window);
+
+    game->mouse->delta_x =
+        current_position.x - game->mouse->previous_position.x;
+    movement_speed = STD_LOOK_SPEED * abs(game->mouse->delta_x)
+        * game->mouse->sensivity;
+    if (game->mouse->delta_x > 0) {
+        player_look_right(game, movement_speed);
+    } else if (game->mouse->delta_x < 0) {
+        player_look_left(game, movement_speed);
+    }
+    game->mouse->previous_position = current_position;
+}
+
 void update_player_angle(game_t *game)
 {
+    player_angle_mouse(game);
     if (game->keys->a == 1) {
-        game->player->angle -= 0.1;
-        if (game->player->angle < 0)
-            game->player->angle += (2 * PI);
-        game->player->delta_x = (cos(game->player->angle) * MOVE_SPEED);
-        game->player->delta_y = (sin(game->player->angle) * MOVE_SPEED);
+        player_look_left(game, STD_LOOK_SPEED);
     }
     if (game->keys->e == 1) {
-        game->player->angle += 0.1;
-        if (game->player->angle < (2 * PI))
-            game->player->angle -= (2 * PI);
-        game->player->delta_x = (cos(game->player->angle) * MOVE_SPEED);
-        game->player->delta_y = (sin(game->player->angle) * MOVE_SPEED);
+        player_look_right(game, STD_LOOK_SPEED);
     }
 }
 

@@ -19,5 +19,6 @@ void game_loop(game_t *game)
 {
     check_events(game);
     update_player(game);
+    update_mouse(game);
     game_render(game);
 }
