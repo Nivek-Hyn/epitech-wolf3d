@@ -11,8 +11,10 @@ player_t *init_player(void)
 {
     player_t *player = malloc(sizeof(player_t));
 
-    player->x = 0;
-    player->y = 0;
+    if (!player)
+        return NULL;
+    player->x = TILE_SIZE + (TILE_SIZE / 2);
+    player->y = TILE_SIZE + (TILE_SIZE / 2);
     player->angle = 0;
     player->delta_x = (cos(player->angle) * MOVE_SPEED);
     player->delta_y = (sin(player->angle) * MOVE_SPEED);

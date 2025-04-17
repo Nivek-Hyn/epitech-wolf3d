@@ -7,6 +7,17 @@
 
 #include "wolf3d.h"
 
+void draw_std_line(sfRenderWindow *render_win, sfVertex vert1, sfVertex vert2)
+{
+    sfVertexArray *vertex_array = sfVertexArray_create();
+
+    sfVertexArray_append(vertex_array, vert1);
+    sfVertexArray_append(vertex_array, vert2);
+    sfVertexArray_setPrimitiveType(vertex_array, sfLines);
+    sfRenderWindow_drawVertexArray(render_win, vertex_array, NULL);
+    sfVertexArray_destroy(vertex_array);
+}
+
 void draw_player_orientation(game_t *game)
 {
     sfVertexArray *vertex_array = sfVertexArray_create();
@@ -28,5 +39,4 @@ void draw_player(game_t *game)
         (sfVector2f){game->player->x, game->player->y});
     sfRenderWindow_drawCircleShape(game->render_window,
         game->player->player_visual, NULL);
-    draw_player_orientation(game);
 }

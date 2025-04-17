@@ -11,6 +11,8 @@ game_t *init_game_struct(void)
 {
     game_t *game = malloc(sizeof(game_t));
 
+    if (!game)
+        return NULL;
     game->render_window = init_window();
     game->player = init_player();
     game->settings = init_settings();

@@ -28,6 +28,8 @@
     #include <SFML/System/Clock.h>
 
     #define PI 3.14159265358979323846
+    #define PI2 PI / 2
+    #define PI3 3 * PI / 2
 
     /* WINDOW MACROS */
     #define STD_WIN_WIDTH 1920
@@ -45,6 +47,7 @@
     /* World settings */
     #define STD_MATRIX_Y 10
     #define STD_MATRIX_X 15
+    #define STD_DOF 16
 
     /* Music & Sounds */
     #define MUSIC_PLAY 0
@@ -56,6 +59,19 @@
 /////////////////////////////////////////
 /// STRUCTS
 /////////////////////////////////////////
+
+typedef struct raycast_values_s {
+    int r;
+    int map_x;
+    int map_y;
+    int map_position;
+    int depth_of_field;
+    float ray_x;
+    float ray_y;
+    float ray_angle;
+    float x_offset;
+    float y_offset;
+} raycast_values_t;
 
 typedef enum tile_e {
     EMPTY = 0,
@@ -89,6 +105,7 @@ typedef struct mouse_s {
 
 typedef struct settings_s {
     int window_mode;
+    float field_of_view;
 } settings_t;
 
 typedef struct map_s {
@@ -125,6 +142,13 @@ void draw_player(game_t *game);
 void update_player(game_t *game);
 void player_look_left(game_t *game, float look_speed);
 void player_look_right(game_t *game, float look_speed);
+// COLLISION:
+int check_player_walls_collision(float player_pos_x, float player_pos_y,
+    game_t *game);
+int compare_lines_to_player(game_t *game, float player_pos_x,
+    float player_pos_y, int y);
+int check_circle_rectangle_collision(float circle_pos_x, float circle_pos_y,
+    float circle_radius, sfRectangleShape *rectangle);
 ////////////
 
 ////////////
@@ -157,6 +181,7 @@ sfRenderWindow *init_window(void);
 world_t *init_world(void);
 keys_t *init_keys(void);
 mouse_t *init_mouse(void);
+raycast_values_t *init_raycast_values(void);
 ////////////
 
 ////////////
@@ -186,6 +211,7 @@ void mouse_wheel_scrolled(game_t *game);
 void mouse_update_lock_status(game_t *game);
 void mouse_mid_locked(game_t *game);
 void update_mouse(game_t *game);
+////////////
 
 ////////////
 // MAP
@@ -196,6 +222,25 @@ void draw_map(game_t *game);
 int **blank_matrix_create(int map_size_x, int map_size_y);
 int **rand_matrix_create(int map_size_x, int map_size_y);
 void matrix_display(int **map, int map_size_x, int map_size_y);
+////////////
+
+////////////
+// RAYCASTING
+////////////
+void raycast(game_t *game);
+void draw_std_line(sfRenderWindow *render_win, sfVertex vert1, sfVertex vert2);
+// HORIZONTAL
+void horizontal_raycast(game_t *game, raycast_values_t *var);
+void draw_horizontal_ray(game_t *game, raycast_values_t *var);
+void horizontal_ray_straight(game_t *game, raycast_values_t *var);
+void horizontal_ray_up(game_t *game, raycast_values_t *var, float atan);
+void horizontal_ray_down(game_t *game, raycast_values_t *var, float atan);
+// VERTICAL
+void vertical_raycast(game_t *game, raycast_values_t *var);
+void draw_vertical_ray(game_t *game, raycast_values_t *var);
+void vertical_ray_straight(game_t *game, raycast_values_t *var);
+void vertical_ray_left(game_t *game, raycast_values_t *var, float atan);
+void vertical_ray_right(game_t *game, raycast_values_t *var, float atan);
 ////////////
 
 ////////////

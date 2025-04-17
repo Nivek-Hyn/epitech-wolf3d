@@ -11,6 +11,8 @@ mouse_t *init_mouse(void)
 {
     mouse_t *mouse = malloc(sizeof(mouse_t));
 
+    if (!mouse)
+        return NULL;
     mouse->delta_x = 0;
     mouse->sensivity = MOUSE_SENSITIVITY;
     mouse->previous_position = (sfVector2i){0, 0};

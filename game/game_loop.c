@@ -12,6 +12,7 @@ void game_render(game_t *game)
     sfRenderWindow_clear(game->render_window, sfBlack);
     draw_map(game);
     draw_player(game);
+    raycast(game);
     sfRenderWindow_display(game->render_window);
 }
 

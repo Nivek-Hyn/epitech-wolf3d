@@ -16,19 +16,17 @@ float clamp(float value, float min, float max)
     return value;
 }
 
-int check_circle_rectangle_collision(sfCircleShape *circle,
-    sfRectangleShape *rectangle)
+int check_circle_rectangle_collision(float circle_pos_x, float circle_pos_y,
+    float circle_radius, sfRectangleShape *rectangle)
 {
-    sfVector2f circle_pos = sfCircleShape_getPosition(circle);
-    float circle_radius = sfCircleShape_getRadius(circle);
     sfVector2f rectangle_pos = sfRectangleShape_getPosition(rectangle);
     sfVector2f rectangle_size = sfRectangleShape_getSize(rectangle);
-    float nearest_x = clamp(circle_pos.x, rectangle_pos.x,
+    float nearest_x = clamp(circle_pos_x, rectangle_pos.x,
         rectangle_pos.x + rectangle_size.x);
-    float nearest_y = clamp(circle_pos.y, rectangle_pos.y,
+    float nearest_y = clamp(circle_pos_y, rectangle_pos.y,
         rectangle_pos.y + rectangle_size.y);
-    float delta_x = circle_pos.x - nearest_x;
-    float delta_y = circle_pos.y - nearest_y;
+    float delta_x = circle_pos_x - nearest_x;
+    float delta_y = circle_pos_y - nearest_y;
 
     return (delta_x * delta_x + delta_y * delta_y) <
         (circle_radius * circle_radius);
