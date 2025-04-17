@@ -15,7 +15,7 @@ CSFML	=	-lcsfml-graphics -lcsfml-system -lcsfml-audio -lcsfml-window
 
 FLAGS	=	-lm -g3
 
-VLGRD	=	--leak-check=full --track-origins=yes
+VLGRD	=	--track-origins=yes --leak-check=full
 
 all:	$(NAME)
 

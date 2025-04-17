@@ -57,8 +57,8 @@ void vertical_raycast(game_t *game, raycast_values_t *var)
     for (; var->depth_of_field < STD_DOF; var->depth_of_field++) {
         var->map_x = ((int)var->ray_x / TILE_SIZE);
         var->map_y = ((int)var->ray_y / TILE_SIZE);
-        if (var->map_x <= game->world->map_size_x && var->map_x >= 0 &&
-                var->map_y <= game->world->map_size_y && var->map_y >= 0 &&
+        if (var->map_x < game->world->map_size_x && var->map_x >= 0 &&
+                var->map_y < game->world->map_size_y && var->map_y >= 0 &&
                 game->world->map[var->map_y][var->map_x].type == WALL) {
             var->depth_of_field = STD_DOF - 1;
         } else {

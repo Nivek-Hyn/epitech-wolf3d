@@ -16,4 +16,5 @@ void raycast(game_t *game)
         horizontal_raycast(game, var);
         vertical_raycast(game, var);
     }
+    free_raycast_values(var);
 }

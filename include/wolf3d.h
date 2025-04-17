@@ -254,6 +254,7 @@ void free_settings(settings_t *settings);
 void free_world(world_t *world);
 void free_keys(keys_t *keys);
 void free_mouse(mouse_t *mouse);
+void free_raycast_values(raycast_values_t *values);
 ////////////
 
 #endif /* !WOLF_3D_ */
