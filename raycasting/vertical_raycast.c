@@ -37,34 +37,36 @@ void vertical_ray_straight(game_t *game, raycast_values_t *var)
     }
 }
 
-void draw_vertical_ray(game_t *game, raycast_values_t *var)
+void vertical_ray_extend(game_t *game, raycast_values_t *var)
 {
-    draw_std_line(game->render_window,
-        (sfVertex){.position =
-            (sfVector2f){game->player->x, game->player->y}, .color = sfWhite},
-        (sfVertex){.position =
-            (sfVector2f){var->ray_x, var->ray_y}, .color = sfWhite});
+    var->map_x = ((int)var->ray_x / TILE_SIZE);
+    var->map_y = ((int)var->ray_y / TILE_SIZE);
+    if (var->map_x < game->world->map_size_x && var->map_x >= 0 &&
+            var->map_y < game->world->map_size_y && var->map_y >= 0 &&
+            game->world->map[var->map_y][var->map_x].type == WALL) {
+        var->vertical_x = var->ray_x;
+        var->vertical_y = var->ray_y;
+        var->vertical_dist = player_to_ray_distance(game->player,
+            var->vertical_x, var->vertical_y, var->ray_angle);
+        var->depth_of_field = STD_DOF - 1;
+    } else {
+        var->ray_x += var->x_offset;
+        var->ray_y += var->y_offset;
+    }
 }
 
 void vertical_raycast(game_t *game, raycast_values_t *var)
 {
     float ntan = -tan(var->ray_angle);
 
+    var->vertical_dist = 1000000;
+    var->vertical_x = game->player->x;
+    var->vertical_y = game->player->y;
     var->depth_of_field = 0;
     vertical_ray_right(game, var, ntan);
     vertical_ray_left(game, var, ntan);
     vertical_ray_straight(game, var);
     for (; var->depth_of_field < STD_DOF; var->depth_of_field++) {
-        var->map_x = ((int)var->ray_x / TILE_SIZE);
-        var->map_y = ((int)var->ray_y / TILE_SIZE);
-        if (var->map_x < game->world->map_size_x && var->map_x >= 0 &&
-                var->map_y < game->world->map_size_y && var->map_y >= 0 &&
-                game->world->map[var->map_y][var->map_x].type == WALL) {
-            var->depth_of_field = STD_DOF - 1;
-        } else {
-            var->ray_x += var->x_offset;
-            var->ray_y += var->y_offset;
-        }
+        vertical_ray_extend(game, var);
     }
-    draw_vertical_ray(game, var);
 }

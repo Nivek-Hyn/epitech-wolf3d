@@ -28,8 +28,10 @@
     #include <SFML/System/Clock.h>
 
     #define PI 3.14159265358979323846
+    #define UNIT_LIMIT 2 * PI
     #define PI2 PI / 2
     #define PI3 3 * PI / 2
+    #define RAD_OFFSET 0.0174533 / 2
 
     /* WINDOW MACROS */
     #define STD_WIN_WIDTH 1920
@@ -71,6 +73,14 @@ typedef struct raycast_values_s {
     float ray_angle;
     float x_offset;
     float y_offset;
+    // Horizontal
+    float horizontal_dist;
+    float horizontal_x;
+    float horizontal_y;
+    // Vertical
+    float vertical_dist;
+    float vertical_x;
+    float vertical_y;
 } raycast_values_t;
 
 typedef enum tile_e {
@@ -216,7 +226,6 @@ void update_mouse(game_t *game);
 ////////////
 // MAP
 ////////////
-void draw_map_line(game_t *game, int *map_x, int *map_y, int y);
 void draw_map(game_t *game);
 // Matrix functions
 int **blank_matrix_create(int map_size_x, int map_size_y);
@@ -229,6 +238,11 @@ void matrix_display(int **map, int map_size_x, int map_size_y);
 ////////////
 void raycast(game_t *game);
 void draw_std_line(sfRenderWindow *render_win, sfVertex vert1, sfVertex vert2);
+float player_to_ray_distance(player_t *player,
+    float ray_x, float ray_y, float angle);
+void draw_ray(game_t *game, raycast_values_t *var);
+void set_ray_distance(raycast_values_t *var);
+void set_ray_angle_limit(raycast_values_t *var);
 // HORIZONTAL
 void horizontal_raycast(game_t *game, raycast_values_t *var);
 void draw_horizontal_ray(game_t *game, raycast_values_t *var);

@@ -14,6 +14,6 @@ settings_t *init_settings(void)
     if (!settings)
         return NULL;
     settings->window_mode = 0;
-    settings->field_of_view = 70.0;
+    settings->field_of_view = 90.0;
     return settings;
 }
