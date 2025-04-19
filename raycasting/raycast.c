@@ -19,10 +19,12 @@ void set_ray_distance(raycast_values_t *var)
     if (var->vertical_dist < var->horizontal_dist) {
         var->ray_x = var->vertical_x;
         var->ray_y = var->vertical_y;
+        var->total_dist = var->vertical_dist;
     }
-    if (var->vertical_dist > var->horizontal_dist) {
+    if (var->horizontal_dist < var->vertical_dist) {
         var->ray_x = var->horizontal_x;
         var->ray_y = var->horizontal_y;
+        var->total_dist = var->horizontal_dist;
     }
 }
 
@@ -57,6 +59,7 @@ void raycast(game_t *game)
         vertical_raycast(game, var);
         set_ray_distance(var);
         draw_ray(game, var);
+        draw_3d_walls(game, var);
         var->ray_angle += RAD_OFFSET;
         set_ray_angle_limit(var);
     }

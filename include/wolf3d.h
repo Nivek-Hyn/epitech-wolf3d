@@ -36,16 +36,23 @@
     /* WINDOW MACROS */
     #define STD_WIN_WIDTH 1920
     #define STD_WIN_HEIGHT 1080
+
+    #define RAYCAST_OFFSET_X 640
+    #define RAYCAST_JUMP 6
+    #define RAYCAST_WIN_HEIGHT 1080 / 2
+    #define RAYCAST_WIN_WITDH 1920 / 2
+
     /* Window settings */
     #define WINDOWED 0
     #define FULL_SCREEN 1
 
     /* Player settings */
-    #define MOVE_SPEED 3
+    #define MOVE_SPEED 1.5
     #define PLAYER_RADIUS 10
     #define STD_LOOK_SPEED 3
     #define MOUSE_SENSITIVITY 0.01
     #define SIGHT_LINE 100000
+    #define STD_FOV 70
     /* World settings */
     #define STD_MATRIX_Y 10
     #define STD_MATRIX_X 15
@@ -81,6 +88,8 @@ typedef struct raycast_values_s {
     float vertical_dist;
     float vertical_x;
     float vertical_y;
+    // Global
+    float total_dist;
 } raycast_values_t;
 
 typedef enum tile_e {
@@ -116,6 +125,7 @@ typedef struct mouse_s {
 typedef struct settings_s {
     int window_mode;
     float field_of_view;
+    int ray_count;
 } settings_t;
 
 typedef struct map_s {
@@ -243,6 +253,7 @@ float player_to_ray_distance(player_t *player,
 void draw_ray(game_t *game, raycast_values_t *var);
 void set_ray_distance(raycast_values_t *var);
 void set_ray_angle_limit(raycast_values_t *var);
+void draw_3d_walls(game_t *game, raycast_values_t *var);
 // HORIZONTAL
 void horizontal_raycast(game_t *game, raycast_values_t *var);
 void draw_horizontal_ray(game_t *game, raycast_values_t *var);

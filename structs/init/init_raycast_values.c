@@ -15,6 +15,7 @@ void init_special_raycast_values(raycast_values_t *raycast_values)
     raycast_values->vertical_dist = 0;
     raycast_values->vertical_x = 0;
     raycast_values->vertical_y = 0;
+    raycast_values->total_dist = 0;
 }
 
 raycast_values_t *init_raycast_values(void)
