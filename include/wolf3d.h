@@ -131,7 +131,7 @@ typedef enum window_settings_e {
 } window_settings_t;
 
 typedef struct settings_s {
-    int window_mode;
+    enum window_settings_e window_mode;
     int window_width;
     int window_height;
     float fov;

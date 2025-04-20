@@ -13,7 +13,7 @@ settings_t *init_settings(void)
 
     if (!settings)
         return NULL;
-    settings->window_mode = 0;
+    settings->window_mode = FULLSCREEN;
     settings->window_width = STD_WIN_WIDTH;
     settings->window_height = STD_WIN_HEIGHT;
     settings->fov = STD_FOV;
