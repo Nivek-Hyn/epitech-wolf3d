@@ -47,12 +47,13 @@
     #define FULL_SCREEN 1
 
     /* Player settings */
-    #define MOVE_SPEED 1.5
+    #define MOVE_SPEED 2
     #define PLAYER_RADIUS 10
     #define STD_LOOK_SPEED 3
     #define MOUSE_SENSITIVITY 0.01
     #define SIGHT_LINE 100000
     #define STD_FOV 70
+
     /* World settings */
     #define STD_MATRIX_Y 10
     #define STD_MATRIX_X 15
@@ -266,6 +267,8 @@ void draw_vertical_ray(game_t *game, raycast_values_t *var);
 void vertical_ray_straight(game_t *game, raycast_values_t *var);
 void vertical_ray_left(game_t *game, raycast_values_t *var, float atan);
 void vertical_ray_right(game_t *game, raycast_values_t *var, float atan);
+// TRIGO
+float limit_trigo_angle(float angle);
 ////////////
 
 ////////////

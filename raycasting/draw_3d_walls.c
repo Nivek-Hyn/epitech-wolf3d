@@ -31,10 +31,7 @@ void draw_3d_walls(game_t *game, raycast_values_t *var)
     float line_offset = 0.0;
 
     co_angle = game->player->angle - var->ray_angle;
-    if (co_angle < 0)
-        co_angle += 2 * PI;
-    if (co_angle > 2 * PI)
-        co_angle -= 2 * PI;
+    co_angle = limit_trigo_angle(co_angle);
     corrected_dist = var->total_dist * cos(co_angle);
     line_height = (TILE_SIZE * RAYCAST_WIN_HEIGHT) / corrected_dist;
     if (line_height > RAYCAST_WIN_HEIGHT)
