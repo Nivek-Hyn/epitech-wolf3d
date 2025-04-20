@@ -31,20 +31,21 @@
     #define UNIT_LIMIT 2 * PI
     #define PI2 PI / 2
     #define PI3 3 * PI / 2
-    #define RAD_OFFSET 0.0174533 / 2
+    #define RAD_OFFSET 0.0174533
 
     /* WINDOW MACROS */
     #define STD_WIN_WIDTH 1920
     #define STD_WIN_HEIGHT 1080
 
-    #define RAY_OFFSET 640
-    #define RAYCAST_JUMP 6
-    #define RAYCAST_WIN_HEIGHT 1080 / 2
-    #define RAYCAST_WIN_WITDH 1920 / 2
+    /* COLORS */
+    #define HEXA_COLOR_LIMIT 255
 
-    /* Window settings */
-    #define WINDOWED 0
-    #define FULL_SCREEN 1
+    /* RAYCAST TMP WINDOW - TEMPORARY !!!!!!!*/
+    #define RAY_OFFSET_X 700
+    #define RAY_OFFSET_Y 300
+    #define RAYCAST_WIN_HEIGHT 540
+    #define RAYCAST_WIN_WITDH 960
+    #define RAYCAST_JUMP 6
 
     /* Player settings */
     #define MOVE_SPEED 2
@@ -123,8 +124,16 @@ typedef struct mouse_s {
     bool is_locked;
 } mouse_t;
 
+// Window Settings
+typedef enum window_settings_e {
+    FULLSCREEN = 0,
+    WINDOWED = 1,
+} window_settings_t;
+
 typedef struct settings_s {
     int window_mode;
+    int window_width;
+    int window_height;
     float fov;
     int ray_count;
 } settings_t;
@@ -274,6 +283,7 @@ void vertical_ray_left(game_t *game, raycast_values_t *var, float atan);
 void vertical_ray_right(game_t *game, raycast_values_t *var, float atan);
 // TRIGO
 float limit_trigo_angle(float angle);
+float rad(float degree);
 ////////////
 
 ////////////

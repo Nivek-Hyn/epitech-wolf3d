@@ -13,10 +13,10 @@ void draw_wall_line(game_t *game, raycast_values_t *var,
     sfVertexArray *vertex_array = sfVertexArray_create();
 
     sfVertexArray_append(vertex_array,
-        (sfVertex){.position = (sfVector2f){RAY_OFFSET + var->drawn_rays *
+        (sfVertex){.position = (sfVector2f){RAY_OFFSET_X + var->drawn_rays *
             RAYCAST_JUMP, line_offset}, .color = sfWhite});
     sfVertexArray_append(vertex_array,
-        (sfVertex){.position = (sfVector2f){RAY_OFFSET + var->drawn_rays *
+        (sfVertex){.position = (sfVector2f){RAY_OFFSET_X + var->drawn_rays *
             RAYCAST_JUMP, line_height + line_offset}, .color = sfWhite});
     sfVertexArray_setPrimitiveType(vertex_array, sfLines);
     sfRenderWindow_drawVertexArray(game->render_window, vertex_array, NULL);
@@ -28,9 +28,10 @@ void draw_wall_rectangle(game_t *game, raycast_values_t *var,
 {
     sfRectangleShape *rectangle = sfRectangleShape_create();
     float brightness = 255 / (var->total_dist / 100);
-    sfVector2f position = {RAY_OFFSET + var->drawn_rays *
-        RAYCAST_JUMP, line_offset};
-    sfVector2f size = {RAYCAST_JUMP, line_height};
+    float ray_spacing = (float)RAYCAST_WIN_WITDH / game->settings->ray_count;
+    sfVector2f position = {RAY_OFFSET_X + var->drawn_rays * ray_spacing,
+        RAY_OFFSET_Y + line_offset};
+    sfVector2f size = {ray_spacing, line_height};
     sfColor wall_color = sfWhite;
 
     if (brightness > 255)

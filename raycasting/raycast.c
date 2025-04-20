@@ -50,18 +50,18 @@ void set_ray_angle_limit(raycast_values_t *var)
 void raycast(game_t *game)
 {
     raycast_values_t *var = init_raycast_values();
+    float angle_offset = rad(game->settings->fov) / game->settings->ray_count;
 
-    var->ray_angle = game->player->angle -
-        (RAD_OFFSET * game->settings->fov / 2) * 2;
+    var->ray_angle = game->player->angle - (rad(game->settings->fov) / 2);
     set_ray_angle_limit(var);
-    for (var->drawn_rays = 0; var->drawn_rays < game->settings->fov * 2;
+    for (var->drawn_rays = 0; var->drawn_rays < game->settings->ray_count;
             var->drawn_rays++) {
         horizontal_raycast(game, var);
         vertical_raycast(game, var);
         set_ray_distance(var);
         draw_ray(game, var);
         draw_3d_walls(game, var);
-        var->ray_angle += RAD_OFFSET;
+        var->ray_angle += angle_offset;
         set_ray_angle_limit(var);
     }
     free_raycast_values(var);

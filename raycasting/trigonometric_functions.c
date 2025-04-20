@@ -15,3 +15,8 @@ float limit_trigo_angle(float angle)
         angle -= 2 * PI;
     return angle;
 }
+
+float rad(float degree)
+{
+    return degree * (PI / 180);
+}
