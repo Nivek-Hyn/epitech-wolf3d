@@ -14,7 +14,7 @@ settings_t *init_settings(void)
     if (!settings)
         return NULL;
     settings->window_mode = 0;
-    settings->field_of_view = STD_FOV;
+    settings->fov = STD_FOV;
     settings->ray_count = STD_WIN_WIDTH;
     return settings;
 }

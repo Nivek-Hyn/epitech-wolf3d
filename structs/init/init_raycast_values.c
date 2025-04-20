@@ -24,7 +24,7 @@ raycast_values_t *init_raycast_values(void)
 
     if (!raycast_values)
         return NULL;
-    raycast_values->r = 0;
+    raycast_values->drawn_rays = 0;
     raycast_values->map_x = 0;
     raycast_values->map_y = 0;
     raycast_values->map_position = 0;

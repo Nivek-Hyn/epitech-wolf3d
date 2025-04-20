@@ -37,7 +37,7 @@
     #define STD_WIN_WIDTH 1920
     #define STD_WIN_HEIGHT 1080
 
-    #define RAYCAST_OFFSET_X 640
+    #define RAY_OFFSET 640
     #define RAYCAST_JUMP 6
     #define RAYCAST_WIN_HEIGHT 1080 / 2
     #define RAYCAST_WIN_WITDH 1920 / 2
@@ -71,7 +71,7 @@
 /////////////////////////////////////////
 
 typedef struct raycast_values_s {
-    int r;
+    int drawn_rays;
     int map_x;
     int map_y;
     int map_position;
@@ -125,7 +125,7 @@ typedef struct mouse_s {
 
 typedef struct settings_s {
     int window_mode;
-    float field_of_view;
+    float fov;
     int ray_count;
 } settings_t;
 
@@ -254,7 +254,12 @@ float player_to_ray_distance(player_t *player,
 void draw_ray(game_t *game, raycast_values_t *var);
 void set_ray_distance(raycast_values_t *var);
 void set_ray_angle_limit(raycast_values_t *var);
+// DRAW
 void draw_3d_walls(game_t *game, raycast_values_t *var);
+void draw_wall_line(game_t *game, raycast_values_t *var,
+    float line_height, float line_offset);
+void draw_wall_rectangle(game_t *game, raycast_values_t *var,
+    float line_height, float line_offset);
 // HORIZONTAL
 void horizontal_raycast(game_t *game, raycast_values_t *var);
 void draw_horizontal_ray(game_t *game, raycast_values_t *var);

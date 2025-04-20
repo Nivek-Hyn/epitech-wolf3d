@@ -52,9 +52,10 @@ void raycast(game_t *game)
     raycast_values_t *var = init_raycast_values();
 
     var->ray_angle = game->player->angle -
-        (RAD_OFFSET * game->settings->field_of_view / 2) * 2;
+        (RAD_OFFSET * game->settings->fov / 2) * 2;
     set_ray_angle_limit(var);
-    for (var->r = 0; var->r < game->settings->field_of_view * 2; var->r++) {
+    for (var->drawn_rays = 0; var->drawn_rays < game->settings->fov * 2;
+            var->drawn_rays++) {
         horizontal_raycast(game, var);
         vertical_raycast(game, var);
         set_ray_distance(var);

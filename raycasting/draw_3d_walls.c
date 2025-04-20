@@ -13,14 +13,34 @@ void draw_wall_line(game_t *game, raycast_values_t *var,
     sfVertexArray *vertex_array = sfVertexArray_create();
 
     sfVertexArray_append(vertex_array,
-        (sfVertex){.position = (sfVector2f){RAYCAST_OFFSET_X + var->r *
+        (sfVertex){.position = (sfVector2f){RAY_OFFSET + var->drawn_rays *
             RAYCAST_JUMP, line_offset}, .color = sfWhite});
     sfVertexArray_append(vertex_array,
-        (sfVertex){.position = (sfVector2f){RAYCAST_OFFSET_X + var->r *
+        (sfVertex){.position = (sfVector2f){RAY_OFFSET + var->drawn_rays *
             RAYCAST_JUMP, line_height + line_offset}, .color = sfWhite});
     sfVertexArray_setPrimitiveType(vertex_array, sfLines);
     sfRenderWindow_drawVertexArray(game->render_window, vertex_array, NULL);
     sfVertexArray_destroy(vertex_array);
+}
+
+void draw_wall_rectangle(game_t *game, raycast_values_t *var,
+    float line_height, float line_offset)
+{
+    sfRectangleShape *rectangle = sfRectangleShape_create();
+    float brightness = 255 / (var->total_dist / 100);
+    sfVector2f position = {RAY_OFFSET + var->drawn_rays *
+        RAYCAST_JUMP, line_offset};
+    sfVector2f size = {RAYCAST_JUMP, line_height};
+    sfColor wall_color = sfWhite;
+
+    if (brightness > 255)
+        brightness = 255;
+    wall_color = sfColor_fromRGB(brightness, brightness, brightness);
+    sfRectangleShape_setPosition(rectangle, position);
+    sfRectangleShape_setSize(rectangle, size);
+    sfRectangleShape_setFillColor(rectangle, wall_color);
+    sfRenderWindow_drawRectangleShape(game->render_window, rectangle, NULL);
+    sfRectangleShape_destroy(rectangle);
 }
 
 void draw_3d_walls(game_t *game, raycast_values_t *var)
@@ -37,5 +57,5 @@ void draw_3d_walls(game_t *game, raycast_values_t *var)
     if (line_height > RAYCAST_WIN_HEIGHT)
         line_height = RAYCAST_WIN_HEIGHT;
     line_offset = (RAYCAST_WIN_HEIGHT / 2) - (line_height / 2);
-    draw_wall_line(game, var, line_height, line_offset);
+    draw_wall_rectangle(game, var, line_height, line_offset);
 }
