@@ -23,27 +23,6 @@ void draw_wall_line(game_t *game, raycast_values_t *var,
     sfVertexArray_destroy(vertex_array);
 }
 
-void draw_wall_rectangle(game_t *game, raycast_values_t *var,
-    float line_height, float line_offset)
-{
-    sfRectangleShape *rectangle = sfRectangleShape_create();
-    float brightness = 255 / (var->total_dist / 100);
-    float ray_spacing = (float)RAYCAST_WIN_WITDH / game->settings->ray_count;
-    sfVector2f position = {RAY_OFFSET_X + var->drawn_rays * ray_spacing,
-        RAY_OFFSET_Y + line_offset};
-    sfVector2f size = {ray_spacing, line_height};
-    sfColor wall_color = sfWhite;
-
-    if (brightness > 255)
-        brightness = 255;
-    wall_color = sfColor_fromRGB(brightness, brightness, brightness);
-    sfRectangleShape_setPosition(rectangle, position);
-    sfRectangleShape_setSize(rectangle, size);
-    sfRectangleShape_setFillColor(rectangle, wall_color);
-    sfRenderWindow_drawRectangleShape(game->render_window, rectangle, NULL);
-    sfRectangleShape_destroy(rectangle);
-}
-
 void draw_3d_walls(game_t *game, raycast_values_t *var)
 {
     float co_angle = 0.0;

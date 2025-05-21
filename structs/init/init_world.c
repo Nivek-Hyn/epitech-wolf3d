@@ -46,8 +46,19 @@ void copy_matrix(world_t *world,
         world->map[y] = malloc(sizeof(map_t) * world->map_size_x);
         for (int x = 0; x < world->map_size_x; x++) {
             world->map[y][x].type = map[y][x];
+            world->map[y][x].texture = world->textures[map[y][x]];
         }
     }
+}
+
+void init_world_variables(world_t *world)
+{
+    world->map_size_x = 10;
+    world->map_size_y = 10;
+    world->textures[EMPTY] =
+        sfTexture_createFromFile("assets/backrooms_wall.png", NULL);
+    world->textures[WALL] =
+        sfTexture_createFromFile("assets/backrooms_wall.png", NULL);
 }
 
 world_t *init_world(void)
@@ -67,8 +78,7 @@ world_t *init_world(void)
         {1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
     };
 
-    world->map_size_x = 10;
-    world->map_size_y = 10;
+    init_world_variables(world);
     copy_matrix(world, map);
     create_map(world);
     return world;

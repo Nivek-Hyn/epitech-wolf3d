@@ -10,5 +10,6 @@
 void free_world(world_t *world)
 {
     free_map(world->map, world->map_size_x, world->map_size_y);
+    free_textures(world->textures);
     free(world);
 }

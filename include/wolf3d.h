@@ -66,6 +66,7 @@
 
     /* Tile parameters */
     #define TILE_SIZE 64
+    #define NB_TILE_TYPES 2
 
 /////////////////////////////////////////
 /// STRUCTS
@@ -141,12 +142,14 @@ typedef struct settings_s {
 typedef struct map_s {
     tile_t type;
     sfRectangleShape *rectangle;
+    sfTexture *texture;
 } map_t;
 
 typedef struct world_s {
     map_t **map;
     int map_size_x;
     int map_size_y;
+    sfTexture *textures[NB_TILE_TYPES];
 } world_t;
 
 typedef struct game_s {
@@ -199,6 +202,12 @@ sfRectangleShape *create_rectangle(sfVector2f position, sfVector2f size,
 ////////////
 sfSprite *sprite_create(char *filepath, float scale, sfVector2f position);
 sfIntRect *intrect_create(int top, int left, int height, int width);
+////////////
+
+////////////
+// TEXTURES
+////////////
+sfTexture *get_texture_from_tile_type(tile_t type);
 ////////////
 
 ////////////
@@ -298,6 +307,7 @@ void free_world(world_t *world);
 void free_keys(keys_t *keys);
 void free_mouse(mouse_t *mouse);
 void free_raycast_values(raycast_values_t *values);
+void free_textures(sfTexture **textures);
 ////////////
 
 #endif /* !WOLF_3D_ */
