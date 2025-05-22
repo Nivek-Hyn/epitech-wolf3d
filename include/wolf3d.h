@@ -68,6 +68,9 @@
     #define TILE_SIZE 64
     #define NB_TILE_TYPES 2
 
+    /* Tool settings */
+    #define FLASHLIGHT_RADIUS 500
+
 /////////////////////////////////////////
 /// STRUCTS
 /////////////////////////////////////////
@@ -116,6 +119,7 @@ typedef struct player_s {
     float delta_y;
     float angle;
     sfCircleShape *player_visual;
+    bool flashlight;
 } player_t;
 
 typedef struct mouse_s {

@@ -34,8 +34,6 @@ void draw_3d_walls(game_t *game, raycast_values_t *var)
     co_angle = limit_trigo_angle(co_angle);
     corrected_dist = var->total_dist * cos(co_angle);
     line_height = (TILE_SIZE * RAYCAST_WIN_HEIGHT) / corrected_dist;
-    if (line_height > RAYCAST_WIN_HEIGHT)
-        line_height = RAYCAST_WIN_HEIGHT;
     line_offset = (RAYCAST_WIN_HEIGHT / 2) - (line_height / 2);
     draw_wall_rectangle(game, var, line_height, line_offset);
 }

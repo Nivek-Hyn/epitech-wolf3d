@@ -56,9 +56,9 @@ void init_world_variables(world_t *world)
     world->map_size_x = 10;
     world->map_size_y = 10;
     world->textures[EMPTY] =
-        sfTexture_createFromFile("assets/backrooms_wall.png", NULL);
+        sfTexture_createFromFile("assets/Rusty_Lab_Wall.jpg", NULL);
     world->textures[WALL] =
-        sfTexture_createFromFile("assets/backrooms_wall.png", NULL);
+        sfTexture_createFromFile("assets/Rusty_Lab_Wall.jpg", NULL);
 }
 
 world_t *init_world(void)

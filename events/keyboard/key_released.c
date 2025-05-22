@@ -7,6 +7,15 @@
 
 #include "wolf3d.h"
 
+void keys_released(game_t *game)
+{
+    switch (game->event.key.code) {
+    case sfKeyF:
+        game->player->flashlight = !game->player->flashlight;
+        break;
+    }
+}
+
 void zqsd_keys_released(game_t *game)
 {
     switch (game->event.key.code) {
@@ -41,6 +50,7 @@ void escape_key(game_t *game)
 void keyboard_key_released(game_t *game)
 {
     zqsd_keys_released(game);
+    keys_released(game);
     escape_key(game);
     return;
 }

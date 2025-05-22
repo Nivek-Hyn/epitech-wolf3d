@@ -20,18 +20,47 @@ void set_sprite_scale(sfSprite *sprite, sfTexture *texture,
     sfSprite_setScale(sprite, scale);
 }
 
-void set_sprite_color(sfSprite *sprite, float distance)
+static void flashlight_manager(game_t *game, raycast_values_t *var,
+    float *brightness_factor, float base_brightness)
+{
+    float flashlight_center = game->settings->ray_count / 2.0f;
+    float distance_from_center = (var->drawn_rays - flashlight_center);
+    float inner_radius = FLASHLIGHT_RADIUS * 0.3f;
+    float outer_radius = FLASHLIGHT_RADIUS;
+    float fade_factor = 0.0f;
+
+    if (distance_from_center < 0)
+        distance_from_center = -distance_from_center;
+    if (distance_from_center <= inner_radius) {
+        *brightness_factor = 1.0f;
+    } else if (distance_from_center <= outer_radius) {
+        fade_factor = (outer_radius - distance_from_center) /
+            (outer_radius - inner_radius);
+        fade_factor = fade_factor * fade_factor;
+        *brightness_factor = base_brightness +
+            (1.0f - base_brightness) * fade_factor;
+    }
+}
+
+void set_sprite_color(sfSprite *sprite, float distance,
+    game_t *game, raycast_values_t *var)
 {
     float max_dist = 600.0f;
+    float base_brightness = 0.3f;
     float factor = 1.0f - (distance / max_dist);
     sfColor color;
+    float brightness_factor = base_brightness;
 
     if (factor < 0.2f)
         factor = 0.2f;
     if (factor > 1.0f)
         factor = 1.0f;
+    if (game->player->flashlight == true)
+        flashlight_manager(game, var, &brightness_factor, base_brightness);
     color = sfColor_fromRGB(
-        255 * factor, 255 * factor, 255 * factor);
+        255 * factor * brightness_factor,
+        255 * factor * brightness_factor,
+        255 * factor * brightness_factor);
     sfSprite_setColor(sprite, color);
 }
 
@@ -75,7 +104,7 @@ void draw_wall_rectangle(game_t *game, raycast_values_t *var,
     sfSprite_setTexture(sprite, texture, sfTrue);
     set_texture_rect(sprite, texture, hit, is_vertical);
     set_sprite_position(sprite, var, line_offset, game->settings->ray_count);
-    set_sprite_color(sprite, var->total_dist);
+    set_sprite_color(sprite, var->total_dist, game, var);
     set_sprite_scale(sprite, texture, line_height, game->settings->ray_count);
     sfRenderWindow_drawSprite(game->render_window, sprite, NULL);
     sfSprite_destroy(sprite);

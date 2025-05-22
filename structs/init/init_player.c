@@ -20,5 +20,6 @@ player_t *init_player(void)
     player->delta_y = (sin(player->angle) * MOVE_SPEED);
     player->player_visual = create_circle((sfVector2f){player->x, player->y},
         PLAYER_RADIUS, sfWhite, sfGreen);
+    player->flashlight = false;
     return player;
 }
