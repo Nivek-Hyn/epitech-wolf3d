@@ -21,5 +21,6 @@ player_t *init_player(void)
     player->player_visual = create_circle((sfVector2f){player->x, player->y},
         PLAYER_RADIUS, sfWhite, sfGreen);
     player->flashlight = false;
+    player->flashlight_battery = 100;
     return player;
 }

@@ -13,11 +13,20 @@ void game_render(game_t *game)
     draw_map(game);
     draw_player(game);
     raycast(game);
+    draw_battery(game);
     sfRenderWindow_display(game->render_window);
+}
+
+void time_manager(game_t *game)
+{
+    sfTime time = sfClock_restart(game->time->clock);
+
+    game->time->delta_time = sfTime_asSeconds(time);
 }
 
 void game_loop(game_t *game)
 {
+    time_manager(game);
     check_events(game);
     update_player(game);
     update_mouse(game);

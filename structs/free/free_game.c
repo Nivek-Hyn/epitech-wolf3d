@@ -14,6 +14,8 @@ void free_game(game_t *game)
     free_settings(game->settings);
     free_keys(game->keys);
     free_mouse(game->mouse);
+    free_time(game->time);
+    free_fonts(game->fonts);
     sfRenderWindow_destroy(game->render_window);
     free(game);
 }

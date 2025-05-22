@@ -70,6 +70,9 @@
 
     /* Tool settings */
     #define FLASHLIGHT_RADIUS 500
+    #define MAX_FLASHLIGHT_BATTERY 100.0f
+    #define FLASHLIGHT_BATTERY_DECREASE 1
+    #define MAX_BATTERY_WIDTH 100.0f
 
 /////////////////////////////////////////
 /// STRUCTS
@@ -120,6 +123,7 @@ typedef struct player_s {
     float angle;
     sfCircleShape *player_visual;
     bool flashlight;
+    float flashlight_battery;
 } player_t;
 
 typedef struct mouse_s {
@@ -156,6 +160,15 @@ typedef struct world_s {
     sfTexture *textures[NB_TILE_TYPES];
 } world_t;
 
+typedef struct game_time_s {
+    sfClock *clock;
+    float delta_time;
+} game_time_t;
+
+typedef struct font_list_s {
+    sfFont *normal;
+} font_list_t;
+
 typedef struct game_s {
     sfRenderWindow *render_window;
     sfEvent event;
@@ -164,6 +177,8 @@ typedef struct game_s {
     settings_t *settings;
     keys_t *keys;
     mouse_t *mouse;
+    game_time_t *time;
+    font_list_t *fonts;
 } game_t;
 
 /////////////////////////////////////////
@@ -179,13 +194,16 @@ void draw_player(game_t *game);
 void update_player(game_t *game);
 void player_look_left(game_t *game, float look_speed);
 void player_look_right(game_t *game, float look_speed);
-// COLLISION:
+// COLLISION
 int check_player_walls_collision(float player_pos_x, float player_pos_y,
     game_t *game);
 int compare_lines_to_player(game_t *game, float player_pos_x,
     float player_pos_y, int y);
 int check_circle_rectangle_collision(float circle_pos_x, float circle_pos_y,
     float circle_radius, sfRectangleShape *rectangle);
+// BATTERY
+void update_player_flashlight_battery(game_t *game);
+void draw_battery(game_t *game);
 ////////////
 
 ////////////
@@ -225,6 +243,8 @@ world_t *init_world(void);
 keys_t *init_keys(void);
 mouse_t *init_mouse(void);
 raycast_values_t *init_raycast_values(void);
+game_time_t *init_time(void);
+font_list_t *init_fonts(void);
 ////////////
 
 ////////////
@@ -312,6 +332,8 @@ void free_keys(keys_t *keys);
 void free_mouse(mouse_t *mouse);
 void free_raycast_values(raycast_values_t *values);
 void free_textures(sfTexture **textures);
+void free_time(game_time_t *time);
+void free_fonts(font_list_t *fonts);
 ////////////
 
 #endif /* !WOLF_3D_ */

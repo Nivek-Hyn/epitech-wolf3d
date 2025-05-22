@@ -19,5 +19,7 @@ game_t *init_game_struct(void)
     game->world = init_world();
     game->keys = init_keys();
     game->mouse = init_mouse();
+    game->time = init_time();
+    game->fonts = init_fonts();
     return game;
 }

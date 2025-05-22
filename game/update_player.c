@@ -85,4 +85,5 @@ void update_player(game_t *game)
     update_player_angle(game);
     update_player_movement_vector(game, &move_x, &move_y);
     apply_player_normalized_movement(game, &move_x, &move_y);
+    update_player_flashlight_battery(game);
 }
