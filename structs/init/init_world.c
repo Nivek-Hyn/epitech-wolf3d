@@ -44,22 +44,22 @@ void init_world_variables(world_t *world)
     world->map_size_y = 0;
     world->wall_textures[EMPTY_WALL] =
         sfTexture_createFromFile(
-            "assets/walls/Rusty_Lab_Wall.jpg", NULL);
+            "assets/textures/walls/Rusty_Lab_Wall.jpg", NULL);
     world->wall_textures[WALL] =
         sfTexture_createFromFile(
-            "assets/walls/Rusty_Lab_Wall.jpg", NULL);
+            "assets/textures/walls/Rusty_Lab_Wall.jpg", NULL);
     world->floor_textures[EMPTY_FLOOR] =
         sfTexture_createFromFile(
-            "assets/floors/Concrete-Floor-Tile.png", NULL);
+            "assets/textures/floors/Concrete-Floor-Tile.png", NULL);
     world->floor_textures[WALL] =
         sfTexture_createFromFile(
-            "assets/floors/Concrete-Floor-Tile.png", NULL);
+            "assets/textures/floors/Concrete-Floor-Tile.png", NULL);
     world->ceiling_textures[EMPTY_CEILING] =
         sfTexture_createFromFile(
-            "assets/ceilings/ceiling_tile.png", NULL);
+            "assets/textures/ceilings/ceiling_tile.png", NULL);
     world->ceiling_textures[WALL] =
         sfTexture_createFromFile(
-            "assets/ceilings/ceiling_tile.png", NULL);
+            "assets/textures/ceilings/ceiling_tile.png", NULL);
 }
 
 world_t *init_world(void)
