@@ -43,7 +43,7 @@ void horizontal_ray_extend(game_t *game, raycast_values_t *var)
     var->map_y = ((int)var->ray_y / TILE_SIZE);
     if (var->map_x < game->world->map_size_x && var->map_x >= 0 &&
             var->map_y < game->world->map_size_y && var->map_y >= 0 &&
-            game->world->map[var->map_y][var->map_x].type == WALL) {
+            game->world->map[var->map_y][var->map_x].wall_type == WALL) {
         var->horizontal_x = var->ray_x;
         var->horizontal_y = var->ray_y;
         var->horizontal_dist = player_to_ray_distance(game->player,

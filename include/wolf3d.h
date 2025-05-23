@@ -66,7 +66,9 @@
 
     /* Tile parameters */
     #define TILE_SIZE 64
-    #define NB_TILE_TYPES 2
+    #define NB_WALL_TYPES 2
+    #define NB_FLOOR_TYPES 2
+    #define NB_CEILING_TYPES 2
 
     /* Tool settings */
     #define FLASHLIGHT_RADIUS 500
@@ -101,10 +103,20 @@ typedef struct raycast_values_s {
     float total_dist;
 } raycast_values_t;
 
-typedef enum tile_e {
-    EMPTY = 0,
+typedef enum wall_tile_e {
+    EMPTY_WALL = 0,
     WALL = 1,
-} tile_t;
+} wall_tile_t;
+
+typedef enum floor_tile_e {
+    EMPTY_FLOOR = 0,
+    FLOOR = 1,
+} floor_tile_t;
+
+typedef enum ceiling_tile_e {
+    EMPTY_CEILING = 0,
+    CEILING = 1,
+} ceiling_tile_t;
 
 typedef struct keys_s {
     int z;
@@ -148,16 +160,24 @@ typedef struct settings_s {
 } settings_t;
 
 typedef struct map_s {
-    tile_t type;
-    sfRectangleShape *rectangle;
-    sfTexture *texture;
+    wall_tile_t wall_type;
+    sfRectangleShape *wall_rectangle;
+    sfTexture *wall_texture;
+    floor_tile_t floor_type;
+    sfRectangleShape *floor_rectangle;
+    sfTexture *floor_texture;
+    ceiling_tile_t ceiling_type;
+    sfTexture *ceiling_texture;
+    sfRectangleShape *ceiling_rectangle;
 } map_t;
 
 typedef struct world_s {
     map_t **map;
     int map_size_x;
     int map_size_y;
-    sfTexture *textures[NB_TILE_TYPES];
+    sfTexture *wall_textures[NB_WALL_TYPES];
+    sfTexture *floor_textures[NB_FLOOR_TYPES];
+    sfTexture *ceiling_textures[NB_CEILING_TYPES];
 } world_t;
 
 typedef struct game_time_s {
@@ -167,6 +187,7 @@ typedef struct game_time_s {
 
 typedef struct font_list_s {
     sfFont *normal;
+    sfFont *arial;
 } font_list_t;
 
 typedef struct game_s {
@@ -204,6 +225,8 @@ int check_circle_rectangle_collision(float circle_pos_x, float circle_pos_y,
 // BATTERY
 void update_player_flashlight_battery(game_t *game);
 void draw_battery(game_t *game);
+// SAVE & LOAD
+void load_map_file(const char *filename, world_t *world);
 ////////////
 
 ////////////
@@ -224,12 +247,6 @@ sfRectangleShape *create_rectangle(sfVector2f position, sfVector2f size,
 ////////////
 sfSprite *sprite_create(char *filepath, float scale, sfVector2f position);
 sfIntRect *intrect_create(int top, int left, int height, int width);
-////////////
-
-////////////
-// TEXTURES
-////////////
-sfTexture *get_texture_from_tile_type(tile_t type);
 ////////////
 
 ////////////
@@ -331,9 +348,15 @@ void free_world(world_t *world);
 void free_keys(keys_t *keys);
 void free_mouse(mouse_t *mouse);
 void free_raycast_values(raycast_values_t *values);
-void free_textures(sfTexture **textures);
 void free_time(game_time_t *time);
 void free_fonts(font_list_t *fonts);
+////////////
+
+////////////
+// ARRAYS
+////////////
+int **alloc_int_matrix(int y, int x);
+void free_int_matrix(int **matrix, int y);
 ////////////
 
 #endif /* !WOLF_3D_ */

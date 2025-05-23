@@ -12,5 +12,6 @@ void free_fonts(font_list_t *fonts)
     if (fonts == NULL)
         return;
     sfFont_destroy(fonts->normal);
+    sfFont_destroy(fonts->arial);
     free(fonts);
 }

@@ -12,7 +12,7 @@ void draw_map(game_t *game)
     for (int y = 0; y < game->world->map_size_y; y++) {
         for (int x = 0; x < game->world->map_size_x; x++) {
             sfRenderWindow_drawRectangleShape(game->render_window,
-                game->world->map[y][x].rectangle, NULL);
+                game->world->map[y][x].wall_rectangle, NULL);
         }
     }
 }

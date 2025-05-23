@@ -13,9 +13,9 @@ int compare_lines_to_player(game_t *game, float player_pos_x,
     float player_radius = sfCircleShape_getRadius(game->player->player_visual);
 
     for (int x = 0; x < game->world->map_size_x; x++) {
-        if (game->world->map[y][x].type == WALL &&
+        if (game->world->map[y][x].wall_type == WALL &&
             check_circle_rectangle_collision(player_pos_x, player_pos_y,
-                player_radius, game->world->map[y][x].rectangle) == 1)
+                player_radius, game->world->map[y][x].wall_rectangle) == 1)
             return 1;
     }
     return (0);
