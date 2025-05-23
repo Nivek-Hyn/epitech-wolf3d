@@ -11,6 +11,7 @@ void free_sprites(game_t *game)
 {
     free_sprite_sheet(game->sprites->btn_play);
     sfSprite_destroy(game->sprites->main_menu_background);
+    free(game->sprites);
 }
 
 void free_game(game_t *game)
