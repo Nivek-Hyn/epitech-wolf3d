@@ -39,14 +39,8 @@ void init_world_map_data(world_t *world, int **wall_data,
         world->map[y] = malloc(sizeof(map_t) * world->map_size_x);
         for (int x = 0; x < world->map_size_x; x++) {
             world->map[y][x].wall_type = wall_data[y][x];
-            world->map[y][x].wall_texture =
-                world->wall_textures[wall_data[y][x]];
             world->map[y][x].floor_type = floor_data[y][x];
-            world->map[y][x].floor_texture =
-                world->floor_textures[floor_data[y][x]];
             world->map[y][x].ceiling_type = ceiling_data[y][x];
-            world->map[y][x].ceiling_texture =
-                world->ceiling_textures[ceiling_data[y][x]];
         }
     }
 }

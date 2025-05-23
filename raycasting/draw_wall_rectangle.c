@@ -98,7 +98,8 @@ void draw_wall_rectangle(game_t *game, raycast_values_t *var,
     };
     int map_x = (int)(hit.x / TILE_SIZE);
     int map_y = (int)(hit.y / TILE_SIZE);
-    sfTexture *texture = game->world->map[map_y][map_x].wall_texture;
+    sfTexture *texture =
+        game->world->wall_textures[game->world->map[map_y][map_x].wall_type];
     sfSprite *sprite = sfSprite_create();
 
     sfSprite_setTexture(sprite, texture, sfTrue);

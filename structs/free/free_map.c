@@ -11,6 +11,10 @@ void free_tile(map_t **map, int x, int y)
 {
     if (map[y][x].wall_rectangle)
         sfRectangleShape_destroy(map[y][x].wall_rectangle);
+    if (map[y][x].floor_rectangle)
+        sfRectangleShape_destroy(map[y][x].floor_rectangle);
+    if (map[y][x].ceiling_rectangle)
+        sfRectangleShape_destroy(map[y][x].ceiling_rectangle);
 }
 
 void free_map(map_t **map, int map_size_x, int map_size_y)

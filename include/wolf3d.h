@@ -60,6 +60,16 @@
     #define STD_MATRIX_X 15
     #define STD_DOF 16
 
+    /* Map settings */
+    #define MAP_X 0
+    #define MAP_Y 0
+    #define WALL_MAP_OUTLINE_COLOR 0, 200, 0, 255
+    #define WALL_MAP_COLOR sfWhite
+    #define FLOOR_MAP_OUTLINE_COLOR 0, 0, 200, 255
+    #define FLOOR_MAP_COLOR sfWhite
+    #define CEILING_MAP_OUTLINE_COLOR 200, 0, 0, 255
+    #define CEILING_MAP_COLOR sfWhite
+
     /* Music & Sounds */
     #define MUSIC_PLAY 0
     #define MUSIC_STOP 1
@@ -79,6 +89,15 @@
 /////////////////////////////////////////
 /// STRUCTS
 /////////////////////////////////////////
+
+typedef struct floor_ceiling_render_s {
+    sfImage *floor_ceiling_image;
+    sfTexture *floor_ceiling_texture;
+    sfSprite *floor_ceiling_sprite;
+    sfUint8 *pixel_buffer;
+    unsigned int width;
+    unsigned int height;
+} floor_ceiling_render_t;
 
 typedef struct raycast_values_s {
     int drawn_rays;
@@ -162,12 +181,9 @@ typedef struct settings_s {
 typedef struct map_s {
     wall_tile_t wall_type;
     sfRectangleShape *wall_rectangle;
-    sfTexture *wall_texture;
     floor_tile_t floor_type;
     sfRectangleShape *floor_rectangle;
-    sfTexture *floor_texture;
     ceiling_tile_t ceiling_type;
-    sfTexture *ceiling_texture;
     sfRectangleShape *ceiling_rectangle;
 } map_t;
 
@@ -178,6 +194,8 @@ typedef struct world_s {
     sfTexture *wall_textures[NB_WALL_TYPES];
     sfTexture *floor_textures[NB_FLOOR_TYPES];
     sfTexture *ceiling_textures[NB_CEILING_TYPES];
+    sfImage *floor_images[NB_FLOOR_TYPES];
+    sfImage *ceiling_images[NB_CEILING_TYPES];
 } world_t;
 
 typedef struct game_time_s {
@@ -262,6 +280,8 @@ mouse_t *init_mouse(void);
 raycast_values_t *init_raycast_values(void);
 game_time_t *init_time(void);
 font_list_t *init_fonts(void);
+void init_map_textures(world_t *world);
+void init_map_images(world_t *world);
 ////////////
 
 ////////////
