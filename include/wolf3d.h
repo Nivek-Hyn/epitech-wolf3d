@@ -34,6 +34,7 @@
     #define RAD_OFFSET 0.0174533
 
     /* WINDOW MACROS */
+    #define STD_FPS 60
     #define STD_WIN_WIDTH 1920
     #define STD_WIN_HEIGHT 1080
 
@@ -190,9 +191,27 @@ typedef struct font_list_s {
     sfFont *arial;
 } font_list_t;
 
+typedef struct sprite_sheet_s {
+    sfSprite *sprite;
+    sfIntRect *int_rect;
+    int tile_count;
+} sprite_sheet_t;
+
+typedef struct sprites_s {
+    sprite_sheet_t *btn_play;
+    sfSprite *main_menu_background;
+} sprites_t;
+
+typedef enum scene_e {
+    GAME = 1,
+    MENU_MAIN = 2,
+} scene_t;
+
 typedef struct game_s {
+    // CSFML
     sfRenderWindow *render_window;
     sfEvent event;
+    // Gameplay
     player_t *player;
     world_t *world;
     settings_t *settings;
@@ -200,6 +219,10 @@ typedef struct game_s {
     mouse_t *mouse;
     game_time_t *time;
     font_list_t *fonts;
+    // Menus //
+    scene_t current_scene;
+    sprites_t *sprites;
+    // Main menu
 } game_t;
 
 /////////////////////////////////////////
@@ -230,6 +253,12 @@ void load_map_file(const char *filename, world_t *world);
 ////////////
 
 ////////////
+// MENUS
+////////////
+void main_menu_loop(game_t *game);
+////////////
+
+////////////
 // SHAPES
 ////////////
 // Circles
@@ -247,6 +276,10 @@ sfRectangleShape *create_rectangle(sfVector2f position, sfVector2f size,
 ////////////
 sfSprite *sprite_create(char *filepath, float scale, sfVector2f position);
 sfIntRect *intrect_create(int top, int left, int height, int width);
+bool is_cursor_above_sprite(sfSprite *sprite, sfRenderWindow *render_window);
+sprite_sheet_t *init_sprite_sheet(int tile_count,
+    sfSprite *sprite, sfIntRect *int_rect);
+sfIntRect *create_int_rect(int top, int left, int height, int width);
 ////////////
 
 ////////////
@@ -262,6 +295,8 @@ mouse_t *init_mouse(void);
 raycast_values_t *init_raycast_values(void);
 game_time_t *init_time(void);
 font_list_t *init_fonts(void);
+scene_t init_scene_enum(void);
+sprites_t *init_sprites(void);
 ////////////
 
 ////////////
@@ -350,6 +385,7 @@ void free_mouse(mouse_t *mouse);
 void free_raycast_values(raycast_values_t *values);
 void free_time(game_time_t *time);
 void free_fonts(font_list_t *fonts);
+void free_sprite_sheet(sprite_sheet_t *sprite_sheet);
 ////////////
 
 ////////////

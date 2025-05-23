@@ -11,12 +11,21 @@ int wolf3d(void)
 {
     game_t *game = init_game_struct();
 
-    sfRenderWindow_setFramerateLimit(game->render_window, 60);
+    sfRenderWindow_setFramerateLimit(game->render_window, STD_FPS);
     while (sfRenderWindow_isOpen(game->render_window)) {
-        game_loop(game);
+        switch (game->current_scene) {
+        case GAME:
+            game_loop(game);
+            break;
+        case MENU_MAIN:
+            main_menu_loop(game);
+            break;
+        default:
+            break;
+        }
     }
     free_game(game);
-    return 0;
+    return (0);
 }
 
 int main(int argc, char **argv)
