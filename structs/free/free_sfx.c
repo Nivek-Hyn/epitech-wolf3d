@@ -9,8 +9,10 @@
 
 void free_sfx(sfx_t *sfx)
 {
-    if (sfx->menu_music != NULL) {
-        sfMusic_destroy(sfx->menu_music);
-    }
+    sfSound_destroy(sfx->button_hover);
+    sfSoundBuffer_destroy(sfx->button_hover_buffer);
+    sfSound_destroy(sfx->button_click);
+    sfSoundBuffer_destroy(sfx->button_click_buffer);
+    sfMusic_destroy(sfx->menu_music);
     free(sfx);
 }

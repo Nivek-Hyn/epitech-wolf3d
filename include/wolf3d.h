@@ -220,6 +220,11 @@ typedef enum scene_e {
 
 typedef struct sfx_s {
     sfMusic *menu_music;
+    // Button sounds
+    sfSound *button_hover;
+    sfSoundBuffer *button_hover_buffer;
+    sfSound *button_click;
+    sfSoundBuffer *button_click_buffer;
 } sfx_t;
 
 typedef struct game_s {
@@ -274,6 +279,9 @@ void main_menu_loop(game_t *game);
 void draw_buttons(game_t *game);
 void draw_main_menu_background_image(game_t *game);
 void check_buttons_events(game_t *game);
+void check_play_button_events(game_t *game);
+void check_settings_button_events(game_t *game);
+void check_quit_button_events(game_t *game);
 ////////////
 
 ////////////
