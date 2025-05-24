@@ -11,6 +11,7 @@ void game_render(game_t *game)
 {
     draw_map(game);
     draw_items(game);
+    draw_items(game);
     draw_player(game);
     raycast(game);
     draw_inventory(game, game->player->inventory);

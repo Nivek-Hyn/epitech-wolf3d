@@ -71,6 +71,16 @@
     #define CEILING_MAP_OUTLINE_COLOR 200, 0, 0, 255
     #define CEILING_MAP_COLOR sfWhite
 
+    /* Map settings */
+    #define MAP_X 0
+    #define MAP_Y 0
+    #define WALL_MAP_OUTLINE_COLOR 0, 200, 0, 255
+    #define WALL_MAP_COLOR sfWhite
+    #define FLOOR_MAP_OUTLINE_COLOR 0, 0, 200, 255
+    #define FLOOR_MAP_COLOR sfWhite
+    #define CEILING_MAP_OUTLINE_COLOR 200, 0, 0, 255
+    #define CEILING_MAP_COLOR sfWhite
+
     /* Music & Sounds */
     #define MUSIC_PLAY 0
     #define MUSIC_STOP 1
@@ -81,6 +91,22 @@
     #define NB_FLOOR_TYPES 2
     #define NB_CEILING_TYPES 2
 
+    /* Item settings */
+    #define ITEM_RADIUS 5
+    #define MAX_WORLD_ITEMS 100
+    #define ITEM_TYPE_COUNT 4
+
+    /* Inventory Settings */
+    #define INVENTORY_SIZE 5
+    #define INVENTORY_Y_OFFSET 100
+    #define INVENTORY_SLOT_SIZE 100
+    #define INVENTORY_SLOT_SPACING 25
+    #define INVENTORY_SLOT_SELECTED_SCALE 1.2f
+    #define INVENTORY_SLOT_BACKGROUND_COLOR 0, 0, 0, 128
+    #define INVENTORY_SLOT_BORDER_COLOR sfColor_fromRGB(50, 50, 50)
+    #define INVENTORY_SLOT_OUTLINE_THICKNESS 2.0f
+
+    /* Flaslight settings */
     /* Item settings */
     #define ITEM_RADIUS 5
     #define MAX_WORLD_ITEMS 100
@@ -194,6 +220,43 @@ typedef struct {
     float slot_scales[INVENTORY_SIZE];
 } inventory_t;
 
+typedef struct flashlight_s {
+    bool is_on;
+    float battery;
+} flashlight_t;
+
+typedef enum item_type_e {
+    ITEM_NONE,
+    ITEM_KEY,
+    ITEM_FLASHLIGHT,
+    ITEM_WEAPON
+} item_type_t;
+
+typedef struct {
+    item_type_t type;
+    int quantity;
+    sfTexture *texture;
+    void *data;
+} item_t;
+
+typedef struct {
+    item_t item;
+    sfVector2f position;
+    sfSprite *sprite;
+    sfCircleShape *circle_visual;
+} world_item_t;
+
+typedef struct item_manager_s {
+    world_item_t world_items[MAX_WORLD_ITEMS];
+    int world_item_count;
+} item_manager_t;
+
+typedef struct {
+    item_t slots[INVENTORY_SIZE];
+    int selected_slot;
+    float slot_scales[INVENTORY_SIZE];
+} inventory_t;
+
 typedef struct player_s {
     float x;
     float y;
@@ -201,6 +264,7 @@ typedef struct player_s {
     float delta_y;
     float angle;
     sfCircleShape *player_visual;
+    inventory_t *inventory;
     inventory_t *inventory;
 } player_t;
 
@@ -246,6 +310,8 @@ typedef struct world_s {
     sfTexture *wall_textures[NB_WALL_TYPES];
     sfTexture *floor_textures[NB_FLOOR_TYPES];
     sfTexture *ceiling_textures[NB_CEILING_TYPES];
+    sfImage *floor_images[NB_FLOOR_TYPES];
+    sfImage *ceiling_images[NB_CEILING_TYPES];
     sfImage *floor_images[NB_FLOOR_TYPES];
     sfImage *ceiling_images[NB_CEILING_TYPES];
 } world_t;
@@ -304,12 +370,12 @@ typedef struct game_s {
     mouse_t *mouse;
     game_time_t *time;
     font_list_t *fonts;
+    item_manager_t *item_manager;
     // Menus
     scene_t current_scene;
     scene_t precedent_scene;
     sprites_t *sprites;
     sfx_t *sounds;
-    item_manager_t *item_manager;
 } game_t;
 
 /////////////////////////////////////////
@@ -347,7 +413,23 @@ void inventory_select_next_slot(inventory_t *inventory);
 void inventory_select_previous_slot(inventory_t *inventory);
 // FLASHLIGHT
 void turn_flashlight(game_t *game);
+// ITEMS
+void draw_items(game_t *game);
+bool spawn_item(item_manager_t *manager, item_t item, sfVector2f pos);
+void despawn_item(item_manager_t *manager, int index);
+bool pickup_item(player_t *player, item_manager_t *manager, int index);
+bool drop_inventory_item(player_t *player, item_manager_t *manager, int slot);
+void reset_world_item(world_item_t *item);
+void reset_inventory_slot(inventory_t *inventory, int slot_index);
+void draw_selected_item_data(game_t *game);
+// INVENTORY
+void draw_inventory(game_t *game, inventory_t *inventory);
+void inventory_select_next_slot(inventory_t *inventory);
+void inventory_select_previous_slot(inventory_t *inventory);
+// FLASHLIGHT
+void turn_flashlight(game_t *game);
 void update_player_flashlight_battery(game_t *game);
+void draw_flashlight_battery(game_t *game, flashlight_t *flashlight);
 void draw_flashlight_battery(game_t *game, flashlight_t *flashlight);
 // SAVE & LOAD
 int load_map_file(const char *filename, world_t *world);
@@ -483,6 +565,20 @@ void vertical_ray_right(game_t *game, raycast_values_t *var, float atan);
 // TRIGO
 float limit_trigo_angle(float angle);
 float rad(float degree);
+////////////
+
+////////////
+// UTILITY FUNCTIONS
+////////////
+bool is_position_within_map(world_t *world, float px, float py);
+bool is_position_an_empty_space(world_t *world, float px, float py);
+bool is_cursor_above_sprite(sfSprite *sprite, sfRenderWindow *render_window);
+item_t *inventory_slot(inventory_t *inventory, int slot);
+item_t *inventory_selected_slot(inventory_t *inventory);
+void *inventory_slot_data(inventory_t *inventory, int slot);
+void *inventory_selected_slot_data(inventory_t *inventory);
+flashlight_t *get_flashlight(inventory_t *inventory);
+void give_flashlight(inventory_t *inventory, int slot);
 ////////////
 
 ////////////
