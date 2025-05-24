@@ -19,6 +19,7 @@ void free_game(game_t *game)
     free_item_manager(game->item_manager);
     free_sprites(game);
     free_sfx(game->sounds);
+    sfClock_destroy(game->settings_cooldown);
     sfRenderWindow_destroy(game->render_window);
     free(game);
 }

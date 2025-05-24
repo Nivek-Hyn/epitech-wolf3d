@@ -297,9 +297,12 @@ typedef struct sprites_s {
     sprite_sheet_t *btn_play;
     sprite_sheet_t *btn_settings;
     sprite_sheet_t *btn_quit;
+    sprite_sheet_t *btn_return;
+    sprite_sheet_t *btn_window_change;
     sfSprite *main_menu_background;
     sfSprite *scp_logo;
     sfSprite *scp_icon;
+    sfSprite *WindowMode_text;
 } sprites_t;
 
 typedef enum scene_e {
@@ -332,6 +335,7 @@ typedef struct game_s {
     font_list_t *fonts;
     item_manager_t *item_manager;
     // Menus
+    sfClock *settings_cooldown;
     scene_t current_scene;
     scene_t precedent_scene;
     sprites_t *sprites;
@@ -402,12 +406,16 @@ void load_item_save_file(const char *filename, item_manager_t *manager);
 void main_menu_loop(game_t *game);
 void draw_buttons(game_t *game);
 void draw_main_menu_background(game_t *game);
-void check_buttons_events(game_t *game);
+void check_main_menu_buttons_events(game_t *game);
 void check_play_button_events(game_t *game);
 void check_settings_button_events(game_t *game);
 void check_quit_button_events(game_t *game);
-// SETTINFS
+// SETTINGS
 void settings_menu_loop(game_t *game);
+void check_settings_buttons_events(game_t *game);
+void check_return_button_events(game_t *game);
+void draw_settings_buttons(game_t *game);
+void check_window_change_button_events(game_t *game);
 ////////////
 
 ////////////
@@ -453,6 +461,7 @@ void init_map_images(world_t *world);
 scene_t init_scene_enum(void);
 sprites_t *init_sprites(void);
 sfx_t *init_sfx(settings_t *settings);
+void init_sprite_sheets(sprites_t *sprites);
 ////////////
 
 ////////////
@@ -525,20 +534,6 @@ void vertical_ray_right(game_t *game, raycast_values_t *var, float atan);
 // TRIGO
 float limit_trigo_angle(float angle);
 float rad(float degree);
-////////////
-
-////////////
-// UTILITY FUNCTIONS
-////////////
-bool is_position_within_map(world_t *world, float px, float py);
-bool is_position_an_empty_space(world_t *world, float px, float py);
-bool is_cursor_above_sprite(sfSprite *sprite, sfRenderWindow *render_window);
-item_t *inventory_slot(inventory_t *inventory, int slot);
-item_t *inventory_selected_slot(inventory_t *inventory);
-void *inventory_slot_data(inventory_t *inventory, int slot);
-void *inventory_selected_slot_data(inventory_t *inventory);
-flashlight_t *get_flashlight(inventory_t *inventory);
-void give_flashlight(inventory_t *inventory, int slot);
 ////////////
 
 ////////////

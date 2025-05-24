@@ -12,6 +12,8 @@ static void free_buttons(sprites_t *sprites)
     free_sprite_sheet(sprites->btn_play);
     free_sprite_sheet(sprites->btn_settings);
     free_sprite_sheet(sprites->btn_quit);
+    free_sprite_sheet(sprites->btn_return);
+    free_sprite_sheet(sprites->btn_window_change);
     free(sprites->scp_logo);
     free(sprites->scp_icon);
 }
@@ -19,6 +21,7 @@ static void free_buttons(sprites_t *sprites)
 void free_sprites(game_t *game)
 {
     sfSprite_destroy(game->sprites->cursor);
+    sfSprite_destroy(game->sprites->WindowMode_text);
     free_buttons(game->sprites);
     sfSprite_destroy(game->sprites->main_menu_background);
     free(game->sprites);

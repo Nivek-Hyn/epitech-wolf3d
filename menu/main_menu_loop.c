@@ -39,6 +39,6 @@ void main_menu_loop(game_t *game)
 {
     main_menu_sfx_manager(game);
     check_events(game);
-    check_buttons_events(game);
+    check_main_menu_buttons_events(game);
     main_menu_render(game);
 }
