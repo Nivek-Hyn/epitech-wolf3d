@@ -1,6 +1,6 @@
 /*
 ** EPITECH PROJECT, 2025
-** G-ING-210-MAR-2-1-wolf3d-hugo.sorgues [WSL: Ubuntu]
+** G-ING-210-MAR-2-1-wolf3d-hugo.sorgues
 ** File description:
 ** is_cursor_above_sprite
 */

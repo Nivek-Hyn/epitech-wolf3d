@@ -16,6 +16,7 @@ void free_game(game_t *game)
     free_mouse(game->mouse);
     free_time(game->time);
     free_fonts(game->fonts);
+    free_item_manager(game->item_manager);
     free_sprites(game);
     free_sfx(game->sounds);
     sfRenderWindow_destroy(game->render_window);

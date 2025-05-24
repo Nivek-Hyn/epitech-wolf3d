@@ -9,5 +9,10 @@
 
 void mouse_wheel_scrolled(game_t *game)
 {
+    if (game->event.mouseWheelScroll.delta > 0) {
+        inventory_select_next_slot(game->player->inventory);
+    } else {
+        inventory_select_previous_slot(game->player->inventory);
+    }
     return;
 }

@@ -7,33 +7,42 @@
 
 #include "wolf3d.h"
 
+void create_map_tile(map_t *map, int *map_x, int *map_y)
+{
+    sfColor color = (map->wall_type == WALL) ? WALL_MAP_COLOR : sfBlack;
+    sfColor outline_color = {WALL_MAP_OUTLINE_COLOR};
+
+    map->wall_rectangle =
+        create_rectangle((sfVector2f){(*map_x), (*map_y)},
+            (sfVector2f){TILE_SIZE, TILE_SIZE}, outline_color, color);
+    color = (map->wall_type == WALL) ? WALL_MAP_COLOR : sfBlack;
+    outline_color = (sfColor){FLOOR_MAP_OUTLINE_COLOR};
+    map->floor_rectangle =
+        create_rectangle((sfVector2f){(*map_x), (*map_y)},
+            (sfVector2f){TILE_SIZE, TILE_SIZE}, outline_color, color);
+    color = (map->wall_type == WALL) ? WALL_MAP_COLOR : sfBlack;
+    outline_color = (sfColor){CEILING_MAP_OUTLINE_COLOR};
+    map->ceiling_rectangle =
+        create_rectangle((sfVector2f){(*map_x), (*map_y)},
+            (sfVector2f){TILE_SIZE, TILE_SIZE}, outline_color, color);
+}
+
 void create_map_line(world_t *world, int *map_x, int *map_y, int y)
 {
-    sfRectangleShape *rectangle = NULL;
-    sfColor color;
-    sfColor outline_color = {0, 200, 0, 255};
-
     for (unsigned x = 0; x < world->map_size_x; x++) {
-        if (world->map[y][x].wall_type == WALL) {
-            color = sfWhite;
-        } else {
-            color = sfBlack;
-        }
-        world->map[y][x].wall_rectangle =
-            create_rectangle((sfVector2f){(*map_x), (*map_y)},
-                (sfVector2f){TILE_SIZE, TILE_SIZE}, outline_color, color);
+        create_map_tile(&world->map[y][x], map_x, map_y);
         (*map_x) += TILE_SIZE;
     }
 }
 
 void create_map(world_t *world)
 {
-    int map_y = 0;
-    int map_x = 0;
+    int map_x = MAP_X;
+    int map_y = MAP_Y;
 
     for (unsigned y = 0; y < world->map_size_y; y++) {
         create_map_line(world, &map_x, &map_y, y);
-        map_x = 0;
+        map_x = MAP_X;
         map_y += TILE_SIZE;
     }
 }
@@ -42,24 +51,8 @@ void init_world_variables(world_t *world)
 {
     world->map_size_x = 0;
     world->map_size_y = 0;
-    world->wall_textures[EMPTY_WALL] =
-        sfTexture_createFromFile(
-            "assets/textures/walls/Rusty_Lab_Wall.jpg", NULL);
-    world->wall_textures[WALL] =
-        sfTexture_createFromFile(
-            "assets/textures/walls/Rusty_Lab_Wall.jpg", NULL);
-    world->floor_textures[EMPTY_FLOOR] =
-        sfTexture_createFromFile(
-            "assets/textures/floors/Concrete-Floor-Tile.png", NULL);
-    world->floor_textures[WALL] =
-        sfTexture_createFromFile(
-            "assets/textures/floors/Concrete-Floor-Tile.png", NULL);
-    world->ceiling_textures[EMPTY_CEILING] =
-        sfTexture_createFromFile(
-            "assets/textures/ceilings/ceiling_tile.png", NULL);
-    world->ceiling_textures[WALL] =
-        sfTexture_createFromFile(
-            "assets/textures/ceilings/ceiling_tile.png", NULL);
+    init_map_textures(world);
+    init_map_images(world);
 }
 
 world_t *init_world(void)
@@ -67,7 +60,11 @@ world_t *init_world(void)
     world_t *world = malloc(sizeof(world_t));
 
     init_world_variables(world);
-    load_map_file("save.txt", world);
+    if (load_map_file("save.txt", world) == -1) {
+        world->map_size_x = STD_MATRIX_X;
+        world->map_size_y = STD_MATRIX_Y;
+        world->map = init_standard_map(world->map_size_x, world->map_size_y);
+    }
     create_map(world);
     return world;
 }
