@@ -19,7 +19,6 @@ bool spawn_item(item_manager_t *manager, item_t item, sfVector2f pos)
             sfSprite_setTexture(manager->world_items[i].sprite,
                 item.texture, sfTrue);
             sfSprite_setPosition(manager->world_items[i].sprite, pos);
-            manager->world_items[i].picked_up = false;
             manager->world_item_count++;
             return true;
         }

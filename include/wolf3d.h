@@ -54,7 +54,6 @@
     #define MOUSE_SENSITIVITY 0.01
     #define SIGHT_LINE 100000
     #define STD_FOV 70
-    #define INVENTORY_SIZE 5
 
     /* World settings */
     #define STD_MATRIX_Y 10
@@ -83,6 +82,16 @@
 
     /* Item settings */
     #define MAX_WORLD_ITEMS 100
+
+    /* Inventory Settings */
+    #define INVENTORY_SIZE 5
+    #define INVENTORY_Y_OFFSET 100
+    #define INVENTORY_SLOT_SIZE 100
+    #define INVENTORY_SLOT_SPACING 25
+    #define INVENTORY_SLOT_SELECTED_SCALE 1.2f
+    #define INVENTORY_SLOT_BACKGROUND_COLOR 0, 0, 0, 128
+    #define INVENTORY_SLOT_BORDER_COLOR sfColor_fromRGB(50, 50, 50)
+    #define INVENTORY_SLOT_OUTLINE_THICKNESS 2.0f
 
     /* Flaslight settings */
     #define FLASHLIGHT_RADIUS 500
@@ -160,7 +169,6 @@ typedef struct {
     item_t item;
     sfVector2f position;
     sfSprite *sprite;
-    bool picked_up;
 } world_item_t;
 
 typedef struct item_manager_s {
@@ -171,6 +179,7 @@ typedef struct item_manager_s {
 typedef struct {
     item_t slots[INVENTORY_SIZE];
     int selected_slot;
+    float slot_scales[INVENTORY_SIZE];
 } inventory_t;
 
 typedef struct player_s {
@@ -276,6 +285,10 @@ bool pickup_item(player_t *player, item_manager_t *manager, int index);
 bool drop_inventory_item(player_t *player, item_manager_t *manager, int slot);
 void reset_world_item(world_item_t *item);
 void reset_inventory_slot(inventory_t *inventory, int slot_index);
+// INVENTORY
+void draw_inventory(game_t *game, inventory_t *inventory);
+void inventory_select_next_slot(inventory_t *inventory);
+void inventory_select_previous_slot(inventory_t *inventory);
 // FLASHLIGHT
 void update_player_flashlight_battery(game_t *game);
 void draw_flashlight_battery(game_t *game);

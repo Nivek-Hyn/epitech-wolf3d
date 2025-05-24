@@ -13,6 +13,7 @@ void game_render(game_t *game)
     draw_map(game);
     draw_player(game);
     raycast(game);
+    draw_inventory(game, game->player->inventory);
     draw_flashlight_battery(game);
     sfRenderWindow_display(game->render_window);
 }

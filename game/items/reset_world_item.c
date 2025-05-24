@@ -15,5 +15,4 @@ void reset_world_item(world_item_t *item)
     item->item.data = NULL;
     item->position = (sfVector2f){0, 0};
     item->sprite = NULL;
-    item->picked_up = false;
 }
