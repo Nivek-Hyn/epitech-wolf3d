@@ -14,6 +14,8 @@ void free_item_manager(item_manager_t *item_manager)
     for (int i = 0; i < MAX_WORLD_ITEMS; i++) {
         if (item_manager->world_items[i].sprite)
             sfSprite_destroy(item_manager->world_items[i].sprite);
+        if (item_manager->world_items[i].circle_visual)
+            sfCircleShape_destroy(item_manager->world_items[i].circle_visual);
         if (item_manager->world_items[i].item.texture)
             sfTexture_destroy(item_manager->world_items[i].item.texture);
         if (item_manager->world_items[i].item.data)

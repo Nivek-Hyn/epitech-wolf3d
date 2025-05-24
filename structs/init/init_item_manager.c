@@ -17,5 +17,6 @@ item_manager_t *init_item_manager(void)
     for (int i = 0; i < MAX_WORLD_ITEMS; i++) {
         reset_world_item(&item_manager->world_items[i]);
     }
+    load_item_save_file("item_save.txt", item_manager);
     return item_manager;
 }

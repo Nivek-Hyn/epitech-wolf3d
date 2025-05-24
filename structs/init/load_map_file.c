@@ -45,7 +45,7 @@ void init_world_map_data(world_t *world, int **wall_data,
     }
 }
 
-void load_map_file(const char *filename, world_t *world)
+int load_map_file(const char *filename, world_t *world)
 {
     FILE *file = fopen(filename, "r");
     int **wall_data = NULL;
@@ -53,7 +53,7 @@ void load_map_file(const char *filename, world_t *world)
     int **ceiling_data = NULL;
 
     if (!file)
-        return;
+        return -1;
     fscanf(file, "%d %d", &world->map_size_x, &world->map_size_y);
     wall_data = alloc_int_matrix(world->map_size_y, world->map_size_x);
     floor_data = alloc_int_matrix(world->map_size_y, world->map_size_x);

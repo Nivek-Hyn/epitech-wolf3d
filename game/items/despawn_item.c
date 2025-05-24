@@ -13,6 +13,8 @@ void despawn_item(item_manager_t *manager, int index)
         return;
     if (manager->world_items[index].sprite)
         sfSprite_destroy(manager->world_items[index].sprite);
+    if (manager->world_items[index].circle_visual)
+        sfCircleShape_destroy(manager->world_items[index].circle_visual);
     reset_world_item(&manager->world_items[index]);
     manager->world_item_count--;
 }

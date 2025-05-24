@@ -81,6 +81,7 @@
     #define NB_CEILING_TYPES 2
 
     /* Item settings */
+    #define ITEM_RADIUS 5
     #define MAX_WORLD_ITEMS 100
     #define ITEM_TYPE_COUNT 4
 
@@ -174,6 +175,7 @@ typedef struct {
     item_t item;
     sfVector2f position;
     sfSprite *sprite;
+    sfCircleShape *circle_visual;
 } world_item_t;
 
 typedef struct item_manager_s {
@@ -282,6 +284,7 @@ int compare_lines_to_player(game_t *game, float player_pos_x,
 int check_circle_rectangle_collision(float circle_pos_x, float circle_pos_y,
     float circle_radius, sfRectangleShape *rectangle);
 // ITEMS
+void draw_items(game_t *game);
 bool spawn_item(item_manager_t *manager, item_t item, sfVector2f pos);
 void despawn_item(item_manager_t *manager, int index);
 bool pickup_item(player_t *player, item_manager_t *manager, int index);
@@ -298,7 +301,8 @@ void turn_flashlight(game_t *game);
 void update_player_flashlight_battery(game_t *game);
 void draw_flashlight_battery(game_t *game, flashlight_t *flashlight);
 // SAVE & LOAD
-void load_map_file(const char *filename, world_t *world);
+int load_map_file(const char *filename, world_t *world);
+void load_item_save_file(const char *filename, item_manager_t *manager);
 ////////////
 
 ////////////
@@ -335,6 +339,7 @@ raycast_values_t *init_raycast_values(void);
 game_time_t *init_time(void);
 font_list_t *init_fonts(void);
 item_manager_t *init_item_manager(void);
+map_t **init_standard_map(int map_size_x, int map_size_y);
 void init_map_textures(world_t *world);
 void init_map_images(world_t *world);
 ////////////
@@ -414,6 +419,9 @@ float rad(float degree);
 ////////////
 // UTILITY FUNCTIONS
 ////////////
+bool is_position_within_map(world_t *world, float px, float py);
+bool is_position_an_empty_space(world_t *world, float px, float py);
+bool is_cursor_above_sprite(sfSprite *sprite, sfRenderWindow *render_window);
 item_t *inventory_slot(inventory_t *inventory, int slot);
 item_t *inventory_selected_slot(inventory_t *inventory);
 void *inventory_slot_data(inventory_t *inventory, int slot);
