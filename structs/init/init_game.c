@@ -23,5 +23,6 @@ game_t *init_game_struct(void)
     game->fonts = init_fonts();
     game->current_scene = init_scene_enum();
     game->sprites = init_sprites();
+    game->sounds = init_sfx(game->settings);
     return game;
 }

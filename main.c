@@ -7,14 +7,11 @@
 
 #include "wolf3d.h"
 
-int wolf3d(void)
+void scene_chooser(game_t *game)
 {
-    game_t *game = init_game_struct();
-
-    sfRenderWindow_setFramerateLimit(game->render_window, STD_FPS);
-    while (sfRenderWindow_isOpen(game->render_window)) {
-        switch (game->current_scene) {
+    switch (game->current_scene) {
         case GAME:
+            sfMusic_stop(game->sounds->menu_music);
             game_loop(game);
             break;
         case MENU_MAIN:
@@ -22,7 +19,16 @@ int wolf3d(void)
             break;
         default:
             break;
-        }
+    }
+}
+
+int wolf3d(void)
+{
+    game_t *game = init_game_struct();
+
+    sfRenderWindow_setFramerateLimit(game->render_window, STD_FPS);
+    while (sfRenderWindow_isOpen(game->render_window)) {
+        scene_chooser(game);
     }
     free_game(game);
     return (0);

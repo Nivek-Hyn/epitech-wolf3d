@@ -7,13 +7,6 @@
 
 #include "wolf3d.h"
 
-void free_sprites(game_t *game)
-{
-    free_sprite_sheet(game->sprites->btn_play);
-    sfSprite_destroy(game->sprites->main_menu_background);
-    free(game->sprites);
-}
-
 void free_game(game_t *game)
 {
     free_player(game->player);
@@ -24,6 +17,7 @@ void free_game(game_t *game)
     free_time(game->time);
     free_fonts(game->fonts);
     free_sprites(game);
+    free_sfx(game->sounds);
     sfRenderWindow_destroy(game->render_window);
     free(game);
 }
