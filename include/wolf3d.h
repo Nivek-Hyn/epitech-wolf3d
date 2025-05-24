@@ -220,43 +220,6 @@ typedef struct {
     float slot_scales[INVENTORY_SIZE];
 } inventory_t;
 
-typedef struct flashlight_s {
-    bool is_on;
-    float battery;
-} flashlight_t;
-
-typedef enum item_type_e {
-    ITEM_NONE,
-    ITEM_KEY,
-    ITEM_FLASHLIGHT,
-    ITEM_WEAPON
-} item_type_t;
-
-typedef struct {
-    item_type_t type;
-    int quantity;
-    sfTexture *texture;
-    void *data;
-} item_t;
-
-typedef struct {
-    item_t item;
-    sfVector2f position;
-    sfSprite *sprite;
-    sfCircleShape *circle_visual;
-} world_item_t;
-
-typedef struct item_manager_s {
-    world_item_t world_items[MAX_WORLD_ITEMS];
-    int world_item_count;
-} item_manager_t;
-
-typedef struct {
-    item_t slots[INVENTORY_SIZE];
-    int selected_slot;
-    float slot_scales[INVENTORY_SIZE];
-} inventory_t;
-
 typedef struct player_s {
     float x;
     float y;
@@ -264,7 +227,6 @@ typedef struct player_s {
     float delta_y;
     float angle;
     sfCircleShape *player_visual;
-    inventory_t *inventory;
     inventory_t *inventory;
 } player_t;
 
@@ -310,8 +272,6 @@ typedef struct world_s {
     sfTexture *wall_textures[NB_WALL_TYPES];
     sfTexture *floor_textures[NB_FLOOR_TYPES];
     sfTexture *ceiling_textures[NB_CEILING_TYPES];
-    sfImage *floor_images[NB_FLOOR_TYPES];
-    sfImage *ceiling_images[NB_CEILING_TYPES];
     sfImage *floor_images[NB_FLOOR_TYPES];
     sfImage *ceiling_images[NB_CEILING_TYPES];
 } world_t;
