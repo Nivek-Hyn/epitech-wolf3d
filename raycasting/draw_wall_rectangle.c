@@ -50,12 +50,13 @@ void set_sprite_color(sfSprite *sprite, float distance,
     float factor = 1.0f - (distance / max_dist);
     sfColor color;
     float brightness_factor = base_brightness;
+    flashlight_t *flashlight = get_flashlight(game->player->inventory);
 
     if (factor < 0.2f)
         factor = 0.2f;
     if (factor > 1.0f)
         factor = 1.0f;
-    if (game->player->flashlight == true)
+    if (flashlight && flashlight->is_on)
         flashlight_manager(game, var, &brightness_factor, base_brightness);
     color = sfColor_fromRGB(
         255 * factor * brightness_factor,

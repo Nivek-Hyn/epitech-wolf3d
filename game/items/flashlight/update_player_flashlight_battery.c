@@ -9,12 +9,18 @@
 
 void update_player_flashlight_battery(game_t *game)
 {
-    if (game->player->flashlight == true) {
-        game->player->flashlight_battery -=
+    item_t selected_slot = game->player->inventory->
+        slots[game->player->inventory->selected_slot];
+    flashlight_t *flashlight = NULL;
+
+    if (selected_slot.type == ITEM_FLASHLIGHT && selected_slot.data != NULL)
+        flashlight = (flashlight_t *)selected_slot.data;
+    if (flashlight && flashlight->is_on == true) {
+        flashlight->battery -=
             game->time->delta_time * FLASHLIGHT_BATTERY_DECREASE;
-        if (game->player->flashlight_battery <= 0) {
-            game->player->flashlight = false;
-            game->player->flashlight_battery = 0;
+        if (flashlight->battery <= 0) {
+            flashlight->is_on = false;
+            flashlight->battery = 0;
         }
     }
 }

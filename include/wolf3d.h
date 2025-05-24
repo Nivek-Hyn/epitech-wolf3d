@@ -82,6 +82,7 @@
 
     /* Item settings */
     #define MAX_WORLD_ITEMS 100
+    #define ITEM_TYPE_COUNT 4
 
     /* Inventory Settings */
     #define INVENTORY_SIZE 5
@@ -150,12 +151,16 @@ typedef struct keys_s {
     int e;
 } keys_t;
 
+typedef struct flashlight_s {
+    bool is_on;
+    float battery;
+} flashlight_t;
+
 typedef enum item_type_e {
     ITEM_NONE,
     ITEM_KEY,
     ITEM_FLASHLIGHT,
-    ITEM_WEAPON,
-    ITEM_AMMO
+    ITEM_WEAPON
 } item_type_t;
 
 typedef struct {
@@ -190,8 +195,6 @@ typedef struct player_s {
     float angle;
     sfCircleShape *player_visual;
     inventory_t *inventory;
-    bool flashlight;
-    float flashlight_battery;
 } player_t;
 
 typedef struct mouse_s {
@@ -285,13 +288,15 @@ bool pickup_item(player_t *player, item_manager_t *manager, int index);
 bool drop_inventory_item(player_t *player, item_manager_t *manager, int slot);
 void reset_world_item(world_item_t *item);
 void reset_inventory_slot(inventory_t *inventory, int slot_index);
+void draw_selected_item_data(game_t *game);
 // INVENTORY
 void draw_inventory(game_t *game, inventory_t *inventory);
 void inventory_select_next_slot(inventory_t *inventory);
 void inventory_select_previous_slot(inventory_t *inventory);
 // FLASHLIGHT
+void turn_flashlight(game_t *game);
 void update_player_flashlight_battery(game_t *game);
-void draw_flashlight_battery(game_t *game);
+void draw_flashlight_battery(game_t *game, flashlight_t *flashlight);
 // SAVE & LOAD
 void load_map_file(const char *filename, world_t *world);
 ////////////
@@ -404,6 +409,17 @@ void vertical_ray_right(game_t *game, raycast_values_t *var, float atan);
 // TRIGO
 float limit_trigo_angle(float angle);
 float rad(float degree);
+////////////
+
+////////////
+// UTILITY FUNCTIONS
+////////////
+item_t *inventory_slot(inventory_t *inventory, int slot);
+item_t *inventory_selected_slot(inventory_t *inventory);
+void *inventory_slot_data(inventory_t *inventory, int slot);
+void *inventory_selected_slot_data(inventory_t *inventory);
+flashlight_t *get_flashlight(inventory_t *inventory);
+void give_flashlight(inventory_t *inventory, int slot);
 ////////////
 
 ////////////

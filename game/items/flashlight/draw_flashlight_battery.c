@@ -61,9 +61,9 @@ void draw_flashlight_battery_text(sfRenderWindow *win, sfFont *font,
     sfText_destroy(text);
 }
 
-void draw_flashlight_battery(game_t *game)
+void draw_flashlight_battery(game_t *game, flashlight_t *flashlight)
 {
-    float current = game->player->flashlight_battery;
+    float current = flashlight->battery;
     float percent = (current / MAX_FLASHLIGHT_BATTERY) * 100.0f;
     sfVector2f pos = {
         (STD_WIN_WIDTH / 2) - (MAX_BATTERY_WIDTH / 2),

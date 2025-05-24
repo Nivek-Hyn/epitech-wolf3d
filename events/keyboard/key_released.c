@@ -32,7 +32,7 @@ void keys_released(game_t *game)
 {
     switch (game->event.key.code) {
     case sfKeyF:
-        game->player->flashlight = !game->player->flashlight;
+        turn_flashlight(game);
         break;
     }
 }

@@ -20,7 +20,7 @@ void draw_item_in_inventory_slot(game_t *game, item_t item,
     sfSprite_setTexture(sprite, item.texture, sfTrue);
     sfSprite_setOrigin(sprite, (sfVector2f){tex_size.x / 2, tex_size.y / 2});
     sfSprite_setPosition(sprite, sprite_pos);
-    sfSprite_setScale(sprite, (sfVector2f){scale * 0.75, scale * 0.75});
+    sfSprite_setScale(sprite, (sfVector2f){scale * 0.1, scale * 0.1});
     sfRenderWindow_drawSprite(game->render_window, sprite, NULL);
     sfSprite_destroy(sprite);
 }
