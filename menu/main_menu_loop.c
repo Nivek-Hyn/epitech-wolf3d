@@ -7,12 +7,25 @@
 
 #include "wolf3d.h"
 
+static void draw_menu_stuff(game_t *game)
+{
+    sfRenderWindow_drawSprite(
+        game->render_window,
+        game->sprites->scp_logo,
+        NULL
+    );
+    sfRenderWindow_drawSprite(
+        game->render_window,
+        game->sprites->scp_icon,
+        NULL
+    );
+}
+
 static void main_menu_render(game_t *game)
 {
-    sfRenderWindow_clear(game->render_window, sfBlack);
     draw_main_menu_background_image(game);
+    draw_menu_stuff(game);
     draw_buttons(game);
-    sfRenderWindow_display(game->render_window);
 }
 
 void main_menu_sfx_manager(game_t *game)

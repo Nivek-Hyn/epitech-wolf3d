@@ -207,10 +207,13 @@ typedef struct sprite_sheet_s {
 } sprite_sheet_t;
 
 typedef struct sprites_s {
+    sfSprite *cursor;
     sprite_sheet_t *btn_play;
     sprite_sheet_t *btn_settings;
     sprite_sheet_t *btn_quit;
     sfSprite *main_menu_background;
+    sfSprite *scp_logo;
+    sfSprite *scp_icon;
 } sprites_t;
 
 typedef enum scene_e {

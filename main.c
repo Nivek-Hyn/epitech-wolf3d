@@ -22,13 +22,40 @@ void scene_chooser(game_t *game)
     }
 }
 
+void render_cursor(game_t *game)
+{
+    sfVector2f cursor_position = {
+        sfMouse_getPositionRenderWindow(game->render_window).x - 20,
+        sfMouse_getPositionRenderWindow(game->render_window).y - 20
+    };
+
+    sfSprite_setPosition(game->sprites->cursor, cursor_position);
+    if (game->mouse->is_locked == false) {
+        sfRenderWindow_drawSprite(
+            game->render_window,
+            game->sprites->cursor,
+            NULL
+        );
+    }
+}
+
 int wolf3d(void)
 {
     game_t *game = init_game_struct();
 
+    if (!game || !game->render_window || !game->player || !game->world ||
+        !game->settings || !game->keys || !game->mouse || !game->time ||
+        !game->fonts || !game->sprites || !game->sounds) {
+        fprintf(stderr, "Wolf3d: Memory space inssufficient.\n");
+        return (84);
+    }
     sfRenderWindow_setFramerateLimit(game->render_window, STD_FPS);
+    sfRenderWindow_setMouseCursorVisible(game->render_window, sfFalse);
     while (sfRenderWindow_isOpen(game->render_window)) {
+        sfRenderWindow_clear(game->render_window, sfBlack);
         scene_chooser(game);
+        render_cursor(game);
+        sfRenderWindow_display(game->render_window);
     }
     free_game(game);
     return (0);

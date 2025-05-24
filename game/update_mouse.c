@@ -11,10 +11,8 @@ void mouse_update_lock_status(game_t *game)
 {
     if (game->mouse->is_locked == true) {
         game->mouse->is_locked = false;
-        sfRenderWindow_setMouseCursorVisible(game->render_window, sfTrue);
     } else {
         game->mouse->is_locked = true;
-        sfRenderWindow_setMouseCursorVisible(game->render_window, sfFalse);
     }
 }
 

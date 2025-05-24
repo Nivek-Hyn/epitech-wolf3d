@@ -12,10 +12,13 @@ static void free_buttons(sprites_t *sprites)
     free_sprite_sheet(sprites->btn_play);
     free_sprite_sheet(sprites->btn_settings);
     free_sprite_sheet(sprites->btn_quit);
+    free(sprites->scp_logo);
+    free(sprites->scp_icon);
 }
 
 void free_sprites(game_t *game)
 {
+    sfSprite_destroy(game->sprites->cursor);
     free_buttons(game->sprites);
     sfSprite_destroy(game->sprites->main_menu_background);
     free(game->sprites);
