@@ -23,7 +23,7 @@ static void draw_menu_stuff(game_t *game)
 
 static void main_menu_render(game_t *game)
 {
-    draw_main_menu_background_image(game);
+    draw_main_menu_background(game);
     draw_menu_stuff(game);
     draw_buttons(game);
 }

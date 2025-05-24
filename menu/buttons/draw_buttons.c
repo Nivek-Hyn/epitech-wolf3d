@@ -41,7 +41,7 @@ void draw_buttons(game_t *game)
     draw_quit_button(game);
 }
 
-void draw_main_menu_background_image(game_t *game)
+void draw_main_menu_background(game_t *game)
 {
     sfRenderWindow_drawSprite(
         game->render_window,

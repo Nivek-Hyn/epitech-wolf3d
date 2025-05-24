@@ -19,6 +19,7 @@ static void play_button_hovered(game_t *game)
         if (sfSound_getStatus(game->sounds->button_click) != sfPlaying) {
             sfSound_play(game->sounds->button_click);
         }
+        game->precedent_scene = game->current_scene;
         game->current_scene = GAME;
     }
 }

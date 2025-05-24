@@ -219,6 +219,8 @@ typedef struct sprites_s {
 typedef enum scene_e {
     GAME = 1,
     MENU_MAIN = 2,
+    MENU_SETTINGS = 3,
+    MENU_CREDITS = 4,
 } scene_t;
 
 typedef struct sfx_s {
@@ -244,6 +246,7 @@ typedef struct game_s {
     font_list_t *fonts;
     // Menus
     scene_t current_scene;
+    scene_t precedent_scene;
     sprites_t *sprites;
     sfx_t *sounds;
 } game_t;
@@ -280,11 +283,13 @@ void load_map_file(const char *filename, world_t *world);
 ////////////
 void main_menu_loop(game_t *game);
 void draw_buttons(game_t *game);
-void draw_main_menu_background_image(game_t *game);
+void draw_main_menu_background(game_t *game);
 void check_buttons_events(game_t *game);
 void check_play_button_events(game_t *game);
 void check_settings_button_events(game_t *game);
 void check_quit_button_events(game_t *game);
+// SETTINFS
+void settings_menu_loop(game_t *game);
 ////////////
 
 ////////////

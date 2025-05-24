@@ -17,7 +17,8 @@ void scene_chooser(game_t *game)
         case MENU_MAIN:
             main_menu_loop(game);
             break;
-        default:
+        case MENU_SETTINGS:
+            settings_menu_loop(game);
             break;
     }
 }
