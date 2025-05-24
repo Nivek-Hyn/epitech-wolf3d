@@ -54,6 +54,7 @@
     #define MOUSE_SENSITIVITY 0.01
     #define SIGHT_LINE 100000
     #define STD_FOV 70
+    #define INVENTORY_SIZE 5
 
     /* World settings */
     #define STD_MATRIX_Y 10
@@ -80,7 +81,10 @@
     #define NB_FLOOR_TYPES 2
     #define NB_CEILING_TYPES 2
 
-    /* Tool settings */
+    /* Item settings */
+    #define MAX_WORLD_ITEMS 100
+
+    /* Flaslight settings */
     #define FLASHLIGHT_RADIUS 500
     #define MAX_FLASHLIGHT_BATTERY 100.0f
     #define FLASHLIGHT_BATTERY_DECREASE 1
@@ -89,15 +93,6 @@
 /////////////////////////////////////////
 /// STRUCTS
 /////////////////////////////////////////
-
-typedef struct floor_ceiling_render_s {
-    sfImage *floor_ceiling_image;
-    sfTexture *floor_ceiling_texture;
-    sfSprite *floor_ceiling_sprite;
-    sfUint8 *pixel_buffer;
-    unsigned int width;
-    unsigned int height;
-} floor_ceiling_render_t;
 
 typedef struct raycast_values_s {
     int drawn_rays;
@@ -146,6 +141,38 @@ typedef struct keys_s {
     int e;
 } keys_t;
 
+typedef enum item_type_e {
+    ITEM_NONE,
+    ITEM_KEY,
+    ITEM_FLASHLIGHT,
+    ITEM_WEAPON,
+    ITEM_AMMO
+} item_type_t;
+
+typedef struct {
+    item_type_t type;
+    int quantity;
+    sfTexture *texture;
+    void *data;
+} item_t;
+
+typedef struct {
+    item_t item;
+    sfVector2f position;
+    sfSprite *sprite;
+    bool picked_up;
+} world_item_t;
+
+typedef struct item_manager_s {
+    world_item_t world_items[MAX_WORLD_ITEMS];
+    int world_item_count;
+} item_manager_t;
+
+typedef struct {
+    item_t slots[INVENTORY_SIZE];
+    int selected_slot;
+} inventory_t;
+
 typedef struct player_s {
     float x;
     float y;
@@ -153,6 +180,7 @@ typedef struct player_s {
     float delta_y;
     float angle;
     sfCircleShape *player_visual;
+    inventory_t *inventory;
     bool flashlight;
     float flashlight_battery;
 } player_t;
@@ -218,6 +246,7 @@ typedef struct game_s {
     mouse_t *mouse;
     game_time_t *time;
     font_list_t *fonts;
+    item_manager_t *item_manager;
 } game_t;
 
 /////////////////////////////////////////
@@ -240,9 +269,16 @@ int compare_lines_to_player(game_t *game, float player_pos_x,
     float player_pos_y, int y);
 int check_circle_rectangle_collision(float circle_pos_x, float circle_pos_y,
     float circle_radius, sfRectangleShape *rectangle);
-// BATTERY
+// ITEMS
+bool spawn_item(item_manager_t *manager, item_t item, sfVector2f pos);
+void despawn_item(item_manager_t *manager, int index);
+bool pickup_item(player_t *player, item_manager_t *manager, int index);
+bool drop_inventory_item(player_t *player, item_manager_t *manager, int slot);
+void reset_world_item(world_item_t *item);
+void reset_inventory_slot(inventory_t *inventory, int slot_index);
+// FLASHLIGHT
 void update_player_flashlight_battery(game_t *game);
-void draw_battery(game_t *game);
+void draw_flashlight_battery(game_t *game);
 // SAVE & LOAD
 void load_map_file(const char *filename, world_t *world);
 ////////////
@@ -280,6 +316,7 @@ mouse_t *init_mouse(void);
 raycast_values_t *init_raycast_values(void);
 game_time_t *init_time(void);
 font_list_t *init_fonts(void);
+item_manager_t *init_item_manager(void);
 void init_map_textures(world_t *world);
 void init_map_images(world_t *world);
 ////////////
@@ -370,6 +407,7 @@ void free_mouse(mouse_t *mouse);
 void free_raycast_values(raycast_values_t *values);
 void free_time(game_time_t *time);
 void free_fonts(font_list_t *fonts);
+void free_item_manager(item_manager_t *item_manager);
 ////////////
 
 ////////////

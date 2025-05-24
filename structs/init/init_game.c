@@ -21,5 +21,6 @@ game_t *init_game_struct(void)
     game->mouse = init_mouse();
     game->time = init_time();
     game->fonts = init_fonts();
+    game->item_manager = init_item_manager();
     return game;
 }
