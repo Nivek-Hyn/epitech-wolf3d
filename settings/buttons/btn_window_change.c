@@ -24,6 +24,7 @@ static void fullscreen_window_change_hovered(game_t *game)
             sfSound_play(game->sounds->button_click);
         }
         game->settings->window_mode = WINDOWED;
+        init_changed_render_window(game);
     }
 }
 
@@ -59,6 +60,7 @@ static void windowed_window_change_hovered(game_t *game)
             sfSound_play(game->sounds->button_click);
         }
         game->settings->window_mode = FULLSCREEN;
+        init_changed_render_window(game);
     }
 }
 

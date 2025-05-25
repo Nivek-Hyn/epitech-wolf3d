@@ -37,6 +37,7 @@
     #define STD_FPS 60
     #define STD_WIN_WIDTH 1920
     #define STD_WIN_HEIGHT 1080
+    #define STD_WIN_TITLE "Wolf3D - SCP-084"
 
     /* COLORS */
     #define HEXA_COLOR_LIMIT 255
@@ -473,6 +474,7 @@ void check_window_events(game_t *game);
 void window_gained_focus(game_t *game);
 void window_lost_focus(game_t *game);
 void window_resized(game_t *game);
+void init_changed_render_window(game_t *game);
 // Keyboard
 void check_keyboard_inputs(game_t *game);
 void keyboard_key_pressed(game_t *game);
