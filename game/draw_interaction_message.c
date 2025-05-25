@@ -9,5 +9,7 @@
 
 void draw_interaction_message(game_t *game)
 {
-    return;
+    if (game->player->can_interact)
+        sfRenderWindow_drawText(game->render_window,
+            game->texts->press_x_to_interact, NULL);
 }

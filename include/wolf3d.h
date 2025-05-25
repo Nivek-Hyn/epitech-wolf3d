@@ -20,6 +20,7 @@
     #include <stdbool.h>
     #include <unistd.h>
     #include <fcntl.h>
+    #include <string.h>
 
     #include <SFML/Graphics.h>
     #include <SFML/Graphics/Rect.h>
@@ -52,6 +53,9 @@
     #define RAY_OFFSET_Y 300
     #define RAYCAST_WIN_HEIGHT 540
     #define RAYCAST_WIN_WITDH 960
+    #define RAYCAST_WIN_X_CENTER RAY_OFFSET_X + RAYCAST_WIN_WITDH / 2
+    #define RAYCAST_WIN_Y_CENTER RAY_OFFSET_Y + RAYCAST_WIN_HEIGHT / 2
+    #define RAYCAST_WIN_CENTER RAYCAST_WIN_X_CENTER, RAYCAST_WIN_Y_CENTER
     #define RAYCAST_JUMP 6
 
     /* Player settings */
@@ -61,7 +65,7 @@
     #define MOUSE_SENSITIVITY 0.01
     #define SIGHT_LINE 100000
     #define STD_FOV 70
-    #define INTERACTION_RANGE 100
+    #define INTERACTION_RANGE 50
 
     /* World settings */
     #define STD_MATRIX_Y 10
@@ -217,7 +221,7 @@ typedef enum item_type_e {
     ITEM_WEAPON
 } item_type_t;
 
-typedef struct {
+typedef struct item_s {
     item_type_t type;
     int quantity;
     sfTexture *texture;
@@ -225,12 +229,14 @@ typedef struct {
     void *data;
 } item_t;
 
-typedef struct {
+typedef struct world_item_s {
     item_t item;
     sfVector2f position;
     sfSprite *sprite;
     sfIntRect sprite_rect;
     sfCircleShape *circle_visual;
+    bool is_visible;
+    bool can_interact;
 } world_item_t;
 
 typedef struct item_manager_s {
@@ -238,7 +244,7 @@ typedef struct item_manager_s {
     int world_item_count;
 } item_manager_t;
 
-typedef struct {
+typedef struct inventory_s {
     item_t slots[INVENTORY_SIZE];
     int selected_slot;
     float slot_scales[INVENTORY_SIZE];
@@ -398,6 +404,7 @@ int check_circle_rectangle_collision(float circle_pos_x, float circle_pos_y,
     float circle_radius, sfRectangleShape *rectangle);
 // INTERACTIONS
 void check_interactions(game_t *game);
+void draw_interaction_message(game_t *game);
 // ITEMS
 void draw_items(game_t *game);
 bool spawn_item(item_manager_t *manager, item_t item, sfVector2f pos);
@@ -491,7 +498,7 @@ mouse_t *init_mouse(void);
 raycast_values_t *init_raycast_values(void);
 game_time_t *init_time(void);
 font_list_t *init_fonts(void);
-text_list_t *init_texts(void);
+text_list_t *init_texts(font_list_t *fonts);
 item_manager_t *init_item_manager(void);
 map_t **init_standard_map(int map_size_x, int map_size_y);
 void init_map_textures(world_t *world);
@@ -581,6 +588,8 @@ float rad(float degree);
 ////////////
 sfText *create_text(char *string, int size,
     sfColor color, sfVector2f position);
+sfText *create_centered_text(char *str, int size,
+    sfFont *font, sfVector2f position);
 bool is_position_within_map(world_t *world, float px, float py);
 bool is_position_an_empty_space(world_t *world, float px, float py);
 bool is_cursor_above_sprite(sfSprite *sprite, sfRenderWindow *render_window);

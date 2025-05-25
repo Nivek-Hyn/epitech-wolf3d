@@ -135,8 +135,10 @@ void draw_world_items(game_t *game)
         if (im->world_items[i].item.type == ITEM_NONE)
             continue;
         world_item = &im->world_items[i];
+        world_item->is_visible = false;
         if (!compute_angles_and_distance(game, &vars, world_item))
             continue;
+        world_item->is_visible = true;
         if (!compute_sprite_draw_params(game, &vars))
             continue;
         set_sprite_texture_and_rect(world_item, &vars);

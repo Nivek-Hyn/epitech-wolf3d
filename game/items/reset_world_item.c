@@ -18,4 +18,6 @@ void reset_world_item(world_item_t *item)
     item->sprite = NULL;
     item->sprite_rect = (sfIntRect){0, 0, 0, 0};
     item->circle_visual = NULL;
+    item->is_visible = false;
+    item->can_interact = false;
 }

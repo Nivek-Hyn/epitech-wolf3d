@@ -22,6 +22,8 @@ bool spawn_item(item_manager_t *manager, item_t item, sfVector2f pos)
             sfSprite_setPosition(manager->world_items[i].sprite, pos);
             manager->world_items[i].circle_visual =
                 create_circle(pos, ITEM_RADIUS, sfTransparent, sfYellow);
+            manager->world_items[i].is_visible = false;
+            manager->world_items[i].can_interact = false;
             manager->world_item_count++;
             return true;
         }

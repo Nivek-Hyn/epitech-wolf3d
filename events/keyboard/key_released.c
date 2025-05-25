@@ -37,6 +37,10 @@ void keys_released(game_t *game)
     case sfKeyX:
         game->player->interact = true;
         break;
+    case sfKeyG:
+        drop_inventory_item(game->player, game->item_manager,
+            game->player->inventory->selected_slot);
+        break;
     }
 }
 

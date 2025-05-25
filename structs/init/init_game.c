@@ -28,7 +28,7 @@ game_t *init_game_struct(void)
     game->mouse = init_mouse();
     game->time = init_time();
     game->fonts = init_fonts();
-    game->texts = init_texts();
+    game->texts = init_texts(game->fonts);
     game->item_manager = init_item_manager();
     game->current_scene = init_scene_enum();
     game->precedent_scene = init_scene_enum();

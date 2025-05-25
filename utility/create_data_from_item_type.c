@@ -7,11 +7,22 @@
 
 #include "wolf3d.h"
 
+void *create_flashlight(void)
+{
+    flashlight_t *flashlight = malloc(sizeof(flashlight_t));
+
+    if (!flashlight)
+        return NULL;
+    flashlight->is_on = false;
+    flashlight->battery = 100.0f;
+    return (void *)flashlight;
+}
+
 void *create_data_from_item_type(int type)
 {
     switch (type) {
         case ITEM_FLASHLIGHT:
-            return malloc(sizeof(flashlight_t));
+            return create_flashlight();
         default:
             return NULL;
     }
