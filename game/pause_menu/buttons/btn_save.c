@@ -25,6 +25,7 @@ static void save_paused_button_hovered(game_t *game)
             game->settings->sfx_mute == false) {
             sfSound_play(game->sounds->button_click);
         }
+        save(game);
     }
 }
 

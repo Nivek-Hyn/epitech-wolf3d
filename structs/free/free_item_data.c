@@ -22,7 +22,7 @@ void free_gun(gun_t *gun)
     if (gun->sheet)
         sfTexture_destroy(gun->sheet);
     if (gun->gun_ss->sprite)
-        free(gun->gun_ss->sprite);
+        sfSprite_destroy(gun->gun_ss->sprite);
     if (gun->gun_ss->int_rect)
         free(gun->gun_ss->int_rect);
     if (gun->gun_ss)

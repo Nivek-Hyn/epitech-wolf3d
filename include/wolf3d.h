@@ -477,6 +477,9 @@ void draw_flashlight_battery(game_t *game, flashlight_t *flashlight);
 // SAVE & LOAD
 int load_map_file(const char *filename, world_t *world);
 void load_item_save_file(const char *filename, item_manager_t *manager);
+void save(game_t *game);
+void load(game_t *game);
+void load_map(game_t *game);
 ////////////
 
 ////////////
