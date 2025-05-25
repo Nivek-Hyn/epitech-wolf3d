@@ -12,7 +12,7 @@ static void fullscreen_window_change_hovered(game_t *game)
     if (game->sprites->btn_window_change->int_rect->left !=
         game->sprites->btn_window_change->int_rect->width * 3 &&
         sfClock_getElapsedTime(game->settings_cooldown).microseconds
-            > 100000) {
+            > 100000 && game->settings->sfx_mute == false) {
         sfSound_play(game->sounds->button_hover);
     }
     game->sprites->btn_window_change->int_rect->left =
@@ -20,7 +20,8 @@ static void fullscreen_window_change_hovered(game_t *game)
     if (sfMouse_isButtonPressed(sfMouseLeft) && sfClock_getElapsedTime(
             game->settings_cooldown).microseconds > 500000) {
         sfClock_restart(game->settings_cooldown);
-        if (sfSound_getStatus(game->sounds->button_click) != sfPlaying) {
+        if (sfSound_getStatus(game->sounds->button_click) != sfPlaying &&
+            game->settings->sfx_mute == false) {
             sfSound_play(game->sounds->button_click);
         }
         game->settings->window_mode = WINDOWED;
@@ -48,7 +49,7 @@ static void windowed_window_change_hovered(game_t *game)
     if (game->sprites->btn_window_change->int_rect->left !=
         game->sprites->btn_window_change->int_rect->width &&
         sfClock_getElapsedTime(game->settings_cooldown).microseconds
-            > 100000) {
+            > 100000 && game->settings->sfx_mute == false) {
         sfSound_play(game->sounds->button_hover);
     }
     game->sprites->btn_window_change->int_rect->left =

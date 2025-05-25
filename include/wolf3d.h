@@ -334,6 +334,10 @@ typedef struct sprites_s {
     sfSprite *scp_logo;
     sfSprite *scp_icon;
     sfSprite *WindowMode_text;
+    sprite_sheet_t *sfx_status;
+    sprite_sheet_t *music_status;
+    sfSprite *sfx_icon;
+    sfSprite *music_icon;
 } sprites_t;
 
 typedef enum scene_e {
@@ -368,6 +372,7 @@ typedef struct game_s {
     item_manager_t *item_manager;
     // Menus
     sfClock *settings_cooldown;
+    sfClock *sfx_cooldown;
     scene_t current_scene;
     scene_t precedent_scene;
     sprites_t *sprites;
@@ -453,6 +458,8 @@ void check_settings_buttons_events(game_t *game);
 void check_return_button_events(game_t *game);
 void draw_settings_buttons(game_t *game);
 void check_window_change_button_events(game_t *game);
+void check_sfx_button_events(game_t *game);
+void check_music_button_events(game_t *game);
 ////////////
 
 ////////////
@@ -501,6 +508,7 @@ sprites_t *init_sprites(void);
 sfx_t *init_sfx(settings_t *settings);
 void init_sprite_sheets(sprites_t *sprites);
 extra_data_t *init_extra_data(void);
+void init_sfx_music_buttons(sprites_t *sprites);
 ////////////
 
 ////////////

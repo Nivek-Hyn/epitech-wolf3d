@@ -11,12 +11,14 @@ static void return_button_hovered(game_t *game)
 {
     if (game->sprites->btn_return->int_rect->left !=
         game->sprites->btn_return->int_rect->width) {
-        sfSound_play(game->sounds->button_hover);
+        if (game->settings->sfx_mute == false)
+            sfSound_play(game->sounds->button_hover);
         game->sprites->btn_return->int_rect->left =
             game->sprites->btn_return->int_rect->width;
     }
     if (sfMouse_isButtonPressed(sfMouseLeft)) {
-        if (sfSound_getStatus(game->sounds->button_click) != sfPlaying) {
+        if (sfSound_getStatus(game->sounds->button_click) != sfPlaying &&
+            game->settings->sfx_mute == false) {
             sfSound_play(game->sounds->button_click);
         }
         game->precedent_scene = game->current_scene;

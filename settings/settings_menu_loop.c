@@ -27,5 +27,7 @@ void settings_menu_loop(game_t *game)
 {
     check_events(game);
     check_settings_buttons_events(game);
+    check_sfx_button_events(game);
+    check_music_button_events(game);
     settings_menu_render(game);
 }
