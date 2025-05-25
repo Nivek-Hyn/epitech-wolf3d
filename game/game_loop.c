@@ -34,4 +34,5 @@ void game_loop(game_t *game)
     update_mouse(game);
     check_interactions(game);
     game_render(game);
+    pause_event(game);
 }

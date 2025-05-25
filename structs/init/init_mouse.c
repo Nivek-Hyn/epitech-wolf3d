@@ -16,6 +16,6 @@ mouse_t *init_mouse(void)
     mouse->delta_x = 0;
     mouse->sensivity = MOUSE_SENSITIVITY;
     mouse->previous_position = (sfVector2i){0, 0};
-    mouse->is_locked = false;
+    mouse->is_locked = true;
     return mouse;
 }

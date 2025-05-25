@@ -356,6 +356,11 @@ typedef struct sprites_s {
     sprite_sheet_t *music_status;
     sfSprite *sfx_icon;
     sfSprite *music_icon;
+    sfSprite *pause_menu_background;
+    sprite_sheet_t *pause_btn_settings;
+    sprite_sheet_t *pause_btn_menu;
+    sprite_sheet_t *pause_btn_save;
+    sprite_sheet_t *pause_btn_load;
 } sprites_t;
 
 typedef enum scene_e {
@@ -388,6 +393,7 @@ typedef struct game_s {
     font_list_t *fonts;
     text_list_t *texts;
     item_manager_t *item_manager;
+    bool is_paused;
     // Menus
     sfClock *settings_cooldown;
     sfClock *sfx_cooldown;
@@ -481,6 +487,16 @@ void draw_settings_buttons(game_t *game);
 void check_window_change_button_events(game_t *game);
 void check_sfx_button_events(game_t *game);
 void check_music_button_events(game_t *game);
+// PAUSE
+void pause_event(game_t *game);
+void update_paused_buttons(game_t *game);
+void draw_paused_menu(game_t *game);
+void check_paused_settings_button_events(game_t *game);
+void check_paused_menu_button_events(game_t *game);
+void check_paused_load_button_events(game_t *game);
+void check_paused_save_button_events(game_t *game);
+void init_pause_save_button(sprites_t *sprites);
+void init_pause_load_button(sprites_t *sprites);
 ////////////
 
 ////////////

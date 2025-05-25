@@ -12,6 +12,7 @@ static void init_game_more(game_t *game)
     game->sfx_cooldown = sfClock_create();
     game->sounds = init_sfx(game->settings);
     game->extra_data = init_extra_data();
+    game->is_paused = false;
 }
 
 game_t *init_game_struct(void)
