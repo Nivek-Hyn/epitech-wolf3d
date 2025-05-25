@@ -486,7 +486,6 @@ sfRectangleShape *create_rectangle(sfVector2f position, sfVector2f size,
 // SPRITES
 ////////////
 sfSprite *sprite_create(char *filepath, float scale, sfVector2f position);
-sfIntRect *intrect_create(int top, int left, int height, int width);
 sprite_sheet_t *init_sprite_sheet(int tile_count,
     sfSprite *sprite, sfIntRect *int_rect);
 sfIntRect *create_int_rect(int top, int left, int height, int width);
