@@ -7,6 +7,13 @@
 
 #include "wolf3d.h"
 
+sfClock *init_settings_cooldown(void)
+{
+    sfClock *settings_cooldown = sfClock_create();
+
+    return settings_cooldown;
+}
+
 game_t *init_game_struct(void)
 {
     game_t *game = malloc(sizeof(game_t));
@@ -26,6 +33,7 @@ game_t *init_game_struct(void)
     game->current_scene = init_scene_enum();
     game->precedent_scene = init_scene_enum();
     game->sprites = init_sprites();
+    game->settings_cooldown = init_settings_cooldown();
     game->sounds = init_sfx(game->settings);
     game->extra_data = init_extra_data();
     return game;

@@ -7,7 +7,7 @@
 
 #include "wolf3d.h"
 
-void check_buttons_events(game_t *game)
+void check_main_menu_buttons_events(game_t *game)
 {
     check_play_button_events(game);
     check_settings_button_events(game);
