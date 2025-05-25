@@ -14,8 +14,8 @@ static void free_buttons(sprites_t *sprites)
     free_sprite_sheet(sprites->btn_quit);
     free_sprite_sheet(sprites->btn_return);
     free_sprite_sheet(sprites->btn_window_change);
-    free(sprites->scp_logo);
-    free(sprites->scp_icon);
+    sfSprite_destroy(sprites->scp_logo);
+    sfSprite_destroy(sprites->scp_icon);
 }
 
 void free_sprites(game_t *game)
