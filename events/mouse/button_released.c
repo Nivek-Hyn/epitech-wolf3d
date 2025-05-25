@@ -9,5 +9,9 @@
 
 void mouse_button_released(game_t *game)
 {
+    if (game->event.type == sfEvtMouseButtonReleased &&
+        game->event.mouseButton.button == sfMouseLeft) {
+        use_selected_item(game, game->player->inventory);
+    }
     return;
 }

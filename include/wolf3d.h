@@ -32,6 +32,10 @@
     #define DEFAULT_FONT "assets/fonts/BAUHAUS DEMI.OTF"
     #define ARIAL_FONT "assets/fonts/ARIAL.TTF"
 
+    /* SAVE */
+    #define SAVE_FILE "save.txt"
+    #define ITEM_SAVE_FILE "item_save.txt"
+
     /* TRIGONOMETRY */
     #define PI 3.14159265358979323846
     #define UNIT_LIMIT 2 * PI
@@ -209,6 +213,14 @@ typedef struct keys_s {
     int e;
 } keys_t;
 
+typedef struct item_key_s {
+    int id;
+} item_key_t;
+
+typedef struct gun_s {
+    int ammo;
+} gun_t;
+
 typedef struct flashlight_s {
     bool is_on;
     float battery;
@@ -218,7 +230,7 @@ typedef enum item_type_e {
     ITEM_NONE,
     ITEM_KEY,
     ITEM_FLASHLIGHT,
-    ITEM_WEAPON
+    ITEM_GUN
 } item_type_t;
 
 typedef struct item_s {
@@ -423,6 +435,7 @@ void draw_selected_item_data(game_t *game);
 void draw_inventory(game_t *game, inventory_t *inventory);
 void inventory_select_next_slot(inventory_t *inventory);
 void inventory_select_previous_slot(inventory_t *inventory);
+void draw_inventory_full_message(game_t *game, int trigger);
 // FLASHLIGHT
 void turn_flashlight(game_t *game);
 // ITEMS
@@ -435,6 +448,7 @@ void reset_world_item(world_item_t *item);
 void reset_inventory_slot(inventory_t *inventory, int slot_index);
 void draw_selected_item_data(game_t *game);
 void draw_world_items(game_t *game);
+void use_selected_item(game_t *game, inventory_t *inventory);
 // INVENTORY
 void draw_inventory(game_t *game, inventory_t *inventory);
 void inventory_select_next_slot(inventory_t *inventory);
@@ -597,6 +611,7 @@ sfText *create_text(char *string, int size,
     sfColor color, sfVector2f position);
 sfText *create_centered_text(char *str, int size,
     sfFont *font, sfVector2f position);
+void draw_text(game_t *game, const char *str, int size, sfVector2f pos);
 bool is_position_within_map(world_t *world, float px, float py);
 bool is_position_an_empty_space(world_t *world, float px, float py);
 bool is_cursor_above_sprite(sfSprite *sprite, sfRenderWindow *render_window);
@@ -610,6 +625,9 @@ item_t create_item(int type);
 sfTexture *create_texture_from_item_type(int type);
 sfImage *create_image_from_item_type(int type);
 void *create_data_from_item_type(int type);
+char *my_revstr(char *str);
+int nbr_of_digits(int nb);
+char *nbr_to_str(int nb);
 ////////////
 
 ////////////

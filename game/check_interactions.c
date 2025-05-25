@@ -22,8 +22,7 @@ void world_item_interact(game_t *game, world_item_t *world_item, int index)
         game->player->interact = false;
         world_item->can_interact = false;
     } else {
-        sfRenderWindow_drawText(game->render_window,
-            game->texts->inventory_full, NULL);
+        draw_inventory_full_message(game, 1);
         game->player->interact = false;
         world_item->can_interact = false;
     }
@@ -78,4 +77,5 @@ void check_interactions(game_t *game)
         game->player->can_interact = false;
     }
     game->player->interact = false;
+    draw_inventory_full_message(game, 0);
 }

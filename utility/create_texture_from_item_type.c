@@ -10,9 +10,15 @@
 sfTexture *create_texture_from_item_type(int type)
 {
     switch (type) {
+        case ITEM_KEY:
+            return sfTexture_createFromFile(
+                "assets/textures/items/key.png", NULL);
         case ITEM_FLASHLIGHT:
             return sfTexture_createFromFile(
                 "assets/textures/items/flashlight.png", NULL);
+        case ITEM_GUN:
+            return sfTexture_createFromFile(
+                "assets/textures/items/gun.png", NULL);
         default:
             return NULL;
     }

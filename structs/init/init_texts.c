@@ -13,8 +13,8 @@ void create_all_texts(text_list_t *texts, font_list_t *fonts)
     float cy = RAYCAST_WIN_Y_CENTER;
 
     texts->inventory_full = create_centered_text(
-        "Inventory Full!!!", 30, fonts->normal,
-            (sfVector2f){cx, cy + 175});
+        "Inventory Full", 30, fonts->normal,
+            (sfVector2f){cx, cy + 225});
     sfText_setFillColor(texts->inventory_full, sfRed);
     texts->press_x_to_interact = create_centered_text(
         "Press X to interact.", 30, fonts->normal,

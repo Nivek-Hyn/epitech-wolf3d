@@ -60,7 +60,7 @@ world_t *init_world(void)
     world_t *world = malloc(sizeof(world_t));
 
     init_world_variables(world);
-    if (load_map_file("save.txt", world) == -1) {
+    if (load_map_file(SAVE_FILE, world) == -1) {
         world->map_size_x = STD_MATRIX_X;
         world->map_size_y = STD_MATRIX_Y;
         world->map = init_standard_map(world->map_size_x, world->map_size_y);
