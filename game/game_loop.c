@@ -33,5 +33,6 @@ void game_loop(game_t *game)
     update_player(game);
     update_mouse(game);
     check_interactions(game);
+    update_gun_animation(game);
     game_render(game);
 }

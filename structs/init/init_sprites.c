@@ -7,6 +7,15 @@
 
 #include "wolf3d.h"
 
+static void init_ammo_icon(sprites_t *sprites)
+{
+    sprites->ammo_icon = sprite_create(
+        "assets/textures/items/ammo.png",
+        0.1,
+        (sfVector2f){0, 0}
+    );
+}
+
 static void init_main_menu_background(sprites_t *sprites)
 {
     sprites->main_menu_background = sprite_create(
@@ -73,5 +82,6 @@ sprites_t *init_sprites(void)
     init_scp_icon(sprites);
     init_window_mode_text(sprites);
     init_main_menu_background(sprites);
+    init_ammo_icon(sprites);
     return sprites;
 }

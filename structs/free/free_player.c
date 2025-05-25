@@ -17,7 +17,7 @@ void free_inventory(inventory_t *inventory)
         if (inventory->slots[i].image)
             sfImage_destroy(inventory->slots[i].image);
         if (inventory->slots[i].data)
-            free(inventory->slots[i].data);
+            free_item_data(inventory->slots[i].data, inventory->slots[i].type);
         reset_inventory_slot(inventory, i);
     }
     free(inventory);

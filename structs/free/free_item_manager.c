@@ -21,7 +21,8 @@ void free_item_manager(item_manager_t *item_manager)
         if (item_manager->world_items[i].item.image)
             sfImage_destroy(item_manager->world_items[i].item.image);
         if (item_manager->world_items[i].item.data)
-            free(item_manager->world_items[i].item.data);
+            free_item_data(item_manager->world_items[i].item.data,
+                item_manager->world_items[i].item.type);
         reset_world_item(&item_manager->world_items[i]);
     }
     free(item_manager);

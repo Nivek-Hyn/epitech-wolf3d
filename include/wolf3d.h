@@ -109,7 +109,7 @@
 
     /* Inventory Settings */
     #define INVENTORY_SIZE 5
-    #define INVENTORY_Y_OFFSET 100
+    #define INVENTORY_Y_OFFSET -600
     #define INVENTORY_SLOT_SIZE 100
     #define INVENTORY_SLOT_SPACING 25
     #define INVENTORY_SLOT_SELECTED_SCALE 1.2f
@@ -122,6 +122,10 @@
     #define MAX_FLASHLIGHT_BATTERY 100.0f
     #define FLASHLIGHT_BATTERY_DECREASE 1
     #define MAX_BATTERY_WIDTH 100.0f
+
+    /* Gun Settings */
+    #define SHOOT_TRIGGER_FRAME 2
+    #define FRAME_DURATION 0.05f
 
     /* SFX & Music */
     #define SFX_VOLUME 50
@@ -213,18 +217,29 @@ typedef struct keys_s {
     int e;
 } keys_t;
 
-typedef struct item_key_s {
-    int id;
-} item_key_t;
+typedef struct sprite_sheet_s {
+    sfSprite *sprite;
+    sfIntRect *int_rect;
+    int tile_count;
+} sprite_sheet_t;
 
-typedef struct gun_s {
-    int ammo;
-} gun_t;
-
-typedef struct flashlight_s {
-    bool is_on;
-    float battery;
-} flashlight_t;
+typedef struct sprites_s {
+    sfSprite *cursor;
+    sprite_sheet_t *btn_play;
+    sprite_sheet_t *btn_settings;
+    sprite_sheet_t *btn_quit;
+    sprite_sheet_t *btn_return;
+    sprite_sheet_t *btn_window_change;
+    sfSprite *main_menu_background;
+    sfSprite *scp_logo;
+    sfSprite *scp_icon;
+    sfSprite *WindowMode_text;
+    sprite_sheet_t *sfx_status;
+    sprite_sheet_t *music_status;
+    sfSprite *sfx_icon;
+    sfSprite *music_icon;
+    sfSprite *ammo_icon;
+} sprites_t;
 
 typedef enum item_type_e {
     ITEM_NONE,
@@ -232,6 +247,23 @@ typedef enum item_type_e {
     ITEM_FLASHLIGHT,
     ITEM_GUN
 } item_type_t;
+
+typedef struct item_key_s {
+    int id;
+} item_key_t;
+
+typedef struct gun_s {
+    int ammo;
+    sfTexture *sheet;
+    sprite_sheet_t *gun_ss;
+    int gun_anim_frame;
+    float gun_anim_timer;
+} gun_t;
+
+typedef struct flashlight_s {
+    bool is_on;
+    float battery;
+} flashlight_t;
 
 typedef struct item_s {
     item_type_t type;
@@ -335,29 +367,6 @@ typedef struct text_list_s {
     sfText *press_x_to_interact;
 } text_list_t;
 
-typedef struct sprite_sheet_s {
-    sfSprite *sprite;
-    sfIntRect *int_rect;
-    int tile_count;
-} sprite_sheet_t;
-
-typedef struct sprites_s {
-    sfSprite *cursor;
-    sprite_sheet_t *btn_play;
-    sprite_sheet_t *btn_settings;
-    sprite_sheet_t *btn_quit;
-    sprite_sheet_t *btn_return;
-    sprite_sheet_t *btn_window_change;
-    sfSprite *main_menu_background;
-    sfSprite *scp_logo;
-    sfSprite *scp_icon;
-    sfSprite *WindowMode_text;
-    sprite_sheet_t *sfx_status;
-    sprite_sheet_t *music_status;
-    sfSprite *sfx_icon;
-    sfSprite *music_icon;
-} sprites_t;
-
 typedef enum scene_e {
     GAME = 1,
     MENU_MAIN = 2,
@@ -431,6 +440,7 @@ bool drop_inventory_item(player_t *player, item_manager_t *manager, int slot);
 void reset_world_item(world_item_t *item);
 void reset_inventory_slot(inventory_t *inventory, int slot_index);
 void draw_selected_item_data(game_t *game);
+void update_gun_animation(game_t *game);
 // INVENTORY
 void draw_inventory(game_t *game, inventory_t *inventory);
 void inventory_select_next_slot(inventory_t *inventory);
@@ -628,6 +638,7 @@ void *create_data_from_item_type(int type);
 char *my_revstr(char *str);
 int nbr_of_digits(int nb);
 char *nbr_to_str(int nb);
+sprite_sheet_t *create_sprite_sheet(sfTexture *texture, int frame_count);
 ////////////
 
 ////////////
@@ -649,6 +660,7 @@ void free_item_manager(item_manager_t *item_manager);
 void free_sprite_sheet(sprite_sheet_t *sprite_sheet);
 void free_sprites(game_t *game);
 void free_sfx(sfx_t *sfx);
+void free_item_data(void *data, item_type_t type);
 void free_extra_data(extra_data_t *extra_data);
 ////////////
 
