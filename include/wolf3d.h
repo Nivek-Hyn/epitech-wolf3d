@@ -311,6 +311,11 @@ typedef struct font_list_s {
     sfFont *arial;
 } font_list_t;
 
+typedef struct text_list_s {
+    sfText *inventory_full;
+    sfText *press_x_to_interact;
+} text_list_t;
+
 typedef struct sprite_sheet_s {
     sfSprite *sprite;
     sfIntRect *int_rect;
@@ -355,6 +360,7 @@ typedef struct game_s {
     mouse_t *mouse;
     game_time_t *time;
     font_list_t *fonts;
+    text_list_t *texts;
     item_manager_t *item_manager;
     // Menus
     scene_t current_scene;
@@ -476,6 +482,7 @@ mouse_t *init_mouse(void);
 raycast_values_t *init_raycast_values(void);
 game_time_t *init_time(void);
 font_list_t *init_fonts(void);
+text_list_t *init_texts(void);
 item_manager_t *init_item_manager(void);
 map_t **init_standard_map(int map_size_x, int map_size_y);
 void init_map_textures(world_t *world);
@@ -606,6 +613,7 @@ void free_mouse(mouse_t *mouse);
 void free_raycast_values(raycast_values_t *values);
 void free_time(game_time_t *time);
 void free_fonts(font_list_t *fonts);
+void free_texts(text_list_t *texts);
 void free_item_manager(item_manager_t *item_manager);
 void free_sprite_sheet(sprite_sheet_t *sprite_sheet);
 void free_sprites(game_t *game);
