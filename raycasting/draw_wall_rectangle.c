@@ -46,7 +46,7 @@ void set_sprite_color(sfSprite *sprite, float distance,
     game_t *game, raycast_values_t *var)
 {
     float max_dist = 600.0f;
-    float base_brightness = 0.3f;
+    float base_brightness = WALL_BRIGHTNESS;
     float factor = 1.0f - (distance / max_dist);
     sfColor color;
     float brightness_factor = base_brightness;

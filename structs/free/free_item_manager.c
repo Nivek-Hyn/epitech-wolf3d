@@ -18,6 +18,8 @@ void free_item_manager(item_manager_t *item_manager)
             sfCircleShape_destroy(item_manager->world_items[i].circle_visual);
         if (item_manager->world_items[i].item.texture)
             sfTexture_destroy(item_manager->world_items[i].item.texture);
+        if (item_manager->world_items[i].item.image)
+            sfImage_destroy(item_manager->world_items[i].item.image);
         if (item_manager->world_items[i].item.data)
             free(item_manager->world_items[i].item.data);
         reset_world_item(&item_manager->world_items[i]);

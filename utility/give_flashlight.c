@@ -22,5 +22,7 @@ void give_flashlight(inventory_t *inventory, int slot)
     inventory->slots[slot].quantity++;
     inventory->slots[slot].texture = sfTexture_createFromFile(
         "assets/textures/items/flashlight.png", NULL);
+    inventory->slots[slot].image = sfImage_createFromFile(
+        "assets/textures/items/flashlight.png");
     inventory->slots[slot].data = flashlight;
 }

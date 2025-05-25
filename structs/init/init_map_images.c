@@ -9,11 +9,15 @@
 
 void init_map_images(world_t *world)
 {
-    world->floor_images[EMPTY_FLOOR] = NULL;
+    world->floor_images[EMPTY_FLOOR] =
+        sfImage_createFromFile(
+            "assets/textures/floors/floor_tile.jpg");
     world->floor_images[FLOOR] =
         sfImage_createFromFile(
-            "assets/textures/floors/Concrete-Floor-Tile.png");
-    world->ceiling_images[EMPTY_CEILING] = NULL;
+            "assets/textures/floors/floor_tile.jpg");
+    world->ceiling_images[EMPTY_CEILING] =
+        sfImage_createFromFile(
+            "assets/textures/ceilings/ceiling_tile.png");
     world->ceiling_images[CEILING] =
         sfImage_createFromFile(
             "assets/textures/ceilings/ceiling_tile.png");

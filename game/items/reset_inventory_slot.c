@@ -14,5 +14,6 @@ void reset_inventory_slot(inventory_t *inventory, int slot_index)
     inventory->slots[slot_index].type = ITEM_NONE;
     inventory->slots[slot_index].quantity = 0;
     inventory->slots[slot_index].texture = NULL;
+    inventory->slots[slot_index].image = NULL;
     inventory->slots[slot_index].data = NULL;
 }

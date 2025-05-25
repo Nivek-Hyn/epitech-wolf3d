@@ -20,5 +20,6 @@ void free_game(game_t *game)
     free_sprites(game);
     free_sfx(game->sounds);
     sfRenderWindow_destroy(game->render_window);
+    free_extra_data(game->extra_data);
     free(game);
 }

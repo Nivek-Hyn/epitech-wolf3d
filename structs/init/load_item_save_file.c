@@ -38,7 +38,7 @@ void load_item_save_file(const char *filename, item_manager_t *manager)
             continue;
         if (manager->world_item_count >= MAX_WORLD_ITEMS)
             break;
-        spawn_item(manager, (item_t){(item_type_t)type, quantity, NULL, NULL},
+        spawn_item(manager, create_item(type),
             get_item_position(pos_type, x, y));
     }
     fclose(file);

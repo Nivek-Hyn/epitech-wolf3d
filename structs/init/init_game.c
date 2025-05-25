@@ -26,5 +26,6 @@ game_t *init_game_struct(void)
     game->precedent_scene = init_scene_enum();
     game->sprites = init_sprites();
     game->sounds = init_sfx(game->settings);
+    game->extra_data = init_extra_data();
     return game;
 }

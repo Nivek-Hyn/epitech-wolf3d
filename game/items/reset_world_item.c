@@ -12,6 +12,7 @@ void reset_world_item(world_item_t *item)
     item->item.type = ITEM_NONE;
     item->item.quantity = 0;
     item->item.texture = NULL;
+    item->item.image = NULL;
     item->item.data = NULL;
     item->position = (sfVector2f){0, 0};
     item->sprite = NULL;

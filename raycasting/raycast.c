@@ -59,6 +59,7 @@ void raycast(game_t *game)
         horizontal_raycast(game, var);
         vertical_raycast(game, var);
         set_ray_distance(var);
+        game->extra_data->ray_distances[var->drawn_rays] = var->total_dist;
         draw_ray(game, var);
         draw_3d_walls(game, var);
         var->ray_angle += angle_offset;

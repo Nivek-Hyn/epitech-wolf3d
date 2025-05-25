@@ -70,16 +70,7 @@
     #define FLOOR_MAP_COLOR sfWhite
     #define CEILING_MAP_OUTLINE_COLOR 200, 0, 0, 255
     #define CEILING_MAP_COLOR sfWhite
-
-    /* Map settings */
-    #define MAP_X 0
-    #define MAP_Y 0
-    #define WALL_MAP_OUTLINE_COLOR 0, 200, 0, 255
-    #define WALL_MAP_COLOR sfWhite
-    #define FLOOR_MAP_OUTLINE_COLOR 0, 0, 200, 255
-    #define FLOOR_MAP_COLOR sfWhite
-    #define CEILING_MAP_OUTLINE_COLOR 200, 0, 0, 255
-    #define CEILING_MAP_COLOR sfWhite
+    #define WALL_BRIGHTNESS 0.3f
 
     /* Music & Sounds */
     #define MUSIC_PLAY 0
@@ -95,6 +86,8 @@
     #define ITEM_RADIUS 5
     #define MAX_WORLD_ITEMS 100
     #define ITEM_TYPE_COUNT 4
+    #define WORLD_ITEM_DRAW_SIZE 10
+    #define WORLD_ITEM_MAX_DRAW_SIZE 300
 
     /* Inventory Settings */
     #define INVENTORY_SIZE 5
@@ -106,23 +99,7 @@
     #define INVENTORY_SLOT_BORDER_COLOR sfColor_fromRGB(50, 50, 50)
     #define INVENTORY_SLOT_OUTLINE_THICKNESS 2.0f
 
-    /* Flaslight settings */
-    /* Item settings */
-    #define ITEM_RADIUS 5
-    #define MAX_WORLD_ITEMS 100
-    #define ITEM_TYPE_COUNT 4
-
-    /* Inventory Settings */
-    #define INVENTORY_SIZE 5
-    #define INVENTORY_Y_OFFSET 100
-    #define INVENTORY_SLOT_SIZE 100
-    #define INVENTORY_SLOT_SPACING 25
-    #define INVENTORY_SLOT_SELECTED_SCALE 1.2f
-    #define INVENTORY_SLOT_BACKGROUND_COLOR 0, 0, 0, 128
-    #define INVENTORY_SLOT_BORDER_COLOR sfColor_fromRGB(50, 50, 50)
-    #define INVENTORY_SLOT_OUTLINE_THICKNESS 2.0f
-
-    /* Flaslight settings */
+    /* Flashlight settings */
     #define FLASHLIGHT_RADIUS 500
     #define MAX_FLASHLIGHT_BATTERY 100.0f
     #define FLASHLIGHT_BATTERY_DECREASE 1
@@ -135,6 +112,42 @@
 /////////////////////////////////////////
 /// STRUCTS
 /////////////////////////////////////////
+
+typedef struct extra_data_s {
+    float ray_distances[RAYCAST_WIN_WITDH];
+} extra_data_t;
+
+typedef struct {
+    sfVector2f pos;
+    float dx;
+    float dy;
+    float distance;
+    float angle_to_sprite;
+    float relative_angle;
+    float proj_plane_dist;
+    float sprite_screen_x;
+    int screen_x;
+    int sprite_screen_size;
+    // Config Rect
+    int draw_start_x;
+    int draw_end_x;
+    int visible_start;
+    int visible_end;
+    int first_visible_col;
+    int last_visible_col;
+    sfVector2u tex_size;
+    int tex_x_start;
+    int tex_x_end;
+    int tex_width;
+    sfIntRect rect;
+    // Size
+    float scale;
+    float factor;
+    // Color
+    sfUint8 alpha;
+    sfUint8 shade;
+    sfColor color;
+} world_item_draw_vars_t;
 
 typedef struct raycast_values_s {
     int drawn_rays;
@@ -199,6 +212,7 @@ typedef struct {
     item_type_t type;
     int quantity;
     sfTexture *texture;
+    sfImage *image;
     void *data;
 } item_t;
 
@@ -336,6 +350,8 @@ typedef struct game_s {
     scene_t precedent_scene;
     sprites_t *sprites;
     sfx_t *sounds;
+    // Extra
+    extra_data_t *extra_data;
 } game_t;
 
 /////////////////////////////////////////
@@ -382,6 +398,7 @@ bool drop_inventory_item(player_t *player, item_manager_t *manager, int slot);
 void reset_world_item(world_item_t *item);
 void reset_inventory_slot(inventory_t *inventory, int slot_index);
 void draw_selected_item_data(game_t *game);
+void draw_world_item(game_t *game);
 // INVENTORY
 void draw_inventory(game_t *game, inventory_t *inventory);
 void inventory_select_next_slot(inventory_t *inventory);
@@ -453,6 +470,7 @@ void init_map_images(world_t *world);
 scene_t init_scene_enum(void);
 sprites_t *init_sprites(void);
 sfx_t *init_sfx(settings_t *settings);
+extra_data_t *init_extra_data(void);
 ////////////
 
 ////////////
@@ -553,6 +571,10 @@ void *inventory_slot_data(inventory_t *inventory, int slot);
 void *inventory_selected_slot_data(inventory_t *inventory);
 flashlight_t *get_flashlight(inventory_t *inventory);
 void give_flashlight(inventory_t *inventory, int slot);
+item_t create_item(int type);
+sfTexture *create_texture_from_item_type(int type);
+sfImage *create_image_from_item_type(int type);
+void *create_data_from_item_type(int type);
 ////////////
 
 ////////////
@@ -573,6 +595,7 @@ void free_item_manager(item_manager_t *item_manager);
 void free_sprite_sheet(sprite_sheet_t *sprite_sheet);
 void free_sprites(game_t *game);
 void free_sfx(sfx_t *sfx);
+void free_extra_data(extra_data_t *extra_data);
 ////////////
 
 ////////////
