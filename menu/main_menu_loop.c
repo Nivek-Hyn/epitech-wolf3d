@@ -30,7 +30,8 @@ static void main_menu_render(game_t *game)
 
 void main_menu_sfx_manager(game_t *game)
 {
-    if (sfMusic_getStatus(game->sounds->menu_music) != sfPlaying) {
+    if (sfMusic_getStatus(game->sounds->menu_music) != sfPlaying &&
+        game->settings->music_mute == false) {
         sfMusic_play(game->sounds->menu_music);
     }
 }

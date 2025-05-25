@@ -128,4 +128,5 @@ void init_sprite_sheets(sprites_t *sprites)
     init_quit_button(sprites);
     init_settings_button(sprites);
     init_play_button(sprites);
+    init_sfx_music_buttons(sprites);
 }
