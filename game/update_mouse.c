@@ -9,10 +9,15 @@
 
 void mouse_update_lock_status(game_t *game)
 {
+    if (game->current_scene != GAME) {
+        return;
+    }
     if (game->mouse->is_locked == true) {
         game->mouse->is_locked = false;
+        game->is_paused = true;
     } else {
         game->mouse->is_locked = true;
+        game->is_paused = false;
     }
 }
 

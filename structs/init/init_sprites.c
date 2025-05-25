@@ -70,6 +70,59 @@ static void init_window_mode_text(sprites_t *sprites)
     );
 }
 
+static void init_pause_menu_background(sprites_t *sprites)
+{
+    sprites->pause_menu_background = sprite_create(
+        "assets/textures/PauseMenu.png",
+        1.7,
+        (sfVector2f){700, 100}
+    );
+}
+
+static void init_pause_settings_button(sprites_t *sprites)
+{
+    unsigned height_offset = 255 + 15;
+    unsigned tile_count = 2;
+    unsigned total_width = 900;
+    unsigned tile_width = total_width / tile_count;
+
+    sprites->pause_btn_settings = init_sprite_sheet(
+        tile_count,
+        sprite_create(
+            "assets/textures/buttons/BTN_Settings.png",
+            1.0,
+            (sfVector2f){
+                (STD_WIN_WIDTH / 2) - ((total_width / tile_count) / 2),
+                (STD_WIN_HEIGHT / 2) - ((total_width / tile_count) / 2)
+                    + height_offset
+            }
+        ),
+        create_int_rect(0, 0, 150, total_width / tile_count)
+    );
+}
+
+static void init_pause_menu_button(sprites_t *sprites)
+{
+    unsigned height_offset = 400 + 15;
+    unsigned tile_count = 2;
+    unsigned total_width = 900;
+    unsigned tile_width = total_width / tile_count;
+
+    sprites->pause_btn_menu = init_sprite_sheet(
+        tile_count,
+        sprite_create(
+            "assets/textures/buttons/BTN_Menu.png",
+            1.0,
+            (sfVector2f){
+                (STD_WIN_WIDTH / 2) - ((total_width / tile_count) / 2),
+                (STD_WIN_HEIGHT / 2) - ((total_width / tile_count) / 2)
+                    + height_offset
+            }
+        ),
+        create_int_rect(0, 0, 150, total_width / tile_count)
+    );
+}
+
 sprites_t *init_sprites(void)
 {
     sprites_t *sprites = malloc(sizeof(sprites_t));
@@ -83,5 +136,10 @@ sprites_t *init_sprites(void)
     init_window_mode_text(sprites);
     init_main_menu_background(sprites);
     init_ammo_icon(sprites);
+    init_pause_menu_background(sprites);
+    init_pause_settings_button(sprites);
+    init_pause_menu_button(sprites);
+    init_pause_save_button(sprites);
+    init_pause_load_button(sprites);
     return sprites;
 }

@@ -35,4 +35,5 @@ void game_loop(game_t *game)
     check_interactions(game);
     update_gun_animation(game);
     game_render(game);
+    pause_event(game);
 }

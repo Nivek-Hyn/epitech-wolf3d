@@ -10,13 +10,17 @@
 static void quit_button_hovered(game_t *game)
 {
     if (game->sprites->btn_quit->int_rect->left !=
-        game->sprites->btn_quit->int_rect->width){
+        game->sprites->btn_quit->int_rect->width &&
+        sfClock_getElapsedTime(game->settings_cooldown).microseconds
+            > 100000) {
         if (game->settings->sfx_mute == false)
             sfSound_play(game->sounds->button_hover);
         game->sprites->btn_quit->int_rect->left =
             game->sprites->btn_quit->int_rect->width;
     }
-    if (sfMouse_isButtonPressed(sfMouseLeft)) {
+    if (sfMouse_isButtonPressed(sfMouseLeft) && sfClock_getElapsedTime(
+            game->settings_cooldown).microseconds > 500000) {
+        sfClock_restart(game->settings_cooldown);
         if (sfSound_getStatus(game->sounds->button_click) != sfPlaying &&
             game->settings->sfx_mute == false) {
             sfSound_play(game->sounds->button_click);

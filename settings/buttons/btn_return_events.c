@@ -7,6 +7,15 @@
 
 #include "wolf3d.h"
 
+static void back_prec_scene(game_t *game)
+{
+    scene_t temp_scene;
+
+    temp_scene = game->precedent_scene;
+    game->precedent_scene = game->current_scene;
+    game->current_scene = temp_scene;
+}
+
 static void return_button_hovered(game_t *game)
 {
     if (game->sprites->btn_return->int_rect->left !=
@@ -21,8 +30,7 @@ static void return_button_hovered(game_t *game)
             game->settings->sfx_mute == false) {
             sfSound_play(game->sounds->button_click);
         }
-        game->precedent_scene = game->current_scene;
-        game->current_scene = MENU_MAIN;
+        back_prec_scene(game);
     }
 }
 
