@@ -18,6 +18,7 @@ bool spawn_item(item_manager_t *manager, item_t item, sfVector2f pos)
             manager->world_items[i].sprite = sfSprite_create();
             sfSprite_setTexture(manager->world_items[i].sprite,
                 item.texture, sfTrue);
+            manager->world_items[i].sprite_rect = (sfIntRect){0, 0, 0, 0};
             sfSprite_setPosition(manager->world_items[i].sprite, pos);
             manager->world_items[i].circle_visual =
                 create_circle(pos, ITEM_RADIUS, sfTransparent, sfYellow);

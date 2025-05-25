@@ -34,6 +34,9 @@ void keys_released(game_t *game)
     case sfKeyF:
         turn_flashlight(game);
         break;
+    case sfKeyX:
+        game->player->interact = true;
+        break;
     }
 }
 

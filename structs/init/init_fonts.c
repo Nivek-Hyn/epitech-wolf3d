@@ -13,8 +13,8 @@ font_list_t *init_fonts(void)
 
     if (!fonts)
         return NULL;
-    fonts->normal = sfFont_createFromFile("assets/fonts/BAUHAUS DEMI.OTF");
-    fonts->arial = sfFont_createFromFile("assets/fonts/ARIAL.TTF");
+    fonts->normal = sfFont_createFromFile(DEFAULT_FONT);
+    fonts->arial = sfFont_createFromFile(ARIAL_FONT);
     if (!fonts->normal) {
         free(fonts);
         return NULL;

@@ -27,6 +27,11 @@
     #include <SFML/Window.h>
     #include <SFML/System/Clock.h>
 
+    /* ASSETS */
+    #define DEFAULT_FONT "assets/fonts/BAUHAUS DEMI.OTF"
+    #define ARIAL_FONT "assets/fonts/ARIAL.TTF"
+
+    /* TRIGONOMETRY */
     #define PI 3.14159265358979323846
     #define UNIT_LIMIT 2 * PI
     #define PI2 PI / 2
@@ -55,6 +60,7 @@
     #define MOUSE_SENSITIVITY 0.01
     #define SIGHT_LINE 100000
     #define STD_FOV 70
+    #define INTERACTION_RANGE 100
 
     /* World settings */
     #define STD_MATRIX_Y 10
@@ -81,6 +87,9 @@
     #define NB_WALL_TYPES 2
     #define NB_FLOOR_TYPES 2
     #define NB_CEILING_TYPES 2
+
+    /* Interactions Settings */
+    #define INTERACTION_TEXT_Y_OFFSET 100
 
     /* Item settings */
     #define ITEM_RADIUS 5
@@ -139,7 +148,6 @@ typedef struct {
     int tex_x_start;
     int tex_x_end;
     int tex_width;
-    sfIntRect rect;
     // Size
     float scale;
     float factor;
@@ -220,6 +228,7 @@ typedef struct {
     item_t item;
     sfVector2f position;
     sfSprite *sprite;
+    sfIntRect sprite_rect;
     sfCircleShape *circle_visual;
 } world_item_t;
 
@@ -242,6 +251,8 @@ typedef struct player_s {
     float angle;
     sfCircleShape *player_visual;
     inventory_t *inventory;
+    bool can_interact;
+    bool interact;
 } player_t;
 
 typedef struct mouse_s {
@@ -374,6 +385,8 @@ int compare_lines_to_player(game_t *game, float player_pos_x,
     float player_pos_y, int y);
 int check_circle_rectangle_collision(float circle_pos_x, float circle_pos_y,
     float circle_radius, sfRectangleShape *rectangle);
+// INTERACTIONS
+void check_interactions(game_t *game);
 // ITEMS
 void draw_items(game_t *game);
 bool spawn_item(item_manager_t *manager, item_t item, sfVector2f pos);
@@ -398,7 +411,7 @@ bool drop_inventory_item(player_t *player, item_manager_t *manager, int slot);
 void reset_world_item(world_item_t *item);
 void reset_inventory_slot(inventory_t *inventory, int slot_index);
 void draw_selected_item_data(game_t *game);
-void draw_world_item(game_t *game);
+void draw_world_items(game_t *game);
 // INVENTORY
 void draw_inventory(game_t *game, inventory_t *inventory);
 void inventory_select_next_slot(inventory_t *inventory);
@@ -562,6 +575,8 @@ void give_flashlight(inventory_t *inventory, int slot);
 ////////////
 // UTILITY FUNCTIONS
 ////////////
+sfText *create_text(char *string, int size,
+    sfColor color, sfVector2f position);
 bool is_position_within_map(world_t *world, float px, float py);
 bool is_position_an_empty_space(world_t *world, float px, float py);
 bool is_cursor_above_sprite(sfSprite *sprite, sfRenderWindow *render_window);

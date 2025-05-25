@@ -13,7 +13,7 @@ void game_render(game_t *game)
     draw_items(game);
     draw_player(game);
     raycast(game);
-    draw_world_item(game);
+    draw_world_items(game);
     draw_inventory(game, game->player->inventory);
     draw_selected_item_data(game);
 }
@@ -31,5 +31,6 @@ void game_loop(game_t *game)
     check_events(game);
     update_player(game);
     update_mouse(game);
+    check_interactions(game);
     game_render(game);
 }

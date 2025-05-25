@@ -16,5 +16,6 @@ void reset_world_item(world_item_t *item)
     item->item.data = NULL;
     item->position = (sfVector2f){0, 0};
     item->sprite = NULL;
+    item->sprite_rect = (sfIntRect){0, 0, 0, 0};
     item->circle_visual = NULL;
 }

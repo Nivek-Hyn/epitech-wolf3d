@@ -88,12 +88,12 @@ static void set_sprite_texture_and_rect(
     vars->tex_x_end = (vars->last_visible_col - vars->draw_start_x) *
         vars->tex_size.x / vars->sprite_screen_size;
     vars->tex_width = vars->tex_x_end - vars->tex_x_start;
-    vars->rect.left = vars->tex_x_start;
-    vars->rect.top = 0;
-    vars->rect.width = vars->tex_width;
-    vars->rect.height = (int)vars->tex_size.y;
+    world_item->sprite_rect.left = vars->tex_x_start;
+    world_item->sprite_rect.top = 0;
+    world_item->sprite_rect.width = vars->tex_width;
+    world_item->sprite_rect.height = (int)vars->tex_size.y;
     sfSprite_setTexture(world_item->sprite, world_item->item.texture, sfTrue);
-    sfSprite_setTextureRect(world_item->sprite, vars->rect);
+    sfSprite_setTextureRect(world_item->sprite, world_item->sprite_rect);
 }
 
 static void set_sprite_scale_and_position(
@@ -125,13 +125,15 @@ static void set_sprite_color_by_distance(
     sfSprite_setColor(world_item->sprite, vars->color);
 }
 
-void draw_world_item(game_t *game)
+void draw_world_items(game_t *game)
 {
     world_item_draw_vars_t vars;
     item_manager_t *im = game->item_manager;
     world_item_t *world_item = NULL;
 
     for (int i = 0; i < MAX_WORLD_ITEMS; i++) {
+        if (im->world_items[i].item.type == ITEM_NONE)
+            continue;
         world_item = &im->world_items[i];
         if (!compute_angles_and_distance(game, &vars, world_item))
             continue;

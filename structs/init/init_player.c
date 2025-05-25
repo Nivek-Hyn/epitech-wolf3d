@@ -35,5 +35,7 @@ player_t *init_player(void)
     player->player_visual = create_circle((sfVector2f){player->x, player->y},
         PLAYER_RADIUS, sfWhite, sfGreen);
     player->inventory = init_inventory();
+    player->can_interact = false;
+    player->interact = false;
     return player;
 }
