@@ -7,6 +7,19 @@
 
 #include "wolf3d.h"
 
+void load_map(game_t *game)
+{
+    free_map(game->world->map,
+        game->world->map_size_x, game->world->map_size_y);
+    if (load_map_file(SAVE_FILE, game->world) == -1) {
+        game->world->map_size_x = STD_MATRIX_X;
+        game->world->map_size_y = STD_MATRIX_Y;
+        game->world->map = init_standard_map(
+            game->world->map_size_x, game->world->map_size_y);
+    }
+    create_map(game->world);
+}
+
 static void load_paused_button_hovered(game_t *game)
 {
     if (game->sprites->pause_btn_load->int_rect->left !=
@@ -25,6 +38,7 @@ static void load_paused_button_hovered(game_t *game)
             game->settings->sfx_mute == false) {
             sfSound_play(game->sounds->button_click);
         }
+        load_map(game);
     }
 }
 

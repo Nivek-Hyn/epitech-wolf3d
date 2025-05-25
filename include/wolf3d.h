@@ -555,6 +555,7 @@ sfx_t *init_sfx(settings_t *settings);
 void init_sprite_sheets(sprites_t *sprites);
 extra_data_t *init_extra_data(void);
 void init_sfx_music_buttons(sprites_t *sprites);
+void create_map(world_t *world);
 ////////////
 
 ////////////
