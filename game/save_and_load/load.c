@@ -24,8 +24,8 @@ void load_world_items(game_t *game)
             free_item_data(item_manager->world_items[i].item.data,
                 item_manager->world_items[i].item.type);
         reset_world_item(&item_manager->world_items[i]);
-        item_manager->world_item_count--;
     }
+    item_manager->world_item_count = 0;
     load_item_save_file(ITEM_SAVE_FILE, game->item_manager);
 }
 

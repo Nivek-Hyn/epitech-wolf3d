@@ -17,9 +17,13 @@ void turn_flashlight(game_t *game, inventory_t *inventory)
     if (flashlight) {
         if (flashlight->battery <= 0 && game->current_scene == GAME) {
             sfSound_play(game->sounds->flashlight_battery_depleted);
+            sfSprite_setTextureRect(flashlight->flashlight_ss->sprite,
+                flashlight->flashlight_ss->int_rect[0]);
         }
         if (flashlight->battery > 0 && game->current_scene == GAME) {
             sfSound_play(game->sounds->flashlight_toggle);
+            sfSprite_setTextureRect(flashlight->flashlight_ss->sprite,
+                flashlight->flashlight_ss->int_rect[!flashlight->is_on]);
         }
         flashlight->is_on = !flashlight->is_on;
     }

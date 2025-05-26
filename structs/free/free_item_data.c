@@ -24,6 +24,14 @@ void free_flashlight(void *data)
     if (!data)
         return;
     flashlight = (flashlight_t *)data;
+    if (flashlight->sheet)
+        sfTexture_destroy(flashlight->sheet);
+    if (flashlight->flashlight_ss->sprite)
+        sfSprite_destroy(flashlight->flashlight_ss->sprite);
+    if (flashlight->flashlight_ss->int_rect)
+        free(flashlight->flashlight_ss->int_rect);
+    if (flashlight->flashlight_ss)
+        free(flashlight->flashlight_ss);
     free(flashlight);
 }
 

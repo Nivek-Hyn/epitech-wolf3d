@@ -328,6 +328,8 @@ typedef struct gun_s {
 typedef struct flashlight_s {
     bool is_on;
     float battery;
+    sfTexture *sheet;
+    sprite_sheet_t *flashlight_ss;
 } flashlight_t;
 
 typedef struct item_s {

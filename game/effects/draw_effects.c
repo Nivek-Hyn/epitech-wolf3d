@@ -13,7 +13,7 @@ void draw_gun_shot_effect(game_t *game, effects_t *effects)
     float distance = 0.0f;
     float scale = 0.0f;
     float scale_factor = GUN_SHOT_EFFECT_SCALE_FACTOR;
-    float scale_min = 1.0f;
+    float scale_min = 0.1f;
     float scale_max = 10.0f;
 
     if (!anim->show)

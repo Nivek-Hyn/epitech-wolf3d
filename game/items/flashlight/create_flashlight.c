@@ -15,5 +15,12 @@ void *create_flashlight(void)
         return NULL;
     flashlight->is_on = false;
     flashlight->battery = 100.0f;
+    flashlight->sheet = sfTexture_createFromFile(
+        "assets/textures/items/flashlight_sheet.png", NULL);
+    flashlight->flashlight_ss = create_sprite_sheet(flashlight->sheet, 2);
+    sfSprite_setTextureRect(
+        flashlight->flashlight_ss->sprite,
+        flashlight->flashlight_ss->int_rect[0]
+    );
     return (void *)flashlight;
 }
