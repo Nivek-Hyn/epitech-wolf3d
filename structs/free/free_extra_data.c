@@ -17,5 +17,7 @@ void free_extra_data(extra_data_t *extra_data)
     }
     if (extra_data->textures)
         free(extra_data->textures);
+    if (extra_data->step_clock)
+        sfClock_destroy(extra_data->step_clock);
     free(extra_data);
 }

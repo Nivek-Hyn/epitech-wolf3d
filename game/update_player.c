@@ -60,20 +60,21 @@ void apply_player_normalized_movement(game_t *game,
     float *move_x, float *move_y)
 {
     float vector_length = 0;
+    float speed = MOVE_SPEED * game->time->delta_time;
 
     vector_length = sqrt((*move_x) * (*move_x) + (*move_y) * (*move_y));
     if (vector_length > 0) {
         (*move_x) /= vector_length;
         (*move_y) /= vector_length;
     }
-    if (check_player_walls_collision(game->player->x + (*move_x) * MOVE_SPEED,
+    if (check_player_walls_collision(game->player->x + (*move_x) * speed,
         game->player->y, game) != 1) {
-        game->player->x += (*move_x) * MOVE_SPEED;
+        game->player->x += (*move_x) * speed;
     }
     if (check_player_walls_collision(game->player->x,
-        game->player->y + (*move_y) * MOVE_SPEED,
+        game->player->y + (*move_y) * speed,
         game) != 1) {
-        game->player->y += (*move_y) * MOVE_SPEED;
+        game->player->y += (*move_y) * speed;
     }
 }
 
