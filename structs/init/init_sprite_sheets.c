@@ -7,7 +7,8 @@
 
 #include "wolf3d.h"
 
-static void init_play_button(sprites_t *sprites)
+static void init_play_button(sprites_t *sprites,
+    extra_data_t *extra_data)
 {
     unsigned height_offset = 200;
     unsigned tile_count = 2;
@@ -23,13 +24,15 @@ static void init_play_button(sprites_t *sprites)
                 (STD_WIN_WIDTH / 2) - ((total_width / tile_count) / 2),
                 (STD_WIN_HEIGHT / 2) - ((total_width / tile_count) / 2)
                     + height_offset
-            }
+            },
+            extra_data
         ),
         create_int_rect(0, 0, 150, total_width / tile_count)
     );
 }
 
-static void init_settings_button(sprites_t *sprites)
+static void init_settings_button(sprites_t *sprites,
+    extra_data_t *extra_data)
 {
     unsigned height_offset = 350;
     unsigned tile_count = 2;
@@ -45,13 +48,15 @@ static void init_settings_button(sprites_t *sprites)
                 (STD_WIN_WIDTH / 2) - ((total_width / tile_count) / 2),
                 (STD_WIN_HEIGHT / 2) - ((total_width / tile_count) / 2)
                     + height_offset
-            }
+            },
+            extra_data
         ),
         create_int_rect(0, 0, 150, total_width / tile_count)
     );
 }
 
-static void init_quit_button(sprites_t *sprites)
+static void init_quit_button(sprites_t *sprites,
+    extra_data_t *extra_data)
 {
     unsigned height_offset = 500;
     unsigned tile_count = 2;
@@ -67,13 +72,15 @@ static void init_quit_button(sprites_t *sprites)
                 (STD_WIN_WIDTH / 2) - ((total_width / tile_count) / 2),
                 (STD_WIN_HEIGHT / 2) - ((total_width / tile_count) / 2)
                     + height_offset
-            }
+            },
+            extra_data
         ),
         create_int_rect(0, 0, 150, total_width / tile_count)
     );
 }
 
-static void init_return_button(sprites_t *sprites)
+static void init_return_button(sprites_t *sprites,
+    extra_data_t *extra_data)
 {
     unsigned height_offset = 550;
     unsigned width_offset = 650;
@@ -91,13 +98,14 @@ static void init_return_button(sprites_t *sprites)
                     - width_offset,
                 (STD_WIN_HEIGHT / 2) - ((total_width / tile_count) / 2)
                     + height_offset
-            }
+            }, extra_data
         ),
         create_int_rect(0, 0, 150, total_width / tile_count)
     );
 }
 
-static void init_window_change_button(sprites_t *sprites)
+static void init_window_change_button(sprites_t *sprites,
+    extra_data_t *extra_data)
 {
     unsigned height_offset = 55;
     unsigned width_offset = 300;
@@ -115,18 +123,18 @@ static void init_window_change_button(sprites_t *sprites)
                     + width_offset,
                 (STD_WIN_HEIGHT / 2) - ((total_width / tile_count) / 2)
                     - height_offset
-            }
+            }, extra_data
         ),
         create_int_rect(0, 0, 150, total_width / tile_count)
     );
 }
 
-void init_sprite_sheets(sprites_t *sprites)
+void init_sprite_sheets(sprites_t *sprites, extra_data_t *extra_data)
 {
-    init_window_change_button(sprites);
-    init_return_button(sprites);
-    init_quit_button(sprites);
-    init_settings_button(sprites);
-    init_play_button(sprites);
-    init_sfx_music_buttons(sprites);
+    init_window_change_button(sprites, extra_data);
+    init_return_button(sprites, extra_data);
+    init_quit_button(sprites, extra_data);
+    init_settings_button(sprites, extra_data);
+    init_play_button(sprites, extra_data);
+    init_sfx_music_buttons(sprites, extra_data);
 }

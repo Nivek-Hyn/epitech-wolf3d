@@ -7,7 +7,8 @@
 
 #include "wolf3d.h"
 
-static void init_sfx_icon(sprites_t *sprites)
+static void init_sfx_icon(sprites_t *sprites,
+    extra_data_t *extra_data)
 {
     sprites->sfx_icon = sprite_create(
         "assets/textures/SFXIcon.png",
@@ -15,11 +16,12 @@ static void init_sfx_icon(sprites_t *sprites)
         (sfVector2f){
             (STD_WIN_WIDTH / 2) - 350,
             (STD_WIN_HEIGHT / 2) - 150
-        }
+        }, extra_data
     );
 }
 
-static void init_music_icon(sprites_t *sprites)
+static void init_music_icon(sprites_t *sprites,
+    extra_data_t *extra_data)
 {
     sprites->music_icon = sprite_create(
         "assets/textures/MusicIcon.png",
@@ -27,11 +29,12 @@ static void init_music_icon(sprites_t *sprites)
         (sfVector2f){
             (STD_WIN_WIDTH / 2) - 350,
             (STD_WIN_HEIGHT / 2)
-        }
+        }, extra_data
     );
 }
 
-static void init_window_change_button(sprites_t *sprites)
+static void init_window_change_button(sprites_t *sprites,
+    extra_data_t *extra_data)
 {
     unsigned height_offset = 55;
     unsigned width_offset = 300;
@@ -49,13 +52,14 @@ static void init_window_change_button(sprites_t *sprites)
                     + width_offset,
                 (STD_WIN_HEIGHT / 2) - ((total_width / tile_count) / 2)
                     - height_offset
-            }
+            }, extra_data
         ),
         create_int_rect(0, 0, 150, total_width / tile_count)
     );
 }
 
-static void init_music_status(sprites_t *sprites)
+static void init_music_status(sprites_t *sprites,
+    extra_data_t *extra_data)
 {
     unsigned height_offset = 310;
     unsigned width_offset = 300;
@@ -73,13 +77,14 @@ static void init_music_status(sprites_t *sprites)
                     + width_offset,
                 (STD_WIN_HEIGHT / 2) - ((total_width / tile_count) / 2)
                     + height_offset
-            }
+            }, extra_data
         ),
         create_int_rect(0, 0, 150, total_width / tile_count)
     );
 }
 
-static void init_sfx_status(sprites_t *sprites)
+static void init_sfx_status(sprites_t *sprites,
+    extra_data_t *extra_data)
 {
     unsigned height_offset = 160;
     unsigned width_offset = 300;
@@ -97,16 +102,16 @@ static void init_sfx_status(sprites_t *sprites)
                     + width_offset,
                 (STD_WIN_HEIGHT / 2) - ((total_width / tile_count) / 2)
                     + height_offset
-            }
+            }, extra_data
         ),
         create_int_rect(0, 0, 150, total_width / tile_count)
     );
 }
 
-void init_sfx_music_buttons(sprites_t *sprites)
+void init_sfx_music_buttons(sprites_t *sprites, extra_data_t *extra_data)
 {
-    init_sfx_icon(sprites);
-    init_music_icon(sprites);
-    init_music_status(sprites);
-    init_sfx_status(sprites);
+    init_sfx_icon(sprites, extra_data);
+    init_music_icon(sprites, extra_data);
+    init_music_status(sprites, extra_data);
+    init_sfx_status(sprites, extra_data);
 }

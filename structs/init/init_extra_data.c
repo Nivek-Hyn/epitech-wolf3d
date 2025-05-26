@@ -15,5 +15,7 @@ extra_data_t *init_extra_data(void)
         return NULL;
     for (int i = 0; i < RAYCAST_WIN_WITDH; i++)
         extra_data->ray_distances[i] = 0.0f;
+    extra_data->textures = NULL;
+    extra_data->nb_textures = 0;
     return extra_data;
 }

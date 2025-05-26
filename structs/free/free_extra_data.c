@@ -11,5 +11,11 @@ void free_extra_data(extra_data_t *extra_data)
 {
     if (extra_data == NULL)
         return;
+    for (int i = 0; i < extra_data->nb_textures; i++) {
+        if (extra_data->textures[i])
+            sfTexture_destroy(extra_data->textures[i]);
+    }
+    if (extra_data->textures)
+        free(extra_data->textures);
     free(extra_data);
 }

@@ -7,7 +7,7 @@
 
 #include "wolf3d.h"
 
-void init_pause_save_button(sprites_t *sprites)
+void init_pause_save_button(sprites_t *sprites, extra_data_t *extra_data)
 {
     unsigned height_offset = 20;
     unsigned tile_count = 2;
@@ -23,13 +23,14 @@ void init_pause_save_button(sprites_t *sprites)
                 (STD_WIN_WIDTH / 2) - ((total_width / tile_count) / 2),
                 (STD_WIN_HEIGHT / 2) - ((total_width / tile_count) / 2)
                     - height_offset
-            }
+            },
+            extra_data
         ),
         create_int_rect(0, 0, 150, total_width / tile_count)
     );
 }
 
-void init_pause_load_button(sprites_t *sprites)
+void init_pause_load_button(sprites_t *sprites, extra_data_t *extra_data)
 {
     unsigned height_offset = 110 + 15;
     unsigned tile_count = 2;
@@ -45,7 +46,8 @@ void init_pause_load_button(sprites_t *sprites)
                 (STD_WIN_WIDTH / 2) - ((total_width / tile_count) / 2),
                 (STD_WIN_HEIGHT / 2) - ((total_width / tile_count) / 2)
                     + height_offset
-            }
+            },
+            extra_data
         ),
         create_int_rect(0, 0, 150, total_width / tile_count)
     );

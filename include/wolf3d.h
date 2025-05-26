@@ -137,6 +137,8 @@
 
 typedef struct extra_data_s {
     float ray_distances[RAYCAST_WIN_WITDH];
+    sfTexture **textures;
+    int nb_textures;
 } extra_data_t;
 
 typedef struct {
@@ -452,8 +454,6 @@ void draw_inventory(game_t *game, inventory_t *inventory);
 void inventory_select_next_slot(inventory_t *inventory);
 void inventory_select_previous_slot(inventory_t *inventory);
 void draw_inventory_full_message(game_t *game, int trigger);
-// FLASHLIGHT
-void turn_flashlight(game_t *game);
 // ITEMS
 void draw_items(game_t *game);
 bool spawn_item(item_manager_t *manager, item_t item, sfVector2f pos);
@@ -465,6 +465,17 @@ void reset_inventory_slot(inventory_t *inventory, int slot_index);
 void draw_selected_item_data(game_t *game);
 void draw_world_items(game_t *game);
 void use_selected_item(game_t *game, inventory_t *inventory);
+// KEY
+void *create_key(void);
+void draw_key_data(game_t *game, item_t selected_slot);
+// FLASHLIGHT
+void *create_flashlight(void);
+void turn_flashlight(game_t *game);
+void draw_flashlight_data(game_t *game, item_t selected_slot);
+// GUN
+void *create_gun(void);
+void gun_shoot(game_t *game, inventory_t *inventory);
+void draw_gun_data(game_t *game, item_t selected_slot);
 // INVENTORY
 void draw_inventory(game_t *game, inventory_t *inventory);
 void inventory_select_next_slot(inventory_t *inventory);
@@ -508,8 +519,8 @@ void check_paused_settings_button_events(game_t *game);
 void check_paused_menu_button_events(game_t *game);
 void check_paused_load_button_events(game_t *game);
 void check_paused_save_button_events(game_t *game);
-void init_pause_save_button(sprites_t *sprites);
-void init_pause_load_button(sprites_t *sprites);
+void init_pause_save_button(sprites_t *sprites, extra_data_t *extra_data);
+void init_pause_load_button(sprites_t *sprites, extra_data_t *extra_data);
 ////////////
 
 ////////////
@@ -528,7 +539,8 @@ sfRectangleShape *create_rectangle(sfVector2f position, sfVector2f size,
 ////////////
 // SPRITES
 ////////////
-sfSprite *sprite_create(char *filepath, float scale, sfVector2f position);
+sfSprite *sprite_create(char *filepath, float scale, sfVector2f position,
+    extra_data_t *extra_data);
 sprite_sheet_t *init_sprite_sheet(int tile_count,
     sfSprite *sprite, sfIntRect *int_rect);
 sfIntRect *create_int_rect(int top, int left, int height, int width);
@@ -553,11 +565,11 @@ map_t **init_standard_map(int map_size_x, int map_size_y);
 void init_map_textures(world_t *world);
 void init_map_images(world_t *world);
 scene_t init_scene_enum(void);
-sprites_t *init_sprites(void);
+sprites_t *init_sprites(extra_data_t *extra_data);
 sfx_t *init_sfx(settings_t *settings);
-void init_sprite_sheets(sprites_t *sprites);
+void init_sprite_sheets(sprites_t *sprites, extra_data_t *extra_data);
 extra_data_t *init_extra_data(void);
-void init_sfx_music_buttons(sprites_t *sprites);
+void init_sfx_music_buttons(sprites_t *sprites, extra_data_t *extra_data);
 void create_map(world_t *world);
 ////////////
 

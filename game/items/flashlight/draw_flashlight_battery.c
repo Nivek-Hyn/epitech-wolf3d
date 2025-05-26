@@ -66,8 +66,8 @@ void draw_flashlight_battery(game_t *game, flashlight_t *flashlight)
     float current = flashlight->battery;
     float percent = (current / MAX_FLASHLIGHT_BATTERY) * 100.0f;
     sfVector2f pos = {
-        (STD_WIN_WIDTH / 2) - (MAX_BATTERY_WIDTH / 2),
-        (STD_WIN_HEIGHT / 2) - (STD_WIN_HEIGHT / 3)
+        .x = RAYCAST_WIN_X_CENTER / 2 - MAX_FLASHLIGHT_BATTERY / 2,
+        .y = RAYCAST_WIN_Y_CENTER / 2 - 25
     };
 
     draw_flashlight_battery_background(game->render_window, pos.x, pos.y);

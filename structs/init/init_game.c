@@ -9,9 +9,9 @@
 
 static void init_game_more(game_t *game)
 {
+    game->settings_cooldown = sfClock_create();
     game->sfx_cooldown = sfClock_create();
     game->sounds = init_sfx(game->settings);
-    game->extra_data = init_extra_data();
     game->is_paused = false;
 }
 
@@ -31,10 +31,10 @@ game_t *init_game_struct(void)
     game->fonts = init_fonts();
     game->texts = init_texts(game->fonts);
     game->item_manager = init_item_manager();
+    game->extra_data = init_extra_data();
     game->current_scene = init_scene_enum();
     game->precedent_scene = init_scene_enum();
-    game->sprites = init_sprites();
-    game->settings_cooldown = sfClock_create();
+    game->sprites = init_sprites(game->extra_data);
     init_game_more(game);
     return game;
 }

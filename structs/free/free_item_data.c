@@ -36,6 +36,7 @@ void free_item_data(void *data, item_type_t type)
         return;
     switch (type) {
         case ITEM_KEY:
+            free_key((item_key_t *)data);
             break;
         case ITEM_FLASHLIGHT:
             free_flashlight((flashlight_t *)data);
