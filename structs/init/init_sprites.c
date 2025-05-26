@@ -159,5 +159,7 @@ sprites_t *init_sprites(extra_data_t *extra_data)
     init_pause_menu_button(sprites, extra_data);
     init_pause_save_button(sprites, extra_data);
     init_pause_load_button(sprites, extra_data);
+    init_floor(sprites, extra_data);
+    init_ceiling(sprites, extra_data);
     return sprites;
 }

@@ -13,6 +13,8 @@ static void init_game_more(game_t *game)
     game->sfx_cooldown = sfClock_create();
     game->sounds = init_sfx(game->settings);
     game->is_paused = false;
+    game->extra_data->step_clock = sfClock_create();
+    game->extra_data->step_cooldown = PLAYER_STEP_COOLDOWN;
 }
 
 game_t *init_game_struct(void)

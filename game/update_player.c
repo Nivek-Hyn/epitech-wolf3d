@@ -77,11 +77,38 @@ void apply_player_normalized_movement(game_t *game,
     }
 }
 
+static void play_random_footstep(game_t *game)
+{
+    int random_index = rand() % 3;
+    sfSound *footstep_sounds[] = {
+        game->sounds->footstep,
+        game->sounds->footstep_two,
+        game->sounds->footstep_three,
+        game->sounds->footstep_four
+    };
+
+    sfSound_play(footstep_sounds[random_index]);
+}
+
+static void footstep_sfx(game_t *game)
+{
+    if (game->keys->z == 1 || game->keys->s == 1 ||
+        game->keys->q == 1 || game->keys->d == 1) {
+        if (sfClock_getElapsedTime(game->extra_data->step_clock).microseconds
+            < game->extra_data->step_cooldown) {
+            return;
+        }
+        sfClock_restart(game->extra_data->step_clock);
+        play_random_footstep(game);
+    }
+}
+
 void update_player(game_t *game)
 {
     float move_x = 0;
     float move_y = 0;
 
+    footstep_sfx(game);
     update_player_angle(game);
     update_player_movement_vector(game, &move_x, &move_y);
     apply_player_normalized_movement(game, &move_x, &move_y);
