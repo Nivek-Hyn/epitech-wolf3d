@@ -26,5 +26,6 @@ sprite_sheet_t *create_sprite_sheet(sfTexture *texture, int frame_count)
     for (int i = 0; i < frame_count; i++)
         ss->int_rect[i] =
             (sfIntRect){i * frame_width, 0, frame_width, frame_height};
+    sfSprite_setTextureRect(ss->sprite, ss->int_rect[0]);
     return ss;
 }

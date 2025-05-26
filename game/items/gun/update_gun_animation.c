@@ -7,11 +7,6 @@
 
 #include "wolf3d.h"
 
-void gun_shoot(game_t *game, gun_t *gun)
-{
-    printf("Shoot !\n");
-}
-
 void update_gun_animation(game_t *game)
 {
     item_t *selected = inventory_selected_slot(game->player->inventory);

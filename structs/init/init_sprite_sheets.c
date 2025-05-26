@@ -7,6 +7,16 @@
 
 #include "wolf3d.h"
 
+static void init_gun_shot_effect(sprites_t *sprites,
+    extra_data_t *extra_data)
+{
+    sfTexture *texture = sfTexture_createFromFile(
+        "assets/textures/effects/GunHit.png", NULL);
+
+    sprites->gun_shot_effect = create_sprite_sheet(texture, 4);
+    stock_texture_in_extra_data(texture, extra_data);
+}
+
 static void init_play_button(sprites_t *sprites,
     extra_data_t *extra_data)
 {
@@ -137,4 +147,5 @@ void init_sprite_sheets(sprites_t *sprites, extra_data_t *extra_data)
     init_settings_button(sprites, extra_data);
     init_play_button(sprites, extra_data);
     init_sfx_music_buttons(sprites, extra_data);
+    init_gun_shot_effect(sprites, extra_data);
 }

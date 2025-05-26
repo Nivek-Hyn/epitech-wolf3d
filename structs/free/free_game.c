@@ -22,6 +22,7 @@ void free_game(game_t *game)
     free_sfx(game->sounds);
     sfClock_destroy(game->settings_cooldown);
     sfClock_destroy(game->sfx_cooldown);
+    free_effects(game->effects);
     sfRenderWindow_destroy(game->render_window);
     free_extra_data(game->extra_data);
     free(game);

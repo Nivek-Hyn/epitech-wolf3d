@@ -12,7 +12,8 @@ void game_render(game_t *game)
     draw_floor_and_ceiling(game);
     raycast(game);
     draw_world_items(game);
-    draw_player_data(game->render_window, game->player);
+    draw_effects(game, game->effects);
+    draw_player_data(game, game->player);
     draw_inventory(game, game->player->inventory);
     draw_selected_item_data(game);
     draw_interaction_message(game);
@@ -39,6 +40,7 @@ void game_loop(game_t *game)
     update_mouse(game);
     check_interactions(game);
     update_gun_animation(game);
+    update_effects(game);
     game_render(game);
     pause_event(game);
 }

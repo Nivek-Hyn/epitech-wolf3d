@@ -48,8 +48,8 @@ void draw_stamina_bar(sfRenderWindow *window, player_t *player)
         RAYCAST_WIN_Y_CENTER / 2 - 25.0f});
 }
 
-void draw_player_data(sfRenderWindow *window, player_t *player)
+void draw_player_data(game_t *game, player_t *player)
 {
-    draw_health_bar(window, player);
-    draw_stamina_bar(window, player);
+    draw_health_bar(game->render_window, player);
+    draw_stamina_bar(game->render_window, player);
 }

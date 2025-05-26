@@ -141,6 +141,10 @@
     #define SHOOT_TRIGGER_FRAME 2
     #define FRAME_DURATION 0.05f
 
+    /* Effects Settings */
+    #define MAX_DRAW_DISTANCE 1000.0f
+    #define GUN_SHOT_EFFECT_SCALE_FACTOR 750.0f
+
     /* SFX & Music */
     #define SFX_VOLUME 50
     #define MUSIC_VOLUME 20
@@ -282,7 +286,19 @@ typedef struct sprites_s {
     sprite_sheet_t *pause_btn_save;
     sprite_sheet_t *pause_btn_load;
     sfSprite *ammo_icon;
+    sprite_sheet_t *gun_shot_effect;
 } sprites_t;
+
+typedef struct animation_s {
+    sprite_sheet_t *animation;
+    float anim_timer;
+    bool show;
+    int current_frame;
+} animation_t;
+
+typedef struct effects_s {
+    animation_t *gun_shot_effect;
+} effects_t;
 
 typedef enum item_type_e {
     ITEM_NONE,
@@ -469,6 +485,7 @@ typedef struct game_s {
     scene_t precedent_scene;
     sprites_t *sprites;
     sfx_t *sounds;
+    effects_t *effects;
     // Extra
     extra_data_t *extra_data;
 } game_t;
@@ -487,7 +504,7 @@ void draw_player(game_t *game);
 void update_player(game_t *game);
 void player_look_left(game_t *game, float look_speed);
 void player_look_right(game_t *game, float look_speed);
-void draw_player_data(sfRenderWindow *window, player_t *player);
+void draw_player_data(game_t *game, player_t *player);
 void update_player_data(game_t *game);
 // COLLISION
 int check_player_walls_collision(float player_pos_x, float player_pos_y,
@@ -539,10 +556,14 @@ void draw_flashlight_battery(game_t *game, flashlight_t *flashlight);
 void *create_gun(void);
 void use_shoot(game_t *game, inventory_t *inventory);
 void draw_gun_data(game_t *game, item_t selected_slot);
+void gun_shoot(game_t *game, gun_t *gun);
 // INVENTORY
 void draw_inventory(game_t *game, inventory_t *inventory);
 void inventory_select_next_slot(inventory_t *inventory);
 void inventory_select_previous_slot(inventory_t *inventory);
+// EFFECTS
+void update_effects(game_t *game);
+void draw_effects(game_t *game, effects_t *effects);
 // SAVE & LOAD
 int load_map_file(const char *filename, world_t *world);
 void load_item_save_file(const char *filename, item_manager_t *manager);
@@ -630,6 +651,7 @@ extra_data_t *init_extra_data(void);
 void init_sfx_music_buttons(sprites_t *sprites, extra_data_t *extra_data);
 void create_map(world_t *world);
 void init_bar_components(bar_components_t *bar);
+effects_t *init_effects(game_t *game);
 ////////////
 
 ////////////
@@ -734,6 +756,8 @@ void draw_bar(sfRenderWindow *window, bar_components_t *bar,
     sfVector2f position);
 void update_bar_value_text(float current, float max,
     sfText *value_text, bar_display_mode_t mode);
+void stock_texture_in_extra_data(sfTexture *texture,
+    extra_data_t *extra_data);
 ////////////
 
 ////////////
@@ -756,6 +780,7 @@ void free_sprite_sheet(sprite_sheet_t *sprite_sheet);
 void free_sprites(game_t *game);
 void free_sfx(sfx_t *sfx);
 void free_item_data(void *data, item_type_t type);
+void free_effects(effects_t *effects);
 void free_extra_data(extra_data_t *extra_data);
 ////////////
 
