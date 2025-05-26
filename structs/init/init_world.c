@@ -53,6 +53,12 @@ void init_world_variables(world_t *world)
     world->map_size_y = 0;
     init_map_textures(world);
     init_map_images(world);
+    world->floor = create_rectangle((sfVector2f){0, 0},
+        (sfVector2f){RAYCAST_WIN_WITDH, RAYCAST_WIN_HEIGHT},
+            sfTransparent, FLOOR_COLOR);
+    world->ceiling = create_rectangle((sfVector2f){0, 0},
+        (sfVector2f){RAYCAST_WIN_WITDH, RAYCAST_WIN_HEIGHT},
+            sfTransparent, CEILING_COLOR);
     world->minimap = false;
 }
 

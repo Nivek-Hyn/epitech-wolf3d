@@ -12,7 +12,7 @@ void draw_gun(game_t *game, gun_t *gun)
     sfIntRect rect = gun->gun_ss->int_rect[gun->gun_anim_frame];
     sfVector2f pos = {
         RAYCAST_WIN_X_CENTER - rect.width / 2.0f,
-        RAYCAST_WIN_Y_CENTER + 250 - rect.height / 2.0f
+        RAYCAST_WIN_HEIGHT - rect.height
     };
 
     sfSprite_setPosition(gun->gun_ss->sprite, pos);

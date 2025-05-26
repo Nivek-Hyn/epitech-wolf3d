@@ -33,5 +33,9 @@ void free_world(world_t *world)
     free_textures(world->ceiling_textures, NB_CEILING_TYPES);
     free_images(world->floor_images, NB_FLOOR_TYPES);
     free_images(world->ceiling_images, NB_CEILING_TYPES);
+    if (world->floor)
+        sfRectangleShape_destroy(world->floor);
+    if (world->ceiling)
+        sfRectangleShape_destroy(world->ceiling);
     free(world);
 }

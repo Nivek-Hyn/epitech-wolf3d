@@ -9,6 +9,7 @@
 
 void game_render(game_t *game)
 {
+    draw_floor_and_ceiling(game);
     raycast(game);
     draw_world_items(game);
     draw_inventory(game, game->player->inventory);

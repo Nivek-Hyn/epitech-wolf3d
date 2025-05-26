@@ -90,6 +90,8 @@
     #define CEILING_MAP_OUTLINE_COLOR 200, 0, 0, 255
     #define CEILING_MAP_COLOR sfWhite
     #define WALL_BRIGHTNESS 0.3f
+    #define FLOOR_COLOR sfColor_fromRGB(0, 0, 0)
+    #define CEILING_COLOR sfColor_fromRGB(0, 0, 0)
 
     /* Music & Sounds */
     #define MUSIC_PLAY 0
@@ -361,6 +363,8 @@ typedef struct world_s {
     sfTexture *ceiling_textures[NB_CEILING_TYPES];
     sfImage *floor_images[NB_FLOOR_TYPES];
     sfImage *ceiling_images[NB_CEILING_TYPES];
+    sfRectangleShape *floor;
+    sfRectangleShape *ceiling;
     bool minimap;
 } world_t;
 
@@ -429,6 +433,7 @@ typedef struct game_s {
 // GAME
 ////////////
 void game_loop(game_t *game);
+void draw_floor_and_ceiling(game_t *game);
 // PLAYER
 void draw_player(game_t *game);
 void update_player(game_t *game);
