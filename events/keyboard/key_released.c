@@ -32,7 +32,7 @@ void keys_released(game_t *game)
 {
     switch (game->event.key.code) {
     case sfKeyF:
-        turn_flashlight(game);
+        turn_flashlight(game, game->player->inventory);
         break;
     case sfKeyX:
         game->player->interact = true;
@@ -43,6 +43,10 @@ void keys_released(game_t *game)
         break;
     case sfKeyM:
         game->world->minimap = !game->world->minimap;
+        break;
+    case sfKeyLShift:
+        game->keys->shift = 0;
+        game->player->move_speed = MOVE_SPEED;
         break;
     }
 }

@@ -7,20 +7,32 @@
 
 #include "wolf3d.h"
 
+void keys_pressed(game_t *game)
+{
+    switch (game->event.key.code) {
+        case sfKeyLShift:
+            game->keys->shift = 1;
+            game->player->move_speed = MOVE_SPEED * 2.0f;
+            break;
+        default:
+            break;
+    }
+}
+
 void arrow_keys(game_t *game)
 {
     switch (game->event.key.code) {
     case sfKeyUp:
-        game->player->y -= MOVE_SPEED;
+        game->player->y -= game->player->move_speed;
         break;
     case sfKeyDown:
-        game->player->y += MOVE_SPEED;
+        game->player->y += game->player->move_speed;
         break;
     case sfKeyLeft:
-        game->player->x -= MOVE_SPEED;
+        game->player->x -= game->player->move_speed;
         break;
     case sfKeyRight:
-        game->player->x += MOVE_SPEED;
+        game->player->x += game->player->move_speed;
         break;
     }
 }
@@ -53,5 +65,6 @@ void keyboard_key_pressed(game_t *game)
 {
     arrow_keys(game);
     zqsd_keys_pressed(game);
+    keys_pressed(game);
     return;
 }

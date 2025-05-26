@@ -12,6 +12,7 @@ void game_render(game_t *game)
     draw_floor_and_ceiling(game);
     raycast(game);
     draw_world_items(game);
+    draw_player_data(game->render_window, game->player);
     draw_inventory(game, game->player->inventory);
     draw_selected_item_data(game);
     draw_interaction_message(game);
@@ -34,6 +35,7 @@ void game_loop(game_t *game)
     time_manager(game);
     check_events(game);
     update_player(game);
+    update_player_data(game);
     update_mouse(game);
     check_interactions(game);
     update_gun_animation(game);

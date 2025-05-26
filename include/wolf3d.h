@@ -67,13 +67,21 @@
     #define RAYCAST_JUMP 6
 
     /* Player settings */
-    #define MOVE_SPEED 2
+    #define MOVE_SPEED 1.0f
     #define PLAYER_RADIUS 10
     #define STD_LOOK_SPEED 3
     #define MOUSE_SENSITIVITY 0.01
     #define SIGHT_LINE 100000
     #define STD_FOV 70
     #define INTERACTION_RANGE 50
+    #define PLAYER_MAX_HEALTH 100.0f
+    #define PLAYER_MAX_STAMINA 100.0f
+    #define PLAYER_MAX_SANITY 100.0f
+    #define MAX_PLAYER_HEALTH_BAR 250
+    #define MAX_PLAYER_STAMINA_BAR 333
+    #define HEALTH_REGEN_RATE 1.0f
+    #define STAMINA_REGEN_RATE 5.0f
+    #define STAMINA_RUN_COST 15.0f
 
     /* World settings */
     #define STD_MATRIX_Y 10
@@ -146,6 +154,27 @@ typedef struct extra_data_s {
     sfTexture **textures;
     int nb_textures;
 } extra_data_t;
+
+typedef enum bar_display_mode_e {
+    BAR_DISPLAY_RAW,
+    BAR_DISPLAY_PERCENT
+} bar_display_mode_t;
+
+typedef struct bar_components_s {
+    sfRectangleShape *background;
+    sfRectangleShape *bar;
+    sfText *value_text;
+    sfText *label_text;
+    sfVector2f size;
+    sfColor background_color;
+    sfColor outline_color;
+    float outline_thickness;
+    int value_text_size;
+    sfColor value_text_color;
+    int label_text_size;
+    sfColor label_text_color;
+    sfFont *font;
+} bar_components_t;
 
 typedef struct {
     sfVector2f pos;
@@ -223,6 +252,7 @@ typedef struct keys_s {
     int d;
     int a;
     int e;
+    int shift;
 } keys_t;
 
 typedef struct sprite_sheet_s {
@@ -307,16 +337,34 @@ typedef struct inventory_s {
     float slot_scales[INVENTORY_SIZE];
 } inventory_t;
 
+typedef struct health_s {
+    float current;
+    float max;
+    float regen_rate;
+    bar_components_t *health_bar;
+} health_t;
+
+typedef struct stamina_s {
+    float current;
+    float max;
+    float regen_rate;
+    bar_components_t *stamina_bar;
+} stamina_t;
+
 typedef struct player_s {
     float x;
     float y;
     float delta_x;
     float delta_y;
+    float move_speed;
     float angle;
     sfCircleShape *player_visual;
     inventory_t *inventory;
     bool can_interact;
     bool interact;
+    health_t *health;
+    stamina_t *stamina;
+    float sanity;
 } player_t;
 
 typedef struct mouse_s {
@@ -439,6 +487,8 @@ void draw_player(game_t *game);
 void update_player(game_t *game);
 void player_look_left(game_t *game, float look_speed);
 void player_look_right(game_t *game, float look_speed);
+void draw_player_data(sfRenderWindow *window, player_t *player);
+void update_player_data(game_t *game);
 // COLLISION
 int check_player_walls_collision(float player_pos_x, float player_pos_y,
     game_t *game);
@@ -481,8 +531,10 @@ void draw_key_data(game_t *game, item_t selected_slot);
 void use_key(game_t *game, inventory_t *inventory);
 // FLASHLIGHT
 void *create_flashlight(void);
-void turn_flashlight(game_t *game);
+void turn_flashlight(game_t *game, inventory_t *inventory);
 void draw_flashlight_data(game_t *game, item_t selected_slot);
+void update_player_flashlight_battery(game_t *game);
+void draw_flashlight_battery(game_t *game, flashlight_t *flashlight);
 // GUN
 void *create_gun(void);
 void use_shoot(game_t *game, inventory_t *inventory);
@@ -491,11 +543,6 @@ void draw_gun_data(game_t *game, item_t selected_slot);
 void draw_inventory(game_t *game, inventory_t *inventory);
 void inventory_select_next_slot(inventory_t *inventory);
 void inventory_select_previous_slot(inventory_t *inventory);
-// FLASHLIGHT
-void turn_flashlight(game_t *game);
-void update_player_flashlight_battery(game_t *game);
-void draw_flashlight_battery(game_t *game, flashlight_t *flashlight);
-void draw_flashlight_battery(game_t *game, flashlight_t *flashlight);
 // SAVE & LOAD
 int load_map_file(const char *filename, world_t *world);
 void load_item_save_file(const char *filename, item_manager_t *manager);
@@ -561,7 +608,7 @@ sfIntRect *create_int_rect(int top, int left, int height, int width);
 // STRUCT INIT
 ////////////
 game_t *init_game_struct(void);
-player_t *init_player(void);
+player_t *init_player(game_t *game);
 settings_t *init_settings(void);
 sfRenderWindow *init_window(void);
 world_t *init_world(void);
@@ -582,6 +629,7 @@ void init_sprite_sheets(sprites_t *sprites, extra_data_t *extra_data);
 extra_data_t *init_extra_data(void);
 void init_sfx_music_buttons(sprites_t *sprites, extra_data_t *extra_data);
 void create_map(world_t *world);
+void init_bar_components(bar_components_t *bar);
 ////////////
 
 ////////////
@@ -682,6 +730,10 @@ char *my_revstr(char *str);
 int nbr_of_digits(int nb);
 char *nbr_to_str(int nb);
 sprite_sheet_t *create_sprite_sheet(sfTexture *texture, int frame_count);
+void draw_bar(sfRenderWindow *window, bar_components_t *bar,
+    sfVector2f position);
+void update_bar_value_text(float current, float max,
+    sfText *value_text, bar_display_mode_t mode);
 ////////////
 
 ////////////

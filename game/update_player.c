@@ -66,14 +66,13 @@ void apply_player_normalized_movement(game_t *game,
         (*move_x) /= vector_length;
         (*move_y) /= vector_length;
     }
-    if (check_player_walls_collision(game->player->x + (*move_x) * MOVE_SPEED,
-        game->player->y, game) != 1) {
-        game->player->x += (*move_x) * MOVE_SPEED;
+    if (check_player_walls_collision(game->player->x + (*move_x) *
+            game->player->move_speed, game->player->y, game) != 1) {
+        game->player->x += (*move_x) * game->player->move_speed;
     }
-    if (check_player_walls_collision(game->player->x,
-        game->player->y + (*move_y) * MOVE_SPEED,
-        game) != 1) {
-        game->player->y += (*move_y) * MOVE_SPEED;
+    if (check_player_walls_collision(game->player->x, game->player->y +
+            (*move_y) * game->player->move_speed, game) != 1) {
+        game->player->y += (*move_y) * game->player->move_speed;
     }
 }
 

@@ -7,18 +7,33 @@
 
 #include "wolf3d.h"
 
-void free_key(item_key_t *key)
+void free_key(void *data)
 {
+    item_key_t *key = NULL;
+
+    if (!data)
+        return;
+    key = (item_key_t *)data;
     free(key);
 }
 
-void free_flashlight(flashlight_t *flashlight)
+void free_flashlight(void *data)
 {
+    flashlight_t *flashlight = NULL;
+
+    if (!data)
+        return;
+    flashlight = (flashlight_t *)data;
     free(flashlight);
 }
 
-void free_gun(gun_t *gun)
+void free_gun(void *data)
 {
+    gun_t *gun = NULL;
+
+    if (!data)
+        return;
+    gun = (gun_t *)data;
     if (gun->sheet)
         sfTexture_destroy(gun->sheet);
     if (gun->gun_ss->sprite)
@@ -32,17 +47,10 @@ void free_gun(gun_t *gun)
 
 void free_item_data(void *data, item_type_t type)
 {
-    if (!data)
-        return;
-    switch (type) {
-        case ITEM_KEY:
-            free_key((item_key_t *)data);
-            break;
-        case ITEM_FLASHLIGHT:
-            free_flashlight((flashlight_t *)data);
-            break;
-        case ITEM_GUN:
-            free_gun((gun_t *)data);
-            break;
-    }
+    void (*free_item[])(void *) =
+        {NULL, free_key, free_flashlight, free_gun};
+
+    if (data && type >= 0 && type < ITEM_TYPE_COUNT &&
+            free_item[type] != NULL)
+        free_item[type](data);
 }

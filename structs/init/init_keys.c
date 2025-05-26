@@ -19,5 +19,6 @@ keys_t *init_keys(void)
     keys->d = 0;
     keys->a = 0;
     keys->e = 0;
+    keys->shift = 0;
     return keys;
 }

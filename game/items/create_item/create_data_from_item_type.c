@@ -9,14 +9,10 @@
 
 void *create_data_from_item_type(int type)
 {
-    switch (type) {
-        case ITEM_KEY:
-            return create_key();
-        case ITEM_FLASHLIGHT:
-            return create_flashlight();
-        case ITEM_GUN:
-            return create_gun();
-        default:
-            return NULL;
-    }
+    void *(*create_item[ITEM_TYPE_COUNT])(void) =
+        {NULL, create_key, create_flashlight, create_gun};
+
+    if (type >= 0 && type < ITEM_TYPE_COUNT && create_item[type] != NULL)
+        return create_item[type]();
+    return NULL;
 }

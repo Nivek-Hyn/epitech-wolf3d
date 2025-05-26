@@ -7,9 +7,9 @@
 
 #include "wolf3d.h"
 
-void turn_flashlight(game_t *game)
+void turn_flashlight(game_t *game, inventory_t *inventory)
 {
-    item_t *selected_slot = inventory_selected_slot(game->player->inventory);
+    item_t *selected_slot = inventory_selected_slot(inventory);
     flashlight_t *flashlight = NULL;
 
     if (selected_slot->type == ITEM_FLASHLIGHT && selected_slot->data != NULL)

@@ -7,6 +7,34 @@
 
 #include "wolf3d.h"
 
+void free_health(health_t *health)
+{
+    if (health == NULL)
+        return;
+    if (health->health_bar) {
+        sfRectangleShape_destroy(health->health_bar->background);
+        sfRectangleShape_destroy(health->health_bar->bar);
+        sfText_destroy(health->health_bar->value_text);
+        sfText_destroy(health->health_bar->label_text);
+        free(health->health_bar);
+    }
+    free(health);
+}
+
+void free_stamina(stamina_t *stamina)
+{
+    if (stamina == NULL)
+        return;
+    if (stamina->stamina_bar) {
+        sfRectangleShape_destroy(stamina->stamina_bar->background);
+        sfRectangleShape_destroy(stamina->stamina_bar->bar);
+        sfText_destroy(stamina->stamina_bar->value_text);
+        sfText_destroy(stamina->stamina_bar->label_text);
+        free(stamina->stamina_bar);
+    }
+    free(stamina);
+}
+
 void free_inventory(inventory_t *inventory)
 {
     if (inventory == NULL)
@@ -27,5 +55,7 @@ void free_player(player_t *player)
 {
     sfCircleShape_destroy(player->player_visual);
     free_inventory(player->inventory);
+    free_health(player->health);
+    free_stamina(player->stamina);
     free(player);
 }
