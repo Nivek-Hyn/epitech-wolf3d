@@ -67,7 +67,7 @@
     #define RAYCAST_JUMP 6
 
     /* Player settings */
-    #define MOVE_SPEED 1.0f
+    #define MOVE_SPEED 100.0f
     #define PLAYER_RADIUS 10
     #define STD_LOOK_SPEED 3
     #define MOUSE_SENSITIVITY 0.01

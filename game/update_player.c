@@ -60,7 +60,7 @@ void apply_player_normalized_movement(game_t *game,
     float *move_x, float *move_y)
 {
     float vector_length = 0;
-    float speed = MOVE_SPEED * game->time->delta_time;
+    float speed = game->player->move_speed * game->time->delta_time;
 
     vector_length = sqrt((*move_x) * (*move_x) + (*move_y) * (*move_y));
     if (vector_length > 0) {

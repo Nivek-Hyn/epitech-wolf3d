@@ -15,9 +15,10 @@ void turn_flashlight(game_t *game, inventory_t *inventory)
     if (selected_slot->type == ITEM_FLASHLIGHT && selected_slot->data != NULL)
         flashlight = (flashlight_t *)selected_slot->data;
     if (flashlight) {
-        if (flashlight->battery <= 0) {
+        if (flashlight->battery <= 0 && game->current_scene == GAME) {
             sfSound_play(game->sounds->flashlight_battery_depleted);
-        } else {
+        }
+        if (flashlight->battery > 0 && game->current_scene == GAME) {
             sfSound_play(game->sounds->flashlight_toggle);
         }
         flashlight->is_on = !flashlight->is_on;

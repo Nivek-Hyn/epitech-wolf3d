@@ -45,6 +45,7 @@ void keys_released(game_t *game)
         game->world->minimap = !game->world->minimap;
         break;
     case sfKeyLShift:
+        game->extra_data->step_cooldown = PLAYER_STEP_COOLDOWN;
         game->keys->shift = 0;
         game->player->move_speed = MOVE_SPEED;
         break;

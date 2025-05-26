@@ -11,6 +11,7 @@ void keys_pressed(game_t *game)
 {
     switch (game->event.key.code) {
         case sfKeyLShift:
+            game->extra_data->step_cooldown = PLAYER_RUN_COOLDOWN;
             game->keys->shift = 1;
             game->player->move_speed = MOVE_SPEED * 2.0f;
             break;
