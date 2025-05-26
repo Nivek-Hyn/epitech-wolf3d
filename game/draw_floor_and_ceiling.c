@@ -9,8 +9,14 @@
 
 void draw_floor_and_ceiling(game_t *game)
 {
-    sfRenderWindow_drawRectangleShape(game->render_window,
-        game->world->floor, NULL);
-    sfRenderWindow_drawRectangleShape(game->render_window,
-        game->world->ceiling, NULL);
+    sfRenderWindow_drawSprite(
+        game->render_window,
+        game->sprites->ceiling,
+        NULL
+    );
+    sfRenderWindow_drawSprite(
+        game->render_window,
+        game->sprites->floor,
+        NULL
+    );
 }

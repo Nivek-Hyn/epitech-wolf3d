@@ -74,6 +74,8 @@
     #define SIGHT_LINE 100000
     #define STD_FOV 70
     #define INTERACTION_RANGE 50
+    #define PLAYER_STEP_COOLDOWN 500000
+    #define PLAYER_RUN_COOLDOWN 300000
     #define PLAYER_MAX_HEALTH 100.0f
     #define PLAYER_MAX_STAMINA 100.0f
     #define PLAYER_MAX_SANITY 100.0f
@@ -157,6 +159,8 @@ typedef struct extra_data_s {
     float ray_distances[RAYCAST_WIN_WITDH];
     sfTexture **textures;
     int nb_textures;
+    sfClock *step_clock;
+    unsigned int step_cooldown;
 } extra_data_t;
 
 typedef enum bar_display_mode_e {
@@ -287,6 +291,8 @@ typedef struct sprites_s {
     sprite_sheet_t *pause_btn_load;
     sfSprite *ammo_icon;
     sprite_sheet_t *gun_shot_effect;
+    sfSprite *ceiling;
+    sfSprite *floor;
 } sprites_t;
 
 typedef struct animation_s {
@@ -461,6 +467,23 @@ typedef struct sfx_s {
     sfSoundBuffer *button_hover_buffer;
     sfSound *button_click;
     sfSoundBuffer *button_click_buffer;
+    // Other
+    sfSound *gunshot;
+    sfSoundBuffer *gunshot_buffer;
+    sfSound *empty_gun;
+    sfSoundBuffer *empty_gun_buffer;
+    sfSound *flashlight_toggle;
+    sfSoundBuffer *flashlight_toggle_buffer;
+    sfSound *flashlight_battery_depleted;
+    sfSoundBuffer *flashlight_battery_depleted_buffer;
+    sfSound *footstep;
+    sfSoundBuffer *footstep_buffer;
+    sfSound *footstep_two;
+    sfSoundBuffer *footstep_two_buffer;
+    sfSound *footstep_three;
+    sfSoundBuffer *footstep_three_buffer;
+    sfSound *footstep_four;
+    sfSoundBuffer *footstep_four_buffer;
 } sfx_t;
 
 typedef struct game_s {
@@ -652,6 +675,8 @@ void init_sfx_music_buttons(sprites_t *sprites, extra_data_t *extra_data);
 void create_map(world_t *world);
 void init_bar_components(bar_components_t *bar);
 effects_t *init_effects(game_t *game);
+void init_floor(sprites_t *sprites, extra_data_t *extra_data);
+void init_ceiling(sprites_t *sprites, extra_data_t *extra_data);
 ////////////
 
 ////////////

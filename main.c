@@ -62,8 +62,40 @@ int wolf3d(void)
     return (0);
 }
 
+static void display_help(void)
+{
+    printf("\033[1mSCP-085\033[0m :\n");
+    printf("    \033[3mWolf3d\033[0m is a '3D' game engine based on "
+        "\033[3mraycasting.\033[0m\n");
+    printf("    By \033[1mKevin HUYNH\033[0m &"
+        " \033[1mHugo SORGUES\033[0m @ "
+        "\033[34mEpitech\033[0m Marseille 2025\n");
+    printf("\033[1mKeybinds\033[0m :\n"
+        "   [\033[36mZ\033[0m] : Move forward\n"
+        "   [\033[36mS\033[0m] : Move backward\n"
+        "   [\033[36mQ\033[0m] : Strafe left\n"
+        "   [\033[36mD\033[0m] : Strafe right\n"
+        "   [\033[36mE\033[0m] : Look right\n"
+        "   [\033[36mA\033[0m] : Look left\n"
+        "   [\033[36mMouse\033[0m] : Look around\n"
+        "   [\033[36mLeft Click\033[0m] : Use selected item\n"
+        "   [\033[36mX\033[0m] : Interact with items\n"
+        "   [\033[36mEscape\033[0m] : Pause the game\n"
+    );
+    printf("- Have fun \033[31m<3\033[0m\n");
+}
+
 int main(int argc, char **argv)
 {
+    if (argv[1]) {
+        if (strcmp(argv[1], "-h") == 0 || strcmp(argv[1], "--help") == 0) {
+            display_help();
+            return (0);
+        } else {
+            fprintf(stderr, "Usage: %s [-h | --help]\n", argv[0]);
+            return (84);
+        }
+    }
     srand(time(NULL));
     return wolf3d();
 }

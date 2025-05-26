@@ -26,6 +26,8 @@ static void free_buttons(sprites_t *sprites)
     free_sprite_sheet(sprites->pause_btn_save);
     free_sprite_sheet(sprites->pause_btn_load);
     sfSprite_destroy(sprites->ammo_icon);
+    sfSprite_destroy(sprites->ceiling);
+    sfSprite_destroy(sprites->floor);
 }
 
 void free_sprites(game_t *game)
