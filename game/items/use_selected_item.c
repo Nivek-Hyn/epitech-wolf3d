@@ -7,11 +7,6 @@
 
 #include "wolf3d.h"
 
-void use_key(game_t *game, inventory_t *inventory)
-{
-    return;
-}
-
 void use_selected_item(game_t *game, inventory_t *inventory)
 {
     switch (inventory->slots[inventory->selected_slot].type) {

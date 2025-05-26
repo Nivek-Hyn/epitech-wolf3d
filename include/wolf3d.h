@@ -478,6 +478,7 @@ void use_selected_item(game_t *game, inventory_t *inventory);
 // KEY
 void *create_key(void);
 void draw_key_data(game_t *game, item_t selected_slot);
+void use_key(game_t *game, inventory_t *inventory);
 // FLASHLIGHT
 void *create_flashlight(void);
 void turn_flashlight(game_t *game);
