@@ -41,6 +41,9 @@ void keys_released(game_t *game)
         drop_inventory_item(game->player, game->item_manager,
             game->player->inventory->selected_slot);
         break;
+    case sfKeyM:
+        game->world->minimap = !game->world->minimap;
+        break;
     }
 }
 

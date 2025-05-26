@@ -60,8 +60,9 @@ void raycast(game_t *game)
         vertical_raycast(game, var);
         set_ray_distance(var);
         game->extra_data->ray_distances[var->drawn_rays] = var->total_dist;
-        draw_ray(game, var);
         draw_3d_walls(game, var);
+        if (game->world->minimap)
+            draw_ray(game, var);
         var->ray_angle += angle_offset;
         set_ray_angle_limit(var);
     }

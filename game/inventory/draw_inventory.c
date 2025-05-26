@@ -77,7 +77,7 @@ void draw_inventory(game_t *game, inventory_t *inventory)
     float total_width = INVENTORY_SIZE * INVENTORY_SLOT_SIZE +
         (INVENTORY_SIZE - 1) * INVENTORY_SLOT_SPACING;
     float start_x = RAY_OFFSET_X + (RAYCAST_WIN_WITDH - total_width) / 2;
-    float y_pos = RAY_OFFSET_Y + RAYCAST_WIN_HEIGHT -
+    float y_pos = RAY_OFFSET_Y + (RAYCAST_WIN_HEIGHT / 4) -
         INVENTORY_SLOT_SIZE + INVENTORY_Y_OFFSET;
     float scale = 1.0f;
     sfVector2f pos;

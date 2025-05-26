@@ -7,7 +7,7 @@
 
 #include "wolf3d.h"
 
-void gun_shoot(game_t *game, inventory_t *inventory)
+void use_shoot(game_t *game, inventory_t *inventory)
 {
     item_t *selected = inventory_selected_slot(inventory);
     gun_t *gun = (gun_t *)selected->data;

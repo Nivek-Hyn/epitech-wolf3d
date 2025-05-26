@@ -22,7 +22,7 @@ void use_selected_item(game_t *game, inventory_t *inventory)
             turn_flashlight(game);
             break;
         case ITEM_GUN:
-            gun_shoot(game, inventory);
+            use_shoot(game, inventory);
             break;
     }
 }

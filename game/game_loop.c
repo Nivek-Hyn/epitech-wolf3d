@@ -9,14 +9,16 @@
 
 void game_render(game_t *game)
 {
-    draw_map(game);
-    draw_items(game);
-    draw_player(game);
     raycast(game);
     draw_world_items(game);
     draw_inventory(game, game->player->inventory);
     draw_selected_item_data(game);
     draw_interaction_message(game);
+    if (game->world->minimap) {
+        draw_map(game);
+        draw_items(game);
+        draw_player(game);
+    }
 }
 
 void time_manager(game_t *game)

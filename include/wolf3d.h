@@ -53,10 +53,14 @@
     #define HEXA_COLOR_LIMIT 255
 
     /* RAYCAST TMP WINDOW - TEMPORARY !!!!!!!*/
-    #define RAY_OFFSET_X 700
-    #define RAY_OFFSET_Y 300
-    #define RAYCAST_WIN_HEIGHT 540
-    #define RAYCAST_WIN_WITDH 960
+    //#define RAY_OFFSET_X 700
+    //#define RAY_OFFSET_Y 300
+    //#define RAYCAST_WIN_WITDH 960
+    //#define RAYCAST_WIN_HEIGHT 540
+    #define RAY_OFFSET_X 0
+    #define RAY_OFFSET_Y 0
+    #define RAYCAST_WIN_WITDH STD_WIN_WIDTH
+    #define RAYCAST_WIN_HEIGHT STD_WIN_HEIGHT
     #define RAYCAST_WIN_X_CENTER RAY_OFFSET_X + RAYCAST_WIN_WITDH / 2
     #define RAYCAST_WIN_Y_CENTER RAY_OFFSET_Y + RAYCAST_WIN_HEIGHT / 2
     #define RAYCAST_WIN_CENTER RAYCAST_WIN_X_CENTER, RAYCAST_WIN_Y_CENTER
@@ -109,7 +113,7 @@
 
     /* Inventory Settings */
     #define INVENTORY_SIZE 5
-    #define INVENTORY_Y_OFFSET -600
+    #define INVENTORY_Y_OFFSET 0
     #define INVENTORY_SLOT_SIZE 100
     #define INVENTORY_SLOT_SPACING 25
     #define INVENTORY_SLOT_SELECTED_SCALE 1.2f
@@ -357,6 +361,7 @@ typedef struct world_s {
     sfTexture *ceiling_textures[NB_CEILING_TYPES];
     sfImage *floor_images[NB_FLOOR_TYPES];
     sfImage *ceiling_images[NB_CEILING_TYPES];
+    bool minimap;
 } world_t;
 
 typedef struct game_time_s {
@@ -474,7 +479,7 @@ void turn_flashlight(game_t *game);
 void draw_flashlight_data(game_t *game, item_t selected_slot);
 // GUN
 void *create_gun(void);
-void gun_shoot(game_t *game, inventory_t *inventory);
+void use_shoot(game_t *game, inventory_t *inventory);
 void draw_gun_data(game_t *game, item_t selected_slot);
 // INVENTORY
 void draw_inventory(game_t *game, inventory_t *inventory);

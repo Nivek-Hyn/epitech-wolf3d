@@ -53,6 +53,7 @@ void init_world_variables(world_t *world)
     world->map_size_y = 0;
     init_map_textures(world);
     init_map_images(world);
+    world->minimap = false;
 }
 
 world_t *init_world(void)

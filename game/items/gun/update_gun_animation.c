@@ -7,7 +7,7 @@
 
 #include "wolf3d.h"
 
-void perform_shot(game_t *game, gun_t *gun)
+void gun_shoot(game_t *game, gun_t *gun)
 {
     printf("Shoot !\n");
 }
@@ -27,7 +27,7 @@ void update_gun_animation(game_t *game)
         gun->gun_anim_timer = 0.0f;
         gun->gun_anim_frame++;
         if (gun->gun_anim_frame == SHOOT_TRIGGER_FRAME)
-            perform_shot(game, gun);
+            gun_shoot(game, gun);
         if (gun->gun_anim_frame >= gun->gun_ss->tile_count)
             gun->gun_anim_frame = 0;
     }
