@@ -2,7 +2,7 @@
 
 A first-person game written in C with CSFML, rendered by raycasting in the style of Wolfenstein 3D: no 3D engine, every column of the view is computed by hand. The player explores a grid map with textured walls, floors and ceilings, picks up items, and can save and reload the world. The in-game theme is SCP-084.
 
-![Picking up the flashlight and switching it on: the beam lights the walls and the battery starts draining](docs/media/wolf3d-flashlight.gif)
+![Walking to the flashlight, picking it up and switching it on: the beam lights the walls as the view sweeps and the battery drains; then picking up the gun and firing two shots (6/6, 5/6, 4/6)](docs/media/wolf3d-flashlight.webp)
 
 | Main menu | Minimap |
 |---|---|
@@ -25,9 +25,9 @@ Epitech project, built in a pair.
 - Save and load from the pause menu: the map (walls, floors, ceilings) goes to `save.txt` and the world items to `item_save.txt`.
 - Main menu, settings menu (music and sound effects on/off, window mode) and pause menu, with music and sound effects.
 
-![Picking up the gun and shooting (6/6, 5/6, 4/6 rounds), then dropping the flashlight and the gun and picking them up again: each keeps its battery level and its ammunition](docs/media/wolf3d-items.gif)
+![Dropping the flashlight and the gun, stepping back and picking them up again: the flashlight keeps its battery level and stays on, the gun keeps its 4 rounds and fires down to 3/6](docs/media/wolf3d-items.webp)
 
-For these recordings, `item_save.txt` places the flashlight and the gun along the first corridor.
+For these recordings, `item_save.txt` places the flashlight and the gun along the first corridor; the game was rendered frame by frame at 30 fps with scripted input.
 
 ## Build & run
 
