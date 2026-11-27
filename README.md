@@ -2,7 +2,7 @@
 
 A first-person game written in C with CSFML, rendered by raycasting in the style of Wolfenstein 3D: no 3D engine, every column of the view is computed by hand. The player explores a grid map with textured walls, floors and ceilings, picks up items, and can save and reload the world. The in-game theme is SCP-084.
 
-![Walking through the maze, rendered by raycasting](docs/media/wolf3d-demo.gif)
+![Picking up the flashlight and switching it on: the beam lights the walls and the battery starts draining](docs/media/wolf3d-flashlight.gif)
 
 | Main menu | Minimap |
 |---|---|
@@ -20,9 +20,14 @@ Epitech project, built in a pair.
   - flashlight that can be toggled and drains a battery,
   - gun with a shooting animation and ammunition,
   - key.
+- Items are objects of the world: a dropped item stays where it fell and keeps its own state (battery level, ammunition).
 - Minimap of the level, items and player, toggled with `M`.
 - Save and load from the pause menu: the map (walls, floors, ceilings) goes to `save.txt` and the world items to `item_save.txt`.
 - Main menu, settings menu (music and sound effects on/off, window mode) and pause menu, with music and sound effects.
+
+![Picking up the gun and shooting (6/6, 5/6, 4/6 rounds), then dropping the flashlight and the gun and picking them up again: each keeps its battery level and its ammunition](docs/media/wolf3d-items.gif)
+
+For these recordings, `item_save.txt` places the flashlight and the gun along the first corridor.
 
 ## Build & run
 
@@ -56,8 +61,8 @@ Controls: `Z`/`S` forward/backward, `Q`/`D` strafe, `A`/`E` or the mouse to look
 - `assets/` - textures, fonts, music and sound effects.
 - `save.txt`, `item_save.txt` - the map and items loaded at start and written when saving.
 
-## Team
+## Team and contributions
 
 Kevin Huynh ([@Nivek-Hyn](https://github.com/Nivek-Hyn)) and Hugo Sorgues.
 
-My part: textures, floor and ceiling, items and inventory, the flashlight, the gun, save and load, the minimap, and Valgrind fixes.
+- Kevin Huynh: textures, floor and ceiling, items and inventory, the flashlight, the gun, save and load, the minimap, and Valgrind fixes.
