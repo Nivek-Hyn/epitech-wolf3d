@@ -1,6 +1,16 @@
 # Wolf3D
 
-A first-person game written in C with CSFML, rendered by raycasting in the style of Wolfenstein 3D. The player explores a grid map with textured walls, floors and ceilings, picks up items, and can save and reload the world. The in-game theme is SCP-085.
+A first-person game written in C with CSFML, rendered by raycasting in the style of Wolfenstein 3D: no 3D engine, every column of the view is computed by hand. The player explores a grid map with textured walls, floors and ceilings, picks up items, and can save and reload the world. The in-game theme is SCP-084.
+
+![Walking through the maze, rendered by raycasting](docs/media/wolf3d-demo.gif)
+
+| Main menu | Minimap |
+|---|---|
+| ![Main menu](docs/media/wolf3d-menu.png) | ![Minimap of the level, items and player](docs/media/wolf3d-minimap.png) |
+
+**C · CSFML · raycasting · Valgrind**
+
+Epitech project, built in a pair.
 
 ## Features
 
@@ -48,4 +58,6 @@ Controls: `Z`/`S` forward/backward, `Q`/`D` strafe, `A`/`E` or the mouse to look
 
 ## Team
 
-Epitech school project, built in a pair. My part: textures, floor and ceiling, items and inventory, the flashlight, the gun, save and load, the minimap, and Valgrind fixes.
+Kevin Huynh ([@Nivek-Hyn](https://github.com/Nivek-Hyn)) and Hugo Sorgues.
+
+My part: textures, floor and ceiling, items and inventory, the flashlight, the gun, save and load, the minimap, and Valgrind fixes.
